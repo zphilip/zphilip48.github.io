@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  
+  <!-- include collecttags -->
+  
+  
+
+
+
+
+
+  
+
+  <title>
+    
+      neural network + Bach normalization &middot; Zhu Philip's AI Journey
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link href="https://fonts.googleapis.com/css?family=East+Sea+Dokdo&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.0/css/all.min.css" rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+
+  <!-- merge something else -->
+  
+  <!-- merge something else 
+  <link rel="stylesheet" href="/assets/css/post.css" />
+  <link rel="stylesheet" href="/assets/css/syntax.css" /> -->
+  
+  
+  <link rel="stylesheet" href="/assets/css/common.css" />
+  <script src="/assets/js/categories.js"></script>  
+  
+  <script defer src="/assets/js/lbox.js"></script>
+   
+
+  <!-- MathJax -->
+  <script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+  });
+  MathJax.Hub.Queue(function() {
+    // Fix <code> tags after MathJax finishes running. This is a
+    // hack to overcome a shortcoming of Markdown. Discussion at
+    // https://github.com/mojombo/jekyll/issues/199
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+
+  MathJax.Hub.Config({
+  // Autonumbering by mathjax
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+  });
+</script> 
+
+</head>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-89141653-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-89141653-4');
+</script>
+
+
+
+  <body>
+
+    <link rel="stylesheet" href="/assets/style-3.css">
+<div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <h1>
+        <div align="center">
+          <img src="/assets/profile-pixel.png" class="profilepic pt-3 pb-2">
+        </div>
+        <!-- <a href="/"> -->
+          Zhu Philip's AI Journey
+        </a>
+      </h1>
+      <p class="lead"></p>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/">Home</a>
+
+      <!-- Manual set order -->
+      <a class="sidebar-nav-item" href="/categories">Categories</a>
+      <a class="sidebar-nav-item" href="/working">Working</a>
+      <a class="sidebar-nav-item" href="/publication">Publication</a>
+      <!-- <a class="sidebar-nav-item" href="/projects">Projects</a> -->
+      <a class="sidebar-nav-item" href="/about">About</a>
+
+      <!-- Uncomment for auto order -->
+      <!-- 
+
+      
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/about/">About</a>
+          
+        
+      
+        
+          
+        
+      
+        
+      
+        
+          
+        
+      
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/categories/">Categories</a>
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/publication/">publications</a>
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/working/">Working</a>
+          
+        
+      
+        
+          
+        
+      
+        
+      
+        
+          
+        
+      
+        
+          
+        
+       -->
+
+      
+      <!-- <a class="sidebar-nav-item" href="https://github.com/zphilip/zphilip.github.io">GitHub project</a> -->
+      <!-- <span class="sidebar-nav-item">Currently v</span> -->
+      
+<div id="social-media">
+    
+    
+        
+        
+            <a href="mailto:zphilip48@gmail.com" title="Email"><i class="fa fa-envelope"></i></a>
+        
+    
+        
+        
+            <a href="https://www.linkedin.com/in/tianda-zhu-37a5b031" title="Linkedin"><i class="fab fa-linkedin"></i></a>
+        
+    
+        
+        
+            <a href="https://github.com/zphilip" title="GitHub"><i class="fab fa-github"></i></a>
+        
+    
+        
+        
+            <a href="https://www.youtube.com/user/zphilip" title="YouTube"><i class="fab fa-youtube"></i></a>
+        
+    
+</div>
+
+
+    </nav>
+
+    <p>&copy; 2024. All rights reserved.</p>
+  </div>
+</div>
+
+
+    <div class="content container">
+      <div class="post">
+  <h1 class="post-title">neural network + Bach normalization</h1>
+  <span class="post-date">26 Jan 2023</span>
+  <font color="blue" size="9"> 3-layer neural network + Bach normalization </font>
+
+<p><img src="/assets/2023-10-01-neural-network-bach-normalization-scratch_files/23ac62e8-0c6e-4719-9d91-98c9a2a1ae5a.png" alt="image.png" />
+<img src="/assets/2023-10-01-neural-network-bach-normalization-scratch_files/c575e000-0a63-44e7-8e3b-5207cfa0a4ba.png" alt="image.png" /></p>
+
+<font color="blue" size="7"> softmax cost function used in derivative </font>
+
+<p><img src="/assets/2023-10-01-neural-network-bach-normalization-scratch_files/90be5d84-30b3-4526-b756-4000b5fc4a06.png" alt="image.png" />
+<img src="/assets/2023-10-01-neural-network-bach-normalization-scratch_files/ab68dee4-6a5e-41f4-844e-36a1ba2c7ae9.png" alt="image.png" />
+<img src="/assets/2023-10-01-neural-network-bach-normalization-scratch_files/80d5305c-f3b4-468b-9361-35fb4a90d27e.png" alt="image.png" /></p>
+
+<font color="blue" size="9"> The batch normalization derivation </font>
+
+<p><img src="/assets/2023-10-01-neural-network-bach-normalization-scratch_files/f6baa609-de67-47e2-b52a-f90a6669207a.png" alt="image.png" /></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+
+<span class="k">class</span> <span class="nc">NeuralNetwork</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_size</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">,</span> <span class="n">output_size</span><span class="p">,</span> <span class="n">learning_rate</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">input_size</span> <span class="o">=</span> <span class="n">input_size</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">hidden_size</span> <span class="o">=</span> <span class="n">hidden_size</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">output_size</span> <span class="o">=</span> <span class="n">output_size</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">learning_rate</span> <span class="o">=</span> <span class="n">learning_rate</span>
+        
+        <span class="c1"># Initialize weights and biases
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">W1</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">randn</span><span class="p">(</span><span class="n">input_size</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">b1</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">))</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">W2</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">randn</span><span class="p">(</span><span class="n">hidden_size</span><span class="p">,</span> <span class="n">output_size</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">b2</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">output_size</span><span class="p">))</span>
+        
+        <span class="c1"># Initialize batch normalization parameters
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">gamma1</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">))</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">beta1</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">))</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">gamma2</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">output_size</span><span class="p">))</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">beta2</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">output_size</span><span class="p">))</span>
+    
+    <span class="k">def</span> <span class="nf">softmax</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Z</span><span class="p">):</span>
+        <span class="c1"># to check the exp_z....
+</span>        <span class="c1">## Get unnormalized probabilities
+</span>        <span class="n">exp_Z</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">exp</span><span class="p">(</span><span class="n">Z</span> <span class="o">-</span> <span class="n">np</span><span class="p">.</span><span class="nb">max</span><span class="p">(</span><span class="n">Z</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="bp">True</span><span class="p">))</span>
+        <span class="c1">## Normalize them for each sample
+</span>        <span class="n">A</span> <span class="o">=</span> <span class="n">exp_Z</span> <span class="o">/</span> <span class="n">np</span><span class="p">.</span><span class="nb">sum</span><span class="p">(</span><span class="n">exp_Z</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">A</span>
+    
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+        <span class="c1"># Input layer
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">X</span> <span class="o">=</span> <span class="n">X</span>
+        
+        <span class="c1"># Hidden layer with batch normalization
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">Z1</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">X</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">W1</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="p">.</span><span class="n">b1</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">mean1</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">mean</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">Z1</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">var1</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">var</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">Z1</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">xmu</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">Z1</span> <span class="o">-</span> <span class="bp">self</span><span class="p">.</span><span class="n">mean1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">ivar</span> <span class="o">=</span> <span class="mf">1.</span><span class="o">/</span><span class="n">np</span><span class="p">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">var1</span> <span class="o">+</span> <span class="mf">1e-8</span><span class="p">)</span>
+        <span class="c1">#print(self.ivar.shape)
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">Z1_norm</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">Z1</span> <span class="o">-</span> <span class="bp">self</span><span class="p">.</span><span class="n">mean1</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="p">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">var1</span> <span class="o">+</span> <span class="mf">1e-8</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">Z1_bn</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">gamma1</span> <span class="o">*</span> <span class="bp">self</span><span class="p">.</span><span class="n">Z1_norm</span> <span class="o">+</span> <span class="bp">self</span><span class="p">.</span><span class="n">beta1</span>
+        <span class="c1"># ReLU activation
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">A1</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">maximum</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">Z1_bn</span><span class="p">)</span> 
+        
+        <span class="c1"># Output layer with batch normalization
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">Z2</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">A1</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">W2</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="p">.</span><span class="n">b2</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">mean2</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">mean</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">Z2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">var2</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">var</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">Z2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">Z2_norm</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">Z2</span> <span class="o">-</span> <span class="bp">self</span><span class="p">.</span><span class="n">mean2</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="p">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">var2</span> <span class="o">+</span> <span class="mf">1e-8</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">Z2_bn</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">gamma2</span> <span class="o">*</span> <span class="bp">self</span><span class="p">.</span><span class="n">Z2_norm</span> <span class="o">+</span> <span class="bp">self</span><span class="p">.</span><span class="n">beta2</span>
+        <span class="c1"># softwmax activation
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">A2</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">softmax</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">Z2_bn</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">A2</span>
+    
+    <span class="k">def</span> <span class="nf">backward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="c1"># Output layer
+</span>        <span class="c1">#bach normliazation derivative
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">dZ2_bn</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">A2</span> <span class="o">-</span> <span class="n">y</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">dgamma2</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">dZ2_bn</span> <span class="o">*</span> <span class="bp">self</span><span class="p">.</span><span class="n">Z2_norm</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">dbeta2</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">dZ2_bn</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">dZ2_norm</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">dZ2_bn</span> <span class="o">*</span> <span class="bp">self</span><span class="p">.</span><span class="n">gamma2</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">dZ2</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">dZ2_norm</span> <span class="o">/</span> <span class="n">np</span><span class="p">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">var2</span> <span class="o">+</span> <span class="mf">1e-8</span><span class="p">))</span> <span class="o">+</span> \
+                   <span class="p">((</span><span class="bp">self</span><span class="p">.</span><span class="n">Z2</span> <span class="o">-</span> <span class="bp">self</span><span class="p">.</span><span class="n">mean2</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">dZ2_norm</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">Z2</span> <span class="o">-</span> <span class="bp">self</span><span class="p">.</span><span class="n">mean2</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">/</span> \
+                   <span class="p">((</span><span class="bp">self</span><span class="p">.</span><span class="n">var2</span> <span class="o">+</span> <span class="mf">1e-8</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="p">.</span><span class="n">hidden_size</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">var2</span> <span class="o">+</span> <span class="mf">1e-8</span><span class="p">)))</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">dW2</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">A1</span><span class="p">.</span><span class="n">T</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">dZ2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">db2</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">dZ2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        
+
+        <span class="c1"># Hidden layer
+</span>        <span class="c1"># bach normliazation derivative
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">dZ1_bn</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">dZ2</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">W2</span><span class="p">.</span><span class="n">T</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">dgamma1</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">dZ1_bn</span> <span class="o">*</span> <span class="bp">self</span><span class="p">.</span><span class="n">Z1_norm</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">dbeta1</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">dZ1_bn</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">dZ1_norm</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">dZ1_bn</span> <span class="o">*</span> <span class="bp">self</span><span class="p">.</span><span class="n">gamma1</span>
+        <span class="c1">#print(self.dZ1_norm.shape) #(32,10)
+</span>
+        <span class="c1">#way 1, using offical derivative equation -- works
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">dvar1</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">dZ1_norm</span><span class="o">*</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">xmu</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">var1</span> <span class="o">+</span> <span class="mf">1e-8</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mf">1.5</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">dmu</span>  <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">dZ1_norm</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="n">np</span><span class="p">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">var1</span> <span class="o">+</span> <span class="mf">1e-8</span><span class="p">)),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="p">.</span><span class="n">dvar1</span><span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="n">mean</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">Z1</span> <span class="o">-</span> <span class="bp">self</span><span class="p">.</span><span class="n">mean1</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">dZ1</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">dZ1_norm</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">np</span><span class="p">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">var1</span> <span class="o">+</span> <span class="mf">1e-8</span><span class="p">))</span> <span class="o">+</span> <span class="bp">self</span><span class="p">.</span><span class="n">dvar1</span><span class="o">*</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">Z1</span> <span class="o">-</span> <span class="bp">self</span><span class="p">.</span><span class="n">mean1</span><span class="p">)</span><span class="o">/</span><span class="n">y</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="p">.</span><span class="n">dmu</span><span class="o">/</span><span class="n">y</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>           
+        
+        <span class="c1">#way 2 using the compute grapth derivative equation --- don't work.
+</span>        <span class="c1">#get dxmu1 and divar
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">dxmu1</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">dZ1_norm</span> <span class="o">*</span> <span class="bp">self</span><span class="p">.</span><span class="n">ivar</span>        
+        <span class="bp">self</span><span class="p">.</span><span class="n">divar</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">dZ1_norm</span><span class="o">*</span><span class="bp">self</span><span class="p">.</span><span class="n">xmu</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="c1">#print(self.divar.shape) #(10,)
+</span>        <span class="c1">#get dsqrtvar
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">dsqrtvar</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.</span> <span class="o">/</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">var1</span> <span class="o">+</span> <span class="mf">1e-8</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="p">.</span><span class="n">divar</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">dvar1</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="mf">1.</span> <span class="o">/</span><span class="n">np</span><span class="p">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">var1</span> <span class="o">+</span> <span class="mf">1e-8</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="p">.</span><span class="n">dsqrtvar</span>
+        <span class="c1">#print(self.dvar1.shape) #(10,)
+</span>
+        <span class="c1">#step4
+</span>        <span class="c1">#self.dsq = 1. /self.hidden_size * np.ones((y.shape[0],self.hidden_size)) * self.dvar1
+</span>        <span class="c1">#step3
+</span>        <span class="c1">#self.dxmu2 = 2 * self.xmu * self.dsq
+</span>        <span class="c1">#step2
+</span>        <span class="c1">#self.dz1 = (self.dxmu1 + self.dxmu2)
+</span>        <span class="c1">#self.dmu = -1 * np.sum(self.dxmu1+self.dxmu2, axis=0)
+</span>        
+        <span class="c1">#print(self.dmu.shape)
+</span>        <span class="c1">#step1
+</span>        <span class="c1">#self.dz2 = 1. /self.input_size * np.ones((self.input_size,y.shape[0])) * self.dmu
+</span>        <span class="c1">#step0
+</span>        <span class="c1">#self.dZ1 = self.dz1 + self.dz2
+</span>
+        <span class="c1">#way 3 using the overall eqution for dZ --- works
+</span>        <span class="c1">#self.dZ1 = (self.dZ1_norm / np.sqrt(self.var1 + 1e-8)) + \
+</span>        <span class="c1">#           ((self.Z1 - self.mean1) * np.sum(self.dZ1_norm * (self.Z1 - self.mean1), axis=0) / \
+</span>        <span class="c1">#           ((self.var1 + 1e-8) * self.input_size * np.sqrt(self.var1 + 1e-8)))
+</span>        <span class="c1">#print(self.dZ1.shape) #(32,10)
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">dW1</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">X</span><span class="p">.</span><span class="n">T</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">dZ1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">db1</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">dZ1</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+          
+    <span class="k">def</span> <span class="nf">batch_norm_deriv</span><span class="p">(</span><span class="n">dout</span><span class="p">,</span> <span class="n">cache</span><span class="p">):</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">x_norm</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">eps</span> <span class="o">=</span> <span class="n">cache</span>
+        <span class="n">N</span><span class="p">,</span> <span class="n">D</span> <span class="o">=</span> <span class="n">x</span><span class="p">.</span><span class="n">shape</span>
+        <span class="n">dbeta</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nb">sum</span><span class="p">(</span><span class="n">dout</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">dgamma</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nb">sum</span><span class="p">(</span><span class="n">dout</span><span class="o">*</span><span class="n">x_norm</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">dx_norm</span> <span class="o">=</span> <span class="n">dout</span><span class="o">*</span><span class="n">gamma</span>
+        <span class="n">dvar</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nb">sum</span><span class="p">(</span><span class="n">dx_norm</span><span class="o">*</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">mu</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">var</span> <span class="o">+</span> <span class="n">eps</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mf">1.5</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">dmu</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nb">sum</span><span class="p">(</span><span class="n">dx_norm</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="n">np</span><span class="p">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">var</span> <span class="o">+</span> <span class="n">eps</span><span class="p">)),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="n">dvar</span><span class="o">*</span><span class="n">np</span><span class="p">.</span><span class="n">mean</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">mu</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">dx</span> <span class="o">=</span> <span class="n">dx_norm</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">np</span><span class="p">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">var</span> <span class="o">+</span> <span class="n">eps</span><span class="p">))</span> <span class="o">+</span> <span class="n">dvar</span><span class="o">*</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">mu</span><span class="p">)</span><span class="o">/</span><span class="n">N</span> <span class="o">+</span> <span class="n">dmu</span><span class="o">/</span><span class="n">N</span>
+        <span class="k">return</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dgamma</span><span class="p">,</span> <span class="n">dbeta</span>
+    
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">OneHotEncoder</span>
+
+<span class="c1"># Load the Iris dataset
+</span><span class="n">iris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">iris</span><span class="p">.</span><span class="n">data</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">iris</span><span class="p">.</span><span class="n">target</span><span class="p">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># One-hot encode the target variable
+</span><span class="n">encoder</span> <span class="o">=</span> <span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">sparse</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">encoder</span><span class="p">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+
+<span class="c1"># Split the dataset into train and test sets
+</span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Create the neural network
+</span><span class="n">nn</span> <span class="o">=</span> <span class="n">NeuralNetwork</span><span class="p">(</span><span class="n">input_size</span><span class="o">=</span><span class="n">X</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">hidden_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">output_size</span><span class="o">=</span><span class="n">y</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+
+<span class="c1"># Train the neural network
+</span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5000</span><span class="p">):</span>
+    <span class="c1"># Select a random batch of samples
+</span>    <span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">randint</span><span class="p">(</span><span class="n">low</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
+    <span class="n">X_batch</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span>
+    <span class="n">y_batch</span> <span class="o">=</span> <span class="n">y_train</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span>
+    
+    <span class="c1"># Forward pass
+</span>    <span class="n">A2</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="n">forward</span><span class="p">(</span><span class="n">X_batch</span><span class="p">)</span>
+    
+    <span class="c1"># Compute the loss
+</span>    <span class="n">loss</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="p">.</span><span class="nb">sum</span><span class="p">(</span><span class="n">y_batch</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="n">A2</span> <span class="o">+</span> <span class="mf">1e-8</span><span class="p">))</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">X_batch</span><span class="p">)</span>
+    
+    <span class="c1"># Backward pass
+</span>    <span class="n">nn</span><span class="p">.</span><span class="n">backward</span><span class="p">(</span><span class="n">y_batch</span><span class="p">)</span>
+    
+    <span class="c1"># Update the weights and biases
+</span>    <span class="n">nn</span><span class="p">.</span><span class="n">W1</span> <span class="o">-=</span> <span class="n">nn</span><span class="p">.</span><span class="n">learning_rate</span> <span class="o">*</span> <span class="n">nn</span><span class="p">.</span><span class="n">dW1</span>
+    <span class="n">nn</span><span class="p">.</span><span class="n">b1</span> <span class="o">-=</span> <span class="n">nn</span><span class="p">.</span><span class="n">learning_rate</span> <span class="o">*</span> <span class="n">nn</span><span class="p">.</span><span class="n">db1</span>
+    <span class="n">nn</span><span class="p">.</span><span class="n">W2</span> <span class="o">-=</span> <span class="n">nn</span><span class="p">.</span><span class="n">learning_rate</span> <span class="o">*</span> <span class="n">nn</span><span class="p">.</span><span class="n">dW2</span>
+    <span class="n">nn</span><span class="p">.</span><span class="n">b2</span> <span class="o">-=</span> <span class="n">nn</span><span class="p">.</span><span class="n">learning_rate</span> <span class="o">*</span> <span class="n">nn</span><span class="p">.</span><span class="n">db2</span>
+    <span class="n">nn</span><span class="p">.</span><span class="n">gamma1</span> <span class="o">-=</span> <span class="n">nn</span><span class="p">.</span><span class="n">learning_rate</span> <span class="o">*</span> <span class="n">nn</span><span class="p">.</span><span class="n">dgamma1</span>
+    <span class="n">nn</span><span class="p">.</span><span class="n">beta1</span> <span class="o">-=</span> <span class="n">nn</span><span class="p">.</span><span class="n">learning_rate</span> <span class="o">*</span> <span class="n">nn</span><span class="p">.</span><span class="n">dbeta1</span>
+    <span class="n">nn</span><span class="p">.</span><span class="n">gamma2</span> <span class="o">-=</span> <span class="n">nn</span><span class="p">.</span><span class="n">learning_rate</span> <span class="o">*</span> <span class="n">nn</span><span class="p">.</span><span class="n">dgamma2</span>
+    <span class="n">nn</span><span class="p">.</span><span class="n">beta2</span> <span class="o">-=</span> <span class="n">nn</span><span class="p">.</span><span class="n">learning_rate</span> <span class="o">*</span> <span class="n">nn</span><span class="p">.</span><span class="n">dbeta2</span>
+    
+    <span class="c1"># Print the loss every 100 epochs
+</span>    <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">100</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"Epoch </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s">: Loss = </span><span class="si">{</span><span class="n">loss</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+        
+<span class="c1"># Evaluate the neural network on the test set
+</span><span class="n">A2_test</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="n">forward</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">predictions</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">A2_test</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">accuracy</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nb">sum</span><span class="p">(</span><span class="n">predictions</span> <span class="o">==</span> <span class="n">labels</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"Test Accuracy = </span><span class="si">{</span><span class="n">accuracy</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Epoch 0: Loss = 0.6576256040253938
+Epoch 100: Loss = 0.25714544583485127
+Epoch 200: Loss = 0.16041557782554108
+Epoch 300: Loss = 0.1420440748904043
+Epoch 400: Loss = 0.09293637704519456
+Epoch 500: Loss = 0.12358822194330613
+Epoch 600: Loss = 0.13623649653288142
+Epoch 700: Loss = 0.15276536161905893
+Epoch 800: Loss = 0.12926809262120711
+Epoch 900: Loss = 0.12964797324971483
+Epoch 1000: Loss = 0.10150174087792321
+Epoch 1100: Loss = 0.09607673713666152
+Epoch 1200: Loss = 0.06882240165330336
+Epoch 1300: Loss = 0.09911857148858524
+Epoch 1400: Loss = 0.11546538878925913
+Epoch 1500: Loss = 0.08167157223756522
+Epoch 1600: Loss = 0.10773633558312429
+Epoch 1700: Loss = 0.07622238345343946
+Epoch 1800: Loss = 0.07987081118003263
+Epoch 1900: Loss = 0.2952724436978832
+Epoch 2000: Loss = 0.10060415992797508
+Epoch 2100: Loss = 0.11463342869130896
+Epoch 2200: Loss = 0.15120585644481926
+Epoch 2300: Loss = 0.17890660847716625
+Epoch 2400: Loss = 0.06876553279272897
+Epoch 2500: Loss = 0.04300248501771808
+Epoch 2600: Loss = 0.1548921038416236
+Epoch 2700: Loss = 0.13437698250886687
+Epoch 2800: Loss = 0.10652584151285213
+Epoch 2900: Loss = 0.04733299274323203
+Epoch 3000: Loss = 0.062036761753159496
+Epoch 3100: Loss = 0.1242306568558556
+Epoch 3200: Loss = 0.05650910829834586
+Epoch 3300: Loss = 0.049252299171229946
+Epoch 3400: Loss = 0.07249093994483075
+Epoch 3500: Loss = 0.06899195222744745
+Epoch 3600: Loss = 0.10401504801217827
+Epoch 3700: Loss = 0.10118250577796295
+Epoch 3800: Loss = 0.07017327526829464
+Epoch 3900: Loss = 0.028136565016197497
+Epoch 4000: Loss = 0.13860785651974958
+Epoch 4100: Loss = 0.09169631603667963
+Epoch 4200: Loss = 0.08340467623105352
+Epoch 4300: Loss = 0.07490294302452441
+Epoch 4400: Loss = 0.04392391169915992
+Epoch 4500: Loss = 0.07010381833867736
+Epoch 4600: Loss = 0.07742436733022212
+Epoch 4700: Loss = 0.06573545816821096
+Epoch 4800: Loss = 0.04836290478829963
+Epoch 4900: Loss = 0.09139848723320401
+Test Accuracy = 0.9666666666666667
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">y_batch</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>32
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+</code></pre></div></div>
+
+</div>
+
+<span class="post-tags">
+    
+      <i class="fa fa-tag fa-xs" aria-hidden="true"></i>
+      
+      <a class="no-underline" href="/tag/AI"><nobr>AI</nobr></code>&nbsp;</a>    
+    
+</span>
+
+<div class="recent">
+  <h2>Recent Posts</h2>
+  <ul class="recent-posts">
+    
+      <li>
+        <h4>
+          <a href="/coding/2023/12/11/diffusion-model-demo2.html">
+            A Diffusion Model from Scratch in Pytorch
+          </a>
+          <small>[11 Dec 2023]</small>
+        </h4>
+      </li>
+    
+      <li>
+        <h4>
+          <a href="/coding/2023/12/02/Inspect-BERT-Vocabulary.html">
+            Inspect BERT Vocabulary
+          </a>
+          <small>[02 Dec 2023]</small>
+        </h4>
+      </li>
+    
+      <li>
+        <h4>
+          <a href="/working/2023/12/01/My-Tasks-and-Notes.html">
+            working todo
+          </a>
+          <small>[01 Dec 2023]</small>
+        </h4>
+      </li>
+    
+  </ul>
+</div>
+    </div>
+
+  </body>
+</html>

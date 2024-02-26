@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  
+  <!-- include collecttags -->
+  
+  
+
+
+
+
+
+  
+
+  <title>
+    
+      Regression Tree 回归树 Practise &middot; Zhu Philip's AI Journey
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link href="https://fonts.googleapis.com/css?family=East+Sea+Dokdo&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.0/css/all.min.css" rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+
+  <!-- merge something else -->
+  
+  <!-- merge something else 
+  <link rel="stylesheet" href="/assets/css/post.css" />
+  <link rel="stylesheet" href="/assets/css/syntax.css" /> -->
+  
+  
+  <link rel="stylesheet" href="/assets/css/common.css" />
+  <script src="/assets/js/categories.js"></script>  
+  
+  <script defer src="/assets/js/lbox.js"></script>
+   
+
+  <!-- MathJax -->
+  <script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+  });
+  MathJax.Hub.Queue(function() {
+    // Fix <code> tags after MathJax finishes running. This is a
+    // hack to overcome a shortcoming of Markdown. Discussion at
+    // https://github.com/mojombo/jekyll/issues/199
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+
+  MathJax.Hub.Config({
+  // Autonumbering by mathjax
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+  });
+</script> 
+
+</head>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-89141653-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-89141653-4');
+</script>
+
+
+
+  <body>
+
+    <link rel="stylesheet" href="/assets/style-3.css">
+<div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <h1>
+        <div align="center">
+          <img src="/assets/profile-pixel.png" class="profilepic pt-3 pb-2">
+        </div>
+        <!-- <a href="/"> -->
+          Zhu Philip's AI Journey
+        </a>
+      </h1>
+      <p class="lead"></p>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/">Home</a>
+
+      <!-- Manual set order -->
+      <a class="sidebar-nav-item" href="/categories">Categories</a>
+      <a class="sidebar-nav-item" href="/working">Working</a>
+      <a class="sidebar-nav-item" href="/publication">Publication</a>
+      <!-- <a class="sidebar-nav-item" href="/projects">Projects</a> -->
+      <a class="sidebar-nav-item" href="/about">About</a>
+
+      <!-- Uncomment for auto order -->
+      <!-- 
+
+      
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/about/">About</a>
+          
+        
+      
+        
+          
+        
+      
+        
+      
+        
+          
+        
+      
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/categories/">Categories</a>
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/publication/">publications</a>
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/working/">Working</a>
+          
+        
+      
+        
+          
+        
+      
+        
+      
+        
+          
+        
+      
+        
+          
+        
+       -->
+
+      
+      <!-- <a class="sidebar-nav-item" href="https://github.com/zphilip/zphilip.github.io">GitHub project</a> -->
+      <!-- <span class="sidebar-nav-item">Currently v</span> -->
+      
+<div id="social-media">
+    
+    
+        
+        
+            <a href="mailto:zphilip48@gmail.com" title="Email"><i class="fa fa-envelope"></i></a>
+        
+    
+        
+        
+            <a href="https://www.linkedin.com/in/tianda-zhu-37a5b031" title="Linkedin"><i class="fab fa-linkedin"></i></a>
+        
+    
+        
+        
+            <a href="https://github.com/zphilip" title="GitHub"><i class="fab fa-github"></i></a>
+        
+    
+        
+        
+            <a href="https://www.youtube.com/user/zphilip" title="YouTube"><i class="fab fa-youtube"></i></a>
+        
+    
+</div>
+
+
+    </nav>
+
+    <p>&copy; 2024. All rights reserved.</p>
+  </div>
+</div>
+
+
+    <div class="content container">
+      <div class="post">
+  <h1 class="post-title">Regression Tree 回归树 Practise</h1>
+  <span class="post-date">26 Jan 2023</span>
+  <h2 id="regression-tree-回归树-practise">Regression Tree 回归树 Practise</h2>
+
+<h2 id="example-one">example one</h2>
+<p>https://github.com/Microstrong0305/WeChat-zhihu-csdnblog-code/tree/master/Decision%20Tree/lihang_5.2</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="c1"># 载入数据
+</span><span class="k">def</span> <span class="nf">loadDataSet</span><span class="p">(</span><span class="n">fileName</span><span class="p">):</span>
+    <span class="n">dataMat</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">fr</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">fileName</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">fr</span><span class="p">.</span><span class="n">readlines</span><span class="p">():</span>
+        <span class="n">curLine</span> <span class="o">=</span> <span class="n">line</span><span class="p">.</span><span class="n">strip</span><span class="p">().</span><span class="n">split</span><span class="p">(</span><span class="s">'</span><span class="se">\t</span><span class="s">'</span><span class="p">)</span>
+        <span class="c1"># python3不适用：fltLine = map(float,curLine) 修改为：
+</span>        <span class="n">fltLine</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="n">curLine</span><span class="p">))</span>  <span class="c1"># 将每行映射成浮点数，python3返回值改变，所以需要
+</span>        <span class="n">dataMat</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">fltLine</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">dataMat</span>
+
+
+<span class="c1"># Tree结点类型：回归树
+</span><span class="k">def</span> <span class="nf">regLeaf</span><span class="p">(</span><span class="n">dataSet</span><span class="p">):</span>  <span class="c1"># 生成叶结点，在回归树中是目标变量标签值的均值
+</span>    <span class="k">return</span> <span class="n">mean</span><span class="p">(</span><span class="n">dataSet</span><span class="p">[:,</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+  
+<span class="c1"># 误差计算函数：回归误差
+</span><span class="k">def</span> <span class="nf">regErr</span><span class="p">(</span><span class="n">dataSet</span><span class="p">):</span>  <span class="c1"># 计算目标标签值的平方误差（均方误差*总样本数）
+</span>    <span class="k">return</span> <span class="n">var</span><span class="p">(</span><span class="n">dataSet</span><span class="p">[:,</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="n">shape</span><span class="p">(</span><span class="n">dataSet</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#simplize the notebook using matrix for data
+#myDat = mat(loadDataSet('5.2test.txt'))
+</span><span class="n">myDat</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">([[</span> <span class="mf">1.</span>  <span class="p">,</span>  <span class="mf">4.5</span> <span class="p">],</span>
+        <span class="p">[</span> <span class="mf">2.</span>  <span class="p">,</span>  <span class="mf">4.75</span><span class="p">],</span>
+        <span class="p">[</span> <span class="mf">3.</span>  <span class="p">,</span>  <span class="mf">4.91</span><span class="p">],</span>
+        <span class="p">[</span> <span class="mf">4.</span>  <span class="p">,</span>  <span class="mf">5.34</span><span class="p">],</span>
+        <span class="p">[</span> <span class="mf">5.</span>  <span class="p">,</span>  <span class="mf">5.8</span> <span class="p">],</span>
+        <span class="p">[</span> <span class="mf">6.</span>  <span class="p">,</span>  <span class="mf">7.05</span><span class="p">],</span>
+        <span class="p">[</span> <span class="mf">7.</span>  <span class="p">,</span>  <span class="mf">7.9</span> <span class="p">],</span>
+        <span class="p">[</span> <span class="mf">8.</span>  <span class="p">,</span>  <span class="mf">8.23</span><span class="p">],</span>
+        <span class="p">[</span> <span class="mf">9.</span>  <span class="p">,</span>  <span class="mf">8.7</span> <span class="p">],</span>
+        <span class="p">[</span><span class="mf">10.</span>  <span class="p">,</span>  <span class="mf">9.</span>  <span class="p">]])</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">regErr</span><span class="p">(</span><span class="n">myDat</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>27.63236
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="n">myDat</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">].</span><span class="n">T</span><span class="p">.</span><span class="n">A</span><span class="p">.</span><span class="n">tolist</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0]
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">myDat</span><span class="p">[</span><span class="n">nonzero</span><span class="p">(</span><span class="n">myDat</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="p">:]</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>matrix([[ 4.  ,  5.34],
+        [ 5.  ,  5.8 ],
+        [ 6.  ,  7.05],
+        [ 7.  ,  7.9 ],
+        [ 8.  ,  8.23],
+        [ 9.  ,  8.7 ],
+        [10.  ,  9.  ]])
+</code></pre></div></div>
+
+<h4 id="算法流程--最小二乘回归树生成算法">算法流程- (最小二乘回归树生成算法)</h4>
+
+<p>输入: 训练数据集 $D$;
+输出: 回归树 $f(x)$.
+在训练数据集所在的输入空间中, 递归地将每个区域划分为两个子区域并决 定每个子区域上的输出值, 构建二叉决策树:</p>
+
+<p>(1) 选择最优切分变量 $j$ 与切分点 $s$, 求解
+\(\min _{j, s}\left[\min _{a_1} \sum_{x_i \in R_1(j, s)}\left(y_i-c_1\right)^2+\min _{c_2} \sum_{x_i \in R_2(j, s)}\left(y_i-c_2\right)^2\right]\)
+   <strong>遍历变量 $j$</strong>, 对固定的切分变量 $j$ 扫描切分点 $s$, 选择使上式达到最小 值的对 $(j, s)$.<br />
+(2) 用选定的对 $(j, s)$ 划分区域并决定相应的输出值:
+\(\begin{gathered}
+R_1(j, s)=\left\{x \mid x^{(j)} \leqslant s\right\}, \quad R_2(j, s)=\left\{x \mid x^{(j)}&gt;s\right\} \\
+\hat{c}_m=\frac{1}{N_m} \sum_{x_i \in R_m(j, s)} y_i, \quad x \in R_m, m=1,2
+\end{gathered}\)
+(3) 继续对两个子区域调用步㗶 (1), (2), 直至满足停止条件.<br />
+(4) 将输入空间划分为 $M$ 个区域 $R_1, R_2, \cdots, R_M$, 生成决策树:
+\(f(x)=\sum_{m=1}^M \hat{c}_m I\left(x \in R_m\right)\)</p>
+
+<p>##</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="n">dataset1</span><span class="p">[:,</span> <span class="n">featIndex</span><span class="p">].</span><span class="n">T</span><span class="p">.</span><span class="n">A</span><span class="p">)[</span><span class="mi">0</span><span class="p">].</span><span class="n">shape</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(300,)
+</code></pre></div></div>
+
+<p>Sum of squared residuals 
+\(S S R=\sum_{j=1}^J \sum_i\left(y_i-\hat{y}_{m j}\right)^2 \cdot b_{m j}\left(x_i\right)\)</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 切分数据集为两个子集
+</span><span class="k">def</span> <span class="nf">binSplitDataSet</span><span class="p">(</span><span class="n">dataSet</span><span class="p">,</span> <span class="n">feature</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>  <span class="c1"># 数据集 待切分特征 特征值
+</span>    <span class="n">mat0</span> <span class="o">=</span> <span class="n">dataSet</span><span class="p">[</span><span class="n">nonzero</span><span class="p">(</span><span class="n">dataSet</span><span class="p">[:,</span> <span class="n">feature</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">value</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="p">:]</span>
+    <span class="n">mat1</span> <span class="o">=</span> <span class="n">dataSet</span><span class="p">[</span><span class="n">nonzero</span><span class="p">(</span><span class="n">dataSet</span><span class="p">[:,</span> <span class="n">feature</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">value</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="p">:]</span>
+    <span class="c1"># 下面原书代码报错 index 0 is out of bounds,使用上面两行代码
+</span>    <span class="c1"># mat0 = dataSet[nonzero(dataSet[:, feature] &gt; value)[0], :][0]
+</span>    <span class="c1"># mat1 = dataSet[nonzero(dataSet[:, feature] &lt;= value)[0], :][0]
+</span>    <span class="k">return</span> <span class="n">mat0</span><span class="p">,</span> <span class="n">mat1</span>
+
+<span class="c1"># 二元切分
+</span><span class="k">def</span> <span class="nf">chooseBestSplit</span><span class="p">(</span><span class="n">dataSet</span><span class="p">,</span> <span class="n">leafType</span><span class="o">=</span><span class="n">regLeaf</span><span class="p">,</span> <span class="n">errType</span><span class="o">=</span><span class="n">regErr</span><span class="p">,</span> <span class="n">ops</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)):</span>
+    <span class="c1"># 切分特征的参数阈值，用户初始设置好
+</span>    <span class="n">tolS</span> <span class="o">=</span> <span class="n">ops</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># 允许的误差下降值
+</span>    <span class="n">tolN</span> <span class="o">=</span> <span class="n">ops</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># 切分的最小样本数
+</span>    <span class="c1"># 若所有特征值都相同，停止切分
+</span>    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">dataSet</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">].</span><span class="n">T</span><span class="p">.</span><span class="n">tolist</span><span class="p">()[</span><span class="mi">0</span><span class="p">]))</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>  <span class="c1"># 倒数第一列转化成list 不重复
+</span>        <span class="k">return</span> <span class="bp">None</span><span class="p">,</span> <span class="n">leafType</span><span class="p">(</span><span class="n">dataSet</span><span class="p">)</span>  <span class="c1"># 如果剩余特征数为1，停止切分1。
+</span>        <span class="c1"># 找不到好的切分特征，调用regLeaf直接生成叶结点
+</span>    <span class="n">m</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="n">shape</span><span class="p">(</span><span class="n">dataSet</span><span class="p">)</span>
+    <span class="n">S</span> <span class="o">=</span> <span class="n">errType</span><span class="p">(</span><span class="n">dataSet</span><span class="p">)</span>  <span class="c1"># 不划分的平均误差(loss)，划分后的loss要好于这个,不然没增益了
+</span>    <span class="n">bestS</span> <span class="o">=</span> <span class="n">inf</span>  <span class="c1">#init the best sqaure error
+</span>    <span class="n">bestIndex</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">bestValue</span> <span class="o">=</span> <span class="mi">0</span>
+    
+    <span class="c1"># 遍历数据的每个属性特征
+</span>    <span class="k">for</span> <span class="n">featIndex</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>  
+        <span class="c1"># for splitVal in set(dataSet[:,featIndex]): python3报错修改为下面
+</span>        <span class="n">featureVal</span> <span class="o">=</span> <span class="p">(</span><span class="n">dataSet</span><span class="p">[:,</span> <span class="n">featIndex</span><span class="p">].</span><span class="n">T</span><span class="p">.</span><span class="n">A</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="c1">#for splitVal in set(featureVal):  # 遍历每个特征里不同的特征值
+</span>        <span class="c1">#    splitVal = featureVal
+</span>        
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">featureVal</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">splitVal</span> <span class="o">=</span> <span class="n">featureVal</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="mi">2</span><span class="p">].</span><span class="n">mean</span><span class="p">()</span>  <span class="c1">#take the average value of the i and i+1 as split point
+</span>            <span class="n">mat0</span><span class="p">,</span> <span class="n">mat1</span> <span class="o">=</span> <span class="n">binSplitDataSet</span><span class="p">(</span><span class="n">dataSet</span><span class="p">,</span> <span class="n">featIndex</span><span class="p">,</span> <span class="n">splitVal</span><span class="p">)</span>  <span class="c1"># 对每个特征进行二元分类
+</span>            <span class="k">if</span> <span class="p">(</span><span class="n">shape</span><span class="p">(</span><span class="n">mat0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">tolN</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">shape</span><span class="p">(</span><span class="n">mat1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">tolN</span><span class="p">):</span> <span class="k">continue</span>
+            <span class="n">newS</span> <span class="o">=</span> <span class="n">errType</span><span class="p">(</span><span class="n">mat0</span><span class="p">)</span> <span class="o">+</span> <span class="n">errType</span><span class="p">(</span><span class="n">mat1</span><span class="p">)</span>  <span class="c1">#根据某个特征值划分计算loss
+</span>            <span class="k">if</span> <span class="n">newS</span> <span class="o">&lt;</span> <span class="n">bestS</span><span class="p">:</span>  <span class="c1"># 更新为误差最小的特征
+</span>                <span class="n">bestIndex</span> <span class="o">=</span> <span class="n">featIndex</span>
+                <span class="n">bestValue</span> <span class="o">=</span> <span class="n">splitVal</span>
+                <span class="n">bestS</span> <span class="o">=</span> <span class="n">newS</span>
+    <span class="c1"># 如果切分后误差效果下降不大，则取消切分，直接创建叶结点
+</span>    <span class="k">if</span> <span class="p">(</span><span class="n">S</span> <span class="o">-</span> <span class="n">bestS</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">tolS</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">None</span><span class="p">,</span> <span class="n">leafType</span><span class="p">(</span><span class="n">dataSet</span><span class="p">)</span>  <span class="c1"># 停止切分2
+</span>    <span class="n">mat0</span><span class="p">,</span> <span class="n">mat1</span> <span class="o">=</span> <span class="n">binSplitDataSet</span><span class="p">(</span><span class="n">dataSet</span><span class="p">,</span> <span class="n">bestIndex</span><span class="p">,</span> <span class="n">bestValue</span><span class="p">)</span>
+    <span class="c1"># 判断切分后子集大小，小于最小允许样本数停止切分3
+</span>    <span class="k">if</span> <span class="p">(</span><span class="n">shape</span><span class="p">(</span><span class="n">mat0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">tolN</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">shape</span><span class="p">(</span><span class="n">mat1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">tolN</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">None</span><span class="p">,</span> <span class="n">leafType</span><span class="p">(</span><span class="n">dataSet</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">bestIndex</span><span class="p">,</span> <span class="n">bestValue</span>  <span class="c1"># 返回特征编号和用于切分的特征值
+</span>
+<span class="k">class</span> <span class="nc">retTreeNode</span><span class="p">():</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spInd</span><span class="p">,</span> <span class="n">spVal</span><span class="p">,</span> <span class="n">pred</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">spVal</span> <span class="o">=</span> <span class="n">spVal</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">pred</span> <span class="o">=</span> <span class="n">pred</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">left</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">right</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">spInd</span> <span class="o">=</span> <span class="n">spInd</span>
+
+<span class="c1"># 构建tree
+</span><span class="k">def</span> <span class="nf">createTree</span><span class="p">(</span><span class="n">dataSet</span><span class="p">,</span> <span class="n">leafType</span><span class="o">=</span><span class="n">regLeaf</span><span class="p">,</span> <span class="n">errType</span><span class="o">=</span><span class="n">regErr</span><span class="p">,</span> <span class="n">ops</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)):</span>
+    <span class="c1"># 数据集默认NumPy Mat 其他可选参数【结点类型：回归树，误差计算函数，ops包含树构建所需的其他元组】
+</span>    <span class="n">feat</span><span class="p">,</span> <span class="n">val</span> <span class="o">=</span> <span class="n">chooseBestSplit</span><span class="p">(</span><span class="n">dataSet</span><span class="p">,</span> <span class="n">leafType</span><span class="p">,</span> <span class="n">errType</span><span class="p">,</span> <span class="n">ops</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">feat</span> <span class="o">==</span> <span class="bp">None</span><span class="p">:</span> 
+        <span class="n">TreeNode</span> <span class="o">=</span> <span class="n">retTreeNode</span><span class="p">(</span><span class="bp">None</span> <span class="p">,</span> <span class="bp">None</span> <span class="p">,</span> <span class="n">val</span><span class="p">)</span>        
+        <span class="k">return</span> <span class="n">TreeNode</span>  <span class="c1"># 满足停止条件时返回叶结点值
+</span>    <span class="c1"># 切分后赋值
+</span>    <span class="n">TreeNode</span> <span class="o">=</span> <span class="n">retTreeNode</span><span class="p">(</span><span class="n">feat</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">dataSet</span><span class="p">[:,</span><span class="o">-</span><span class="mi">1</span><span class="p">].</span><span class="n">mean</span><span class="p">())</span>
+    <span class="c1">#retTree['spInd'] = feat  
+</span>    <span class="c1">#retTree['spVal'] = val
+</span>    <span class="c1"># 切分后的左右子树
+</span>    <span class="n">lSet</span><span class="p">,</span> <span class="n">rSet</span> <span class="o">=</span> <span class="n">binSplitDataSet</span><span class="p">(</span><span class="n">dataSet</span><span class="p">,</span> <span class="n">feat</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
+    <span class="n">TreeNode</span><span class="p">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">createTree</span><span class="p">(</span><span class="n">lSet</span><span class="p">,</span> <span class="n">leafType</span><span class="p">,</span> <span class="n">errType</span><span class="p">,</span> <span class="n">ops</span><span class="p">)</span>
+    <span class="n">TreeNode</span><span class="p">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">createTree</span><span class="p">(</span><span class="n">rSet</span><span class="p">,</span> <span class="n">leafType</span><span class="p">,</span> <span class="n">errType</span><span class="p">,</span> <span class="n">ops</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">TreeNode</span>
+</code></pre></div></div>
+
+<p><img src="/assets/2023-06-01-regression-tree_files/131f6f12-4683-4016-8c0a-85b61788b73f.png" alt="image.png" /></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">myDat</span> <span class="o">=</span> <span class="n">mat</span><span class="p">(</span><span class="n">loadDataSet</span><span class="p">(</span><span class="s">'5.2test.txt'</span><span class="p">))</span>
+<span class="n">retTree</span> <span class="o">=</span> <span class="n">createTree</span><span class="p">(</span><span class="n">dataSet</span><span class="o">=</span><span class="n">myDat</span><span class="p">,</span> <span class="n">ops</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="c1"># 绘制数据点图
+</span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">myDat</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">myDat</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="s">'ro'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p><img src="/assets/2023-06-01-regression-tree_files/2023-06-01-regression-tree_12_0.png" alt="png" /></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dataset1</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">(</span><span class="n">df</span><span class="p">.</span><span class="n">values</span><span class="p">)</span>
+<span class="n">retTree</span> <span class="o">=</span> <span class="n">createTree</span><span class="p">(</span><span class="n">dataset1</span><span class="p">,</span><span class="n">ops</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">regErr</span><span class="p">(</span><span class="n">dataset1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>10139.29592645696
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">SSR</span><span class="p">(</span><span class="n">df</span><span class="p">.</span><span class="n">y</span><span class="p">.</span><span class="n">to_numpy</span><span class="p">(),</span> <span class="n">df</span><span class="p">.</span><span class="n">y</span><span class="p">.</span><span class="n">mean</span><span class="p">())</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>10139.29592645696
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Node</span> <span class="o">=</span> <span class="n">tree</span><span class="p">.</span><span class="n">left</span><span class="p">.</span><span class="n">right</span><span class="p">.</span><span class="n">right</span><span class="p">.</span><span class="n">left</span><span class="p">.</span><span class="n">left</span>
+<span class="k">print</span><span class="p">(</span><span class="n">Node</span><span class="p">.</span><span class="n">threshold</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">Node</span><span class="p">.</span><span class="n">pred</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2.9857980865390195
+-1.3165119892538402
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Node</span> <span class="o">=</span> <span class="n">retTree</span><span class="p">.</span><span class="n">right</span><span class="p">.</span><span class="n">left</span><span class="p">.</span><span class="n">left</span><span class="p">.</span><span class="n">right</span>
+<span class="k">print</span><span class="p">(</span><span class="n">Node</span><span class="p">.</span><span class="n">spVal</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">Node</span><span class="p">.</span><span class="n">pred</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>None
+-1.3898927025120198
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">predict_retTree</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">curr_node</span> <span class="o">=</span> <span class="n">retTree</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">curr_node</span><span class="p">.</span><span class="n">spVal</span><span class="p">:</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="n">curr_node</span><span class="p">.</span><span class="n">spVal</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">curr_node</span><span class="p">.</span><span class="n">left</span><span class="p">:</span> <span class="n">curr_node</span> <span class="o">=</span> <span class="n">curr_node</span><span class="p">.</span><span class="n">left</span>
+            <span class="k">else</span><span class="p">:</span> 
+                <span class="k">break</span>
+        <span class="k">elif</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="n">curr_node</span><span class="p">.</span><span class="n">spVal</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">curr_node</span><span class="p">.</span><span class="n">right</span><span class="p">:</span> <span class="n">curr_node</span> <span class="o">=</span> <span class="n">curr_node</span><span class="p">.</span><span class="n">right</span>
+            <span class="k">else</span><span class="p">:</span> 
+                <span class="k">break</span>
+                
+    <span class="k">return</span> <span class="n">curr_node</span><span class="p">.</span><span class="n">pred</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">predict_retTree</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-1.3898927025120198
+</code></pre></div></div>
+
+<p>** Validation still not so correct <strong>**</strong>* unsure where is the problem compare the example2</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#validation data
+</span><span class="n">x_val</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+<span class="n">y_val</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span> <span class="p">[</span><span class="n">f</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x_val</span><span class="p">]</span> <span class="p">).</span><span class="n">squeeze</span><span class="p">()</span>
+<span class="n">y_train</span><span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">ravel</span><span class="p">(</span><span class="n">dataset1</span><span class="p">[:,</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">x_train</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">ravel</span><span class="p">(</span><span class="n">dataset1</span><span class="p">[:,</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="n">tr_preds</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span> <span class="p">[</span><span class="n">predict_retTree</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x_train</span><span class="p">])</span>
+<span class="n">val_preds</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span> <span class="p">[</span><span class="n">predict_retTree</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x_val</span><span class="p">]</span> <span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">'Training error: {:.4f}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">RSE</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">tr_preds</span><span class="p">)))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'Validation error: {:.4f}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">RSE</span><span class="p">(</span><span class="n">y_val</span><span class="p">,</span> <span class="n">val_preds</span><span class="p">)))</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Training error: 0.0563
+Validation error: 5.6288
+</code></pre></div></div>
+
+<h2 id="example-two">example two</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="c1">##generate data and put into database
+</span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">1.5</span>
+    <span class="k">return</span> <span class="o">-</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">5</span> <span class="o">+</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">normal</span><span class="p">(</span><span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">num_points</span> <span class="o">=</span> <span class="mi">300</span>
+<span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">num_points</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span> <span class="p">[</span><span class="n">f</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span> <span class="p">)</span>
+
+<span class="n">plt</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">.</span><span class="n">squeeze</span><span class="p">()),</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s">'x'</span><span class="p">,</span> <span class="s">'y'</span><span class="p">])</span>
+</code></pre></div></div>
+
+<p><img src="/assets/2023-06-01-regression-tree_files/2023-06-01-regression-tree_23_0.png" alt="png" /></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#最小二乘回归树生成算法，简洁些，不过多使用点空间
+</span><span class="k">def</span> <span class="nf">SSR</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span> 
+    <span class="k">return</span> <span class="n">np</span><span class="p">.</span><span class="nb">sum</span><span class="p">(</span> <span class="p">(</span><span class="n">r</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">find_threshold</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">plot</span> <span class="o">=</span> <span class="bp">False</span><span class="p">):</span>
+    <span class="n">SSRs</span><span class="p">,</span> <span class="n">thresholds</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">threshold</span> <span class="o">=</span> <span class="n">df</span><span class="p">.</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="mi">2</span><span class="p">].</span><span class="n">mean</span><span class="p">()</span>  <span class="c1">#take the average value of the i and i+1 as split point
+</span>
+        <span class="n">low</span> <span class="o">=</span> <span class="n">df</span><span class="p">[(</span><span class="n">df</span><span class="p">.</span><span class="n">x</span> <span class="o">&lt;=</span> <span class="n">threshold</span><span class="p">)]</span>
+        <span class="n">high</span> <span class="o">=</span> <span class="n">df</span><span class="p">[(</span><span class="n">df</span><span class="p">.</span><span class="n">x</span> <span class="o">&gt;</span> <span class="n">threshold</span><span class="p">)]</span>
+
+        <span class="n">guess_low</span> <span class="o">=</span> <span class="n">low</span><span class="p">.</span><span class="n">y</span><span class="p">.</span><span class="n">mean</span><span class="p">()</span>
+        <span class="n">guess_high</span> <span class="o">=</span> <span class="n">high</span><span class="p">.</span><span class="n">y</span><span class="p">.</span><span class="n">mean</span><span class="p">()</span>
+
+        <span class="c1"># append the cacluated SSR and the threshold value
+</span>        <span class="n">SSRs</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">SSR</span><span class="p">(</span><span class="n">low</span><span class="p">.</span><span class="n">y</span><span class="p">.</span><span class="n">to_numpy</span><span class="p">(),</span> <span class="n">guess_low</span><span class="p">)</span> <span class="o">+</span> <span class="n">SSR</span><span class="p">(</span><span class="n">high</span><span class="p">.</span><span class="n">y</span><span class="p">.</span><span class="n">to_numpy</span><span class="p">(),</span> <span class="n">guess_high</span><span class="p">))</span> 
+        <span class="n">thresholds</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">threshold</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">plot</span><span class="p">:</span>
+        <span class="n">plt</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">thresholds</span><span class="p">,</span> <span class="n">SSRs</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+        
+    <span class="k">return</span> <span class="n">thresholds</span><span class="p">[</span><span class="n">SSRs</span><span class="p">.</span><span class="n">index</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">SSRs</span><span class="p">))]</span> <span class="c1"># returen the min ssr value and threshold
+</span></code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">TreeNode</span><span class="p">():</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">threshold</span><span class="p">,</span> <span class="n">pred</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">threshold</span> <span class="o">=</span> <span class="n">threshold</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">pred</span> <span class="o">=</span> <span class="n">pred</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">left</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">right</span> <span class="o">=</span> <span class="bp">None</span>
+
+<span class="k">def</span> <span class="nf">create_nodes</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">stop</span><span class="p">):</span>
+    <span class="n">low</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">.</span><span class="n">x</span> <span class="o">&lt;=</span> <span class="n">tree</span><span class="p">.</span><span class="n">threshold</span><span class="p">]</span>
+    <span class="n">high</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">.</span><span class="n">x</span> <span class="o">&gt;</span> <span class="n">tree</span><span class="p">.</span><span class="n">threshold</span><span class="p">]</span>
+    
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">low</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">stop</span><span class="p">:</span>
+        <span class="n">threshold</span> <span class="o">=</span> <span class="n">find_threshold</span><span class="p">(</span><span class="n">low</span><span class="p">)</span> <span class="c1"># threshold for next level split
+</span>        <span class="n">tree</span><span class="p">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="n">threshold</span><span class="p">,</span> <span class="n">low</span><span class="p">.</span><span class="n">y</span><span class="p">.</span><span class="n">mean</span><span class="p">())</span> <span class="c1">#create the left node which have split point - threshold
+</span>        <span class="n">create_nodes</span><span class="p">(</span><span class="n">tree</span><span class="p">.</span><span class="n">left</span><span class="p">,</span> <span class="n">low</span><span class="p">,</span> <span class="n">stop</span><span class="p">)</span>
+        
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">high</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">stop</span><span class="p">:</span>
+        <span class="n">threshold</span> <span class="o">=</span> <span class="n">find_threshold</span><span class="p">(</span><span class="n">high</span><span class="p">)</span> <span class="c1"># threshold for next level split
+</span>        <span class="n">tree</span><span class="p">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="n">threshold</span><span class="p">,</span> <span class="n">high</span><span class="p">.</span><span class="n">y</span><span class="p">.</span><span class="n">mean</span><span class="p">())</span> <span class="c1">#create the left node which have split point - threshold
+</span>        <span class="n">create_nodes</span><span class="p">(</span><span class="n">tree</span><span class="p">.</span><span class="n">right</span><span class="p">,</span> <span class="n">high</span><span class="p">,</span> <span class="n">stop</span><span class="p">)</span>
+        
+<span class="n">threshold</span> <span class="o">=</span> <span class="n">find_threshold</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="n">tree</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="n">threshold</span><span class="p">,</span> <span class="n">df</span><span class="p">.</span><span class="n">y</span><span class="p">.</span><span class="n">mean</span><span class="p">())</span>
+<span class="n">create_nodes</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tree</span><span class="p">.</span><span class="n">threshold</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>3.323943098526348
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">tree</span><span class="p">):</span>
+    <span class="n">curr_node</span> <span class="o">=</span> <span class="n">tree</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="n">curr_node</span><span class="p">.</span><span class="n">threshold</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">curr_node</span><span class="p">.</span><span class="n">left</span><span class="p">:</span> <span class="n">curr_node</span> <span class="o">=</span> <span class="n">curr_node</span><span class="p">.</span><span class="n">left</span>
+            <span class="k">else</span><span class="p">:</span> 
+                <span class="k">break</span>
+        <span class="k">elif</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="n">curr_node</span><span class="p">.</span><span class="n">threshold</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">curr_node</span><span class="p">.</span><span class="n">right</span><span class="p">:</span> <span class="n">curr_node</span> <span class="o">=</span> <span class="n">curr_node</span><span class="p">.</span><span class="n">right</span>
+            <span class="k">else</span><span class="p">:</span> 
+                <span class="k">break</span>
+                
+    <span class="k">return</span> <span class="n">curr_node</span><span class="p">.</span><span class="n">pred</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">predict</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="n">tree</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-1.3165119892538402
+</code></pre></div></div>
+
+<p>using Relative squared error to evluate
+\(\begin{gathered}
+\mathrm{RSE}=\frac{\sum_{i=1}^n\left(y_i-\hat{y}_i\right)^2}{\sum_{i=1}^n\left(y_i-\bar{y}\right)^2} \\
+\text { where } \quad \bar{y}=\frac{1}{n} \sum_{i=1}^n y_i
+\end{gathered}\)</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">RSE</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">g</span><span class="p">):</span> 
+    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">square</span><span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">g</span><span class="p">))</span> <span class="o">/</span> <span class="nb">sum</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">square</span><span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="o">*</span><span class="nb">sum</span><span class="p">(</span><span class="n">y</span><span class="p">)))</span>
+
+<span class="c1">#validation data
+</span><span class="n">x_val</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+<span class="n">y_val</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span> <span class="p">[</span><span class="n">f</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x_val</span><span class="p">]</span> <span class="p">).</span><span class="n">squeeze</span><span class="p">()</span>
+
+<span class="n">tr_preds</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span> <span class="p">[</span><span class="n">predict</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">df</span><span class="p">.</span><span class="n">x</span><span class="p">]</span> <span class="p">)</span>
+<span class="n">val_preds</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span> <span class="p">[</span><span class="n">predict</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x_val</span><span class="p">]</span> <span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'Training error: {:.4f}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">RSE</span><span class="p">(</span><span class="n">df</span><span class="p">.</span><span class="n">y</span><span class="p">,</span> <span class="n">tr_preds</span><span class="p">)))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'Validation error: {:.4f}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">RSE</span><span class="p">(</span><span class="n">y_val</span><span class="p">,</span> <span class="n">val_preds</span><span class="p">)))</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Training error: 0.0556
+Validation error: 0.0869
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">f2</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span>
+    <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span> <span class="k">return</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">normal</span><span class="p">(</span><span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">3</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">6</span><span class="p">:</span> <span class="k">return</span> <span class="mi">9</span> <span class="o">+</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">normal</span><span class="p">(</span><span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">6</span><span class="p">:</span> <span class="k">return</span> <span class="mi">5</span> <span class="o">+</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">normal</span><span class="p">(</span><span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    
+<span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">num_points</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span> <span class="p">[</span><span class="n">f2</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span> <span class="p">)</span>
+
+<span class="n">plt</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">.</span><span class="n">squeeze</span><span class="p">()),</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s">'x'</span><span class="p">,</span> <span class="s">'y'</span><span class="p">])</span>
+</code></pre></div></div>
+
+<p><img src="/assets/2023-06-01-regression-tree_files/2023-06-01-regression-tree_31_0.png" alt="png" /></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">threshold</span> <span class="o">=</span> <span class="n">find_threshold</span><span class="p">(</span><span class="n">df2</span><span class="p">)</span>
+<span class="n">tree2</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="n">threshold</span><span class="p">,</span> <span class="n">df2</span><span class="p">.</span><span class="n">y</span><span class="p">.</span><span class="n">mean</span><span class="p">())</span>
+<span class="n">create_nodes</span><span class="p">(</span><span class="n">tree2</span><span class="p">,</span> <span class="n">df2</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">predict</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="n">tree2</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>8.008297455717981
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#validation data
+</span><span class="n">x_val</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+<span class="n">y_val</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span> <span class="p">[</span><span class="n">f2</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x_val</span><span class="p">]</span> <span class="p">).</span><span class="n">squeeze</span><span class="p">()</span>
+
+<span class="n">tr_preds</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span> <span class="p">[</span><span class="n">predict</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">tree2</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">df2</span><span class="p">.</span><span class="n">x</span><span class="p">]</span> <span class="p">)</span>
+<span class="n">val_preds</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span> <span class="p">[</span><span class="n">predict</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">tree2</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x_val</span><span class="p">]</span> <span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'Training error: {:.4f}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">RSE</span><span class="p">(</span><span class="n">df2</span><span class="p">.</span><span class="n">y</span><span class="p">,</span> <span class="n">tr_preds</span><span class="p">)))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'Validation error: {:.4f}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">RSE</span><span class="p">(</span><span class="n">y_val</span><span class="p">,</span> <span class="n">val_preds</span><span class="p">)))</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Training error: 0.0377
+Validation error: 0.0241
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">from</span> <span class="nn">matplotlib.animation</span> <span class="kn">import</span> <span class="n">FuncAnimation</span>
+
+<span class="c1">#===================================================Create Data
+</span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">1.5</span>
+    <span class="k">return</span> <span class="o">-</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">5</span> <span class="o">+</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">normal</span><span class="p">(</span><span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">300</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span> <span class="p">[</span><span class="n">f</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span> <span class="p">)</span>
+
+<span class="n">p</span> <span class="o">=</span> <span class="n">x</span><span class="p">.</span><span class="n">argsort</span><span class="p">()</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">p</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">p</span><span class="p">]</span>
+
+
+<span class="c1">#===================================================Calculate Thresholds
+</span><span class="k">def</span> <span class="nf">SSR</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span> <span class="c1">#send numpy array
+</span>    <span class="k">return</span> <span class="n">np</span><span class="p">.</span><span class="nb">sum</span><span class="p">(</span> <span class="p">(</span><span class="n">r</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="p">)</span>
+
+<span class="n">SSRs</span><span class="p">,</span> <span class="n">thresholds</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="n">threshold</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="mi">2</span><span class="p">].</span><span class="n">mean</span><span class="p">()</span>
+    
+    <span class="n">low</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">take</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">np</span><span class="p">.</span><span class="n">where</span><span class="p">(</span><span class="n">x</span> <span class="o">&lt;</span> <span class="n">threshold</span><span class="p">))</span>
+    <span class="n">high</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">take</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">np</span><span class="p">.</span><span class="n">where</span><span class="p">(</span><span class="n">x</span> <span class="o">&gt;</span> <span class="n">threshold</span><span class="p">))</span>
+    
+    <span class="n">guess_low</span> <span class="o">=</span> <span class="n">low</span><span class="p">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="n">guess_high</span> <span class="o">=</span> <span class="n">high</span><span class="p">.</span><span class="n">mean</span><span class="p">()</span>
+    
+    <span class="n">SSRs</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">SSR</span><span class="p">(</span><span class="n">low</span><span class="p">,</span> <span class="n">guess_low</span><span class="p">)</span> <span class="o">+</span> <span class="n">SSR</span><span class="p">(</span><span class="n">high</span><span class="p">,</span> <span class="n">guess_high</span><span class="p">))</span>
+    <span class="n">thresholds</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">threshold</span><span class="p">)</span>
+
+<span class="c1">#===================================================Animated Plot
+</span><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="n">sharex</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+<span class="n">x_data</span><span class="p">,</span> <span class="n">y_data</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+<span class="n">x_data2</span><span class="p">,</span> <span class="n">y_data2</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+<span class="n">ln</span><span class="p">,</span> <span class="o">=</span> <span class="n">ax1</span><span class="p">.</span><span class="n">plot</span><span class="p">([],</span> <span class="p">[],</span> <span class="s">'r--'</span><span class="p">)</span>
+<span class="n">ln2</span><span class="p">,</span> <span class="o">=</span> <span class="n">ax2</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">thresholds</span><span class="p">,</span> <span class="n">SSRs</span><span class="p">,</span> <span class="s">'ro'</span><span class="p">,</span> <span class="n">markersize</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">line</span> <span class="o">=</span> <span class="p">[</span><span class="n">ln</span><span class="p">,</span> <span class="n">ln2</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">init</span><span class="p">():</span>
+    <span class="n">ax1</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="p">.</span><span class="n">title</span><span class="p">.</span><span class="n">set_text</span><span class="p">(</span><span class="s">'Trying Different Thresholds'</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="p">.</span><span class="n">title</span><span class="p">.</span><span class="n">set_text</span><span class="p">(</span><span class="s">'Threshold vs SSR'</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">'y values'</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="p">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">'Threshold'</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">'SSR'</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">line</span>
+
+<span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="n">frame</span><span class="p">):</span>
+    <span class="n">x_data</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="n">frame</span><span class="p">:</span><span class="n">frame</span><span class="o">+</span><span class="mi">2</span><span class="p">].</span><span class="n">mean</span><span class="p">()]</span> <span class="o">*</span> <span class="mi">2</span>
+    <span class="n">y_data</span> <span class="o">=</span> <span class="p">[</span><span class="nb">min</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">y</span><span class="p">)]</span>
+    <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">set_data</span><span class="p">(</span><span class="n">x_data</span><span class="p">,</span> <span class="n">y_data</span><span class="p">)</span>
+
+    <span class="n">x_data2</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">thresholds</span><span class="p">[</span><span class="n">frame</span><span class="p">])</span>
+    <span class="n">y_data2</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">SSRs</span><span class="p">[</span><span class="n">frame</span><span class="p">])</span>
+    <span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">set_data</span><span class="p">(</span><span class="n">x_data2</span><span class="p">,</span> <span class="n">y_data2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">line</span>
+
+<span class="n">ani</span> <span class="o">=</span> <span class="n">FuncAnimation</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">update</span><span class="p">,</span> <span class="n">frames</span> <span class="o">=</span> <span class="mi">298</span><span class="p">,</span>
+                    <span class="n">init_func</span> <span class="o">=</span> <span class="n">init</span><span class="p">,</span> <span class="n">blit</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+<span class="c1">#ani.save('regression_tree_thresholds_120.gif', writer='imagemagick', fps=120)
+</span></code></pre></div></div>
+
+<p><img src="/assets/2023-06-01-regression-tree_files/2023-06-01-regression-tree_35_0.png" alt="png" /></p>
+
+<h2 id="example-three">example three</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeRegressor</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">linear_model</span>
+
+<span class="c1"># Data set
+</span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">))).</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="mf">4.50</span><span class="p">,</span> <span class="mf">4.75</span><span class="p">,</span> <span class="mf">4.91</span><span class="p">,</span> <span class="mf">5.34</span><span class="p">,</span> <span class="mf">5.80</span><span class="p">,</span> <span class="mf">7.05</span><span class="p">,</span> <span class="mf">7.90</span><span class="p">,</span> <span class="mf">8.23</span><span class="p">,</span> <span class="mf">8.70</span><span class="p">,</span> <span class="mf">9.00</span><span class="p">]).</span><span class="n">ravel</span><span class="p">()</span>
+
+<span class="c1"># Fit regression model
+</span><span class="n">model1</span> <span class="o">=</span> <span class="n">DecisionTreeRegressor</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">model2</span> <span class="o">=</span> <span class="n">DecisionTreeRegressor</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">model3</span> <span class="o">=</span> <span class="n">linear_model</span><span class="p">.</span><span class="n">LinearRegression</span><span class="p">()</span>
+<span class="n">model1</span><span class="p">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">model2</span><span class="p">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">model3</span><span class="p">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="c1"># Predict
+</span><span class="n">X_test</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">)[:,</span> <span class="n">np</span><span class="p">.</span><span class="n">newaxis</span><span class="p">]</span>
+<span class="n">y_1</span> <span class="o">=</span> <span class="n">model1</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">y_2</span> <span class="o">=</span> <span class="n">model2</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">y_3</span> <span class="o">=</span> <span class="n">model3</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="c1"># Plot the results
+</span><span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s">"black"</span><span class="p">,</span>
+            <span class="n">c</span><span class="o">=</span><span class="s">"darkorange"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">"data"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">"cornflowerblue"</span><span class="p">,</span>
+         <span class="n">label</span><span class="o">=</span><span class="s">"max_depth=1"</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">"yellowgreen"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">"max_depth=3"</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">'red'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'liner regression'</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">"data"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">"target"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">"Decision Tree Regression"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p><img src="/assets/2023-06-01-regression-tree_files/2023-06-01-regression-tree_37_0.png" alt="png" /></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+</code></pre></div></div>
+
+</div>
+
+<span class="post-tags">
+    
+      <i class="fa fa-tag fa-xs" aria-hidden="true"></i>
+      
+      <a class="no-underline" href="/tag/AI"><nobr>AI</nobr></code>&nbsp;</a>    
+    
+</span>
+
+<div class="recent">
+  <h2>Recent Posts</h2>
+  <ul class="recent-posts">
+    
+      <li>
+        <h4>
+          <a href="/coding/2023/12/11/diffusion-model-demo2.html">
+            A Diffusion Model from Scratch in Pytorch
+          </a>
+          <small>[11 Dec 2023]</small>
+        </h4>
+      </li>
+    
+      <li>
+        <h4>
+          <a href="/coding/2023/12/02/Inspect-BERT-Vocabulary.html">
+            Inspect BERT Vocabulary
+          </a>
+          <small>[02 Dec 2023]</small>
+        </h4>
+      </li>
+    
+      <li>
+        <h4>
+          <a href="/working/2023/12/01/My-Tasks-and-Notes.html">
+            working todo
+          </a>
+          <small>[01 Dec 2023]</small>
+        </h4>
+      </li>
+    
+  </ul>
+</div>
+    </div>
+
+  </body>
+</html>

@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  
+  <!-- include collecttags -->
+  
+  
+
+
+
+
+
+  
+
+  <title>
+    
+      a Gaussian Process Regression with multiple local minima &middot; Zhu Philip's AI Journey
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link href="https://fonts.googleapis.com/css?family=East+Sea+Dokdo&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.0/css/all.min.css" rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+
+  <!-- merge something else -->
+  
+  <!-- merge something else 
+  <link rel="stylesheet" href="/assets/css/post.css" />
+  <link rel="stylesheet" href="/assets/css/syntax.css" /> -->
+  
+  
+  <link rel="stylesheet" href="/assets/css/common.css" />
+  <script src="/assets/js/categories.js"></script>  
+  
+  <script defer src="/assets/js/lbox.js"></script>
+   
+
+  <!-- MathJax -->
+  <script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+  });
+  MathJax.Hub.Queue(function() {
+    // Fix <code> tags after MathJax finishes running. This is a
+    // hack to overcome a shortcoming of Markdown. Discussion at
+    // https://github.com/mojombo/jekyll/issues/199
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+
+  MathJax.Hub.Config({
+  // Autonumbering by mathjax
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+  });
+</script> 
+
+</head>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-89141653-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-89141653-4');
+</script>
+
+
+
+  <body>
+
+    <link rel="stylesheet" href="/assets/style-3.css">
+<div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <h1>
+        <div align="center">
+          <img src="/assets/profile-pixel.png" class="profilepic pt-3 pb-2">
+        </div>
+        <!-- <a href="/"> -->
+          Zhu Philip's AI Journey
+        </a>
+      </h1>
+      <p class="lead"></p>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/">Home</a>
+
+      <!-- Manual set order -->
+      <a class="sidebar-nav-item" href="/categories">Categories</a>
+      <a class="sidebar-nav-item" href="/working">Working</a>
+      <a class="sidebar-nav-item" href="/publication">Publication</a>
+      <!-- <a class="sidebar-nav-item" href="/projects">Projects</a> -->
+      <a class="sidebar-nav-item" href="/about">About</a>
+
+      <!-- Uncomment for auto order -->
+      <!-- 
+
+      
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/about/">About</a>
+          
+        
+      
+        
+          
+        
+      
+        
+      
+        
+          
+        
+      
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/categories/">Categories</a>
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/publication/">publications</a>
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/working/">Working</a>
+          
+        
+      
+        
+          
+        
+      
+        
+      
+        
+          
+        
+      
+        
+          
+        
+       -->
+
+      
+      <!-- <a class="sidebar-nav-item" href="https://github.com/zphilip/zphilip.github.io">GitHub project</a> -->
+      <!-- <span class="sidebar-nav-item">Currently v</span> -->
+      
+<div id="social-media">
+    
+    
+        
+        
+            <a href="mailto:zphilip48@gmail.com" title="Email"><i class="fa fa-envelope"></i></a>
+        
+    
+        
+        
+            <a href="https://www.linkedin.com/in/tianda-zhu-37a5b031" title="Linkedin"><i class="fab fa-linkedin"></i></a>
+        
+    
+        
+        
+            <a href="https://github.com/zphilip" title="GitHub"><i class="fab fa-github"></i></a>
+        
+    
+        
+        
+            <a href="https://www.youtube.com/user/zphilip" title="YouTube"><i class="fab fa-youtube"></i></a>
+        
+    
+</div>
+
+
+    </nav>
+
+    <p>&copy; 2024. All rights reserved.</p>
+  </div>
+</div>
+
+
+    <div class="content container">
+      <div class="post">
+  <h1 class="post-title">a Gaussian Process Regression with multiple local minima</h1>
+  <span class="post-date">26 Jan 2023</span>
+  <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Example of a Gaussian Process Regression with multiple local minima
+# in the marginal log-likelihood as a function of the hyperparameters
+# Based on: https://github.com/probml/pmtk3/blob/master/demos/gprDemoMarglik.m
+# Authors: Drishti Patel &amp; Gerardo Durán-Martín
+</span>
+<span class="c1">#import superimport
+</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="nn">pyprobml_utils</span> <span class="k">as</span> <span class="n">pml</span>
+<span class="kn">from</span> <span class="nn">numpy.linalg</span> <span class="kn">import</span> <span class="n">inv</span><span class="p">,</span> <span class="n">slogdet</span>
+<span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">minimize</span>
+
+
+<span class="c1">#via gp_predictive_post to get the prediction value and plot also the uncertian area
+</span><span class="k">def</span> <span class="nf">plot_gp_pred</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">xstar</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">sigma_f</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">sigma_y</span><span class="p">,</span> <span class="n">ax</span><span class="p">):</span>
+    <span class="n">ystar</span><span class="p">,</span> <span class="n">Sigma_post</span> <span class="o">=</span> <span class="n">gp_predictive_post</span><span class="p">(</span><span class="n">xstar</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">sigma_y</span><span class="p">,</span> <span class="n">sigma_f</span><span class="p">,</span> <span class="n">l</span><span class="p">)</span>
+    <span class="n">upper_bound</span> <span class="o">=</span> <span class="n">ystar</span><span class="p">.</span><span class="n">ravel</span><span class="p">()</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">diag</span><span class="p">(</span><span class="n">Sigma_post</span><span class="p">))</span>
+    <span class="n">lower_bound</span> <span class="o">=</span> <span class="n">ystar</span><span class="p">.</span><span class="n">ravel</span><span class="p">()</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">diag</span><span class="p">(</span><span class="n">Sigma_post</span><span class="p">))</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s">"+"</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s">"black"</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xstar</span><span class="p">,</span> <span class="n">ystar</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s">"black"</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">xstar</span><span class="p">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">lower_bound</span><span class="p">,</span> <span class="n">upper_bound</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">"tab:gray"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s">"none"</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mf">7.5</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">)</span>
+    
+<span class="k">def</span> <span class="nf">plot_marginal_likelihood_surface</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sigma_f</span><span class="p">,</span> <span class="n">l_space</span><span class="p">,</span> <span class="n">sigma_y_space</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="n">P</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">stack</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">l_space</span><span class="p">,</span> <span class="n">sigma_y_space</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">Z</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">apply_along_axis</span><span class="p">(</span><span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="n">log_likelihood</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sigma_f</span><span class="p">,</span> <span class="o">*</span><span class="n">p</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="n">P</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">contour</span><span class="p">(</span><span class="o">*</span><span class="n">np</span><span class="p">.</span><span class="n">exp</span><span class="p">(</span><span class="n">P</span><span class="p">),</span> <span class="n">Z</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="n">levels</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"characteristic length scale"</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"noise standard deviation"</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">set_xscale</span><span class="p">(</span><span class="s">"log"</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s">"log"</span><span class="p">)</span>
+</code></pre></div></div>
+
+\[\begin{aligned}
+\log p(\mathbf{y} \mid \mathbf{X})=\log \mathcal{N}\left(\mathbf{y} \mid \mathbf{0}, \mathbf{K}_y\right) &amp;=-\frac{1}{2} \mathbf{y} \mathbf{K}_y^{-1} \mathbf{y}-\frac{1}{2} \log \left|\mathbf{K}_y\right|-\frac{N}{2} \log (2 \pi) \\
+\frac{\partial}{\partial \theta_j} \log p(\mathbf{y} \mid \mathbf{X}) &amp;=\frac{1}{2} \mathbf{y}^T \mathbf{K}_y^{-1} \frac{\partial \mathbf{K}_y}{\partial \theta_j} \mathbf{K}_y^{-1} \mathbf{y}-\frac{1}{2} \operatorname{tr}\left(\mathbf{K}_y^{-1} \frac{\partial \mathbf{K}_y}{\partial \theta_j}\right) \\
+&amp; = \frac{1}{2} \operatorname{tr}\left(\left(\boldsymbol{\alpha} \boldsymbol{\alpha}^T-\mathbf{K}_y^{-1}\right) \frac{\partial \mathbf{K}_y}{\partial \theta_j}\right)
+\end{aligned}\]
+
+<p>we can define $θ = log(σ^2_y)$, $θ = log(\ell)$and then use the chain rule.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">log_likelihood</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sigma_f</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">sigma_y</span><span class="p">):</span>
+    <span class="s">"""
+    Compute marginal log-likelihood of a regression GP
+    with rbf kernel
+
+    Parameters
+    ----------
+    x: array(n, 1)
+        Training independent variables
+    y: array(n, 1)
+        Training dependent variables
+    sigma_f: float
+        Vertical-scale parameter
+    l: float
+        Horizontal-scale parameter
+    sigma_y: float
+        data noise
+    
+    Returns
+    -------
+    * float:
+        Marginal log-likelihood as the specified hyperparameters
+    """</span>
+    <span class="n">n</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">x</span><span class="p">.</span><span class="n">shape</span>
+    
+    <span class="c1"># first put l to scale the x value and using logl as input here using exp(l) to change back 
+</span>    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">/</span> <span class="n">np</span><span class="p">.</span><span class="n">exp</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+    <span class="c1">#get convarince of the x + noise
+</span>    <span class="n">Kxx</span> <span class="o">=</span> <span class="n">k</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">.</span><span class="n">T</span><span class="p">,</span> <span class="n">sigma_f</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="p">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">sigma_y</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="c1">#计算数组行列式的符号和（自然）对数， DKxx=行列式绝对值的自然对数
+</span>    <span class="n">_</span><span class="p">,</span> <span class="n">DKxx</span> <span class="o">=</span> <span class="n">slogdet</span><span class="p">(</span><span class="n">Kxx</span><span class="p">)</span>
+    <span class="n">l</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">y</span><span class="p">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">inv</span><span class="p">(</span><span class="n">Kxx</span><span class="p">)</span> <span class="o">@</span> <span class="n">y</span> <span class="o">+</span> <span class="n">DKxx</span> <span class="o">+</span> <span class="n">n</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="n">pi</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">l</span><span class="p">.</span><span class="n">item</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#kernal function
+</span><span class="k">def</span> <span class="nf">k</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">sigma_f</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">sigma_f</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">u</span> <span class="o">-</span> <span class="n">v</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">l</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
+
+<span class="c1">#predict post
+</span><span class="k">def</span> <span class="nf">gp_predictive_post</span><span class="p">(</span><span class="n">xstar</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">sigma_y</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="s">"""
+    Compute predictive distribution of a 1D-Gaussian Process for
+    regression
+
+    Parameters
+    ----------
+    xstar: array(nt, 1)
+        Values to perform inference on
+    x: array(n, 1)
+        Training independent variables
+    y: array(n, 1)
+        Training dependent variables
+    k: function
+        Kernel function to evaluate the GP
+    sigma_y: float
+        data-noise term
+    *args: additional arguments of k
+    **kwargs: additional keyword-arguments of k
+
+    Returns
+    -------
+    * array(nt, 1):
+        Array of predicted (mean) values
+    * array(nt, nt):
+        Posterior covariance matrix
+    """</span>
+    <span class="n">n</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">x</span><span class="p">.</span><span class="n">shape</span>
+    <span class="n">kstar</span> <span class="o">=</span> <span class="n">k</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">xstar</span><span class="p">.</span><span class="n">T</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">Kxx</span> <span class="o">=</span> <span class="n">k</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">.</span><span class="n">T</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span> <span class="o">+</span> <span class="n">sigma_y</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">kxx_star</span> <span class="o">=</span> <span class="n">k</span><span class="p">(</span><span class="n">xstar</span><span class="p">,</span> <span class="n">xstar</span><span class="p">.</span><span class="n">T</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">Kxx_inv</span> <span class="o">=</span> <span class="n">inv</span><span class="p">(</span><span class="n">Kxx</span><span class="p">)</span>
+    <span class="n">ystar</span> <span class="o">=</span> <span class="n">kstar</span><span class="p">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">Kxx_inv</span> <span class="o">@</span> <span class="n">y</span>
+    <span class="n">Sigma_post</span> <span class="o">=</span> <span class="n">kxx_star</span> <span class="o">-</span> <span class="n">kstar</span><span class="p">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">Kxx_inv</span> <span class="o">@</span> <span class="n">kstar</span>
+    
+    <span class="k">return</span> <span class="n">ystar</span><span class="p">,</span> <span class="n">Sigma_post</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plt</span><span class="p">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s">"axes.spines.right"</span><span class="p">]</span> <span class="o">=</span> <span class="bp">False</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s">"axes.spines.top"</span><span class="p">]</span> <span class="o">=</span> <span class="bp">False</span>
+<span class="n">sigma_f</span><span class="o">=</span><span class="mf">1.0</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">1.3089</span><span class="p">,</span> <span class="mf">6.7612</span><span class="p">,</span> <span class="mf">1.0553</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.1734</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.9339</span><span class="p">,</span> <span class="mf">7.2530</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.5843</span><span class="p">])[:,</span> <span class="bp">None</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.6218</span><span class="p">,</span> <span class="mf">1.8558</span><span class="p">,</span> <span class="mf">0.4102</span><span class="p">,</span> <span class="mf">1.2526</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.0133</span><span class="p">,</span> <span class="mf">1.6380</span><span class="p">,</span> <span class="mf">0.2189</span><span class="p">])[:,</span> <span class="bp">None</span><span class="p">]</span>
+<span class="n">xstar</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">7.5</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">,</span> <span class="mi">201</span><span class="p">)</span>
+
+<span class="n">ngrid</span> <span class="o">=</span> <span class="mi">41</span>
+<span class="n">l_space</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="mf">0.5</span><span class="p">),</span> <span class="n">np</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="mi">80</span><span class="p">),</span> <span class="n">ngrid</span><span class="p">)</span>
+<span class="n">sigma_y_space</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="mf">0.03</span><span class="p">),</span> <span class="n">np</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="n">ngrid</span><span class="p">)</span>
+<span class="n">P</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">stack</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">l_space</span><span class="p">,</span> <span class="n">sigma_y_space</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">configs</span> <span class="o">=</span> <span class="p">[(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">)]</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">xstar</span><span class="p">.</span><span class="n">shape</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(201,)
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#using configs[0] sigma_y=1.0, \ell = 0.2 to plot the gp figure 
+</span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">plot_gp_pred</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">xstar</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">sigma_f</span><span class="p">,</span> <span class="o">*</span><span class="n">configs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ax</span><span class="p">)</span>
+<span class="n">pml</span><span class="p">.</span><span class="n">savefig</span><span class="p">(</span><span class="s">"gpr_config0.pdf"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>saving image to /home/jupyter/src/General ML/../figures/gpr_config0.pdf
+</code></pre></div></div>
+
+<p><img src="/assets/2023-06-01-gprDemoMarglik_files/2023-06-01-gprDemoMarglik_6_1.png" alt="png" /></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#using configs[1] sigma_y=10, \ell=0.8  to plot the gp figure 
+</span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">plot_gp_pred</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">xstar</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">sigma_f</span><span class="p">,</span> <span class="o">*</span><span class="n">configs</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">ax</span><span class="p">)</span>
+<span class="n">pml</span><span class="p">.</span><span class="n">savefig</span><span class="p">(</span><span class="s">"gpr_config1.pdf"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>saving image to /home/jupyter/src/General ML/../figures/gpr_config1.pdf
+</code></pre></div></div>
+
+<p><img src="/assets/2023-06-01-gprDemoMarglik_files/2023-06-01-gprDemoMarglik_7_1.png" alt="png" /></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#using maximum likelihood = minimize -ll, to search the sigma_f and \ell
+</span><span class="n">ngrid</span> <span class="o">=</span> <span class="mi">41</span>
+<span class="n">w01</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">np</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)])</span>  <span class="c1">#guess 1 :sigma_y=1, \ell=0.1
+</span><span class="n">w02</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span> <span class="n">np</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="mf">0.8</span><span class="p">)])</span> <span class="c1">#guess 2 :sigma_y=10, \ell=0.8
+</span><span class="n">s0</span> <span class="o">=</span> <span class="n">minimize</span><span class="p">(</span><span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="o">-</span><span class="n">log_likelihood</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sigma_f</span><span class="p">,</span> <span class="o">*</span><span class="n">p</span><span class="p">),</span> <span class="n">w01</span><span class="p">)</span>
+<span class="n">s1</span> <span class="o">=</span> <span class="n">minimize</span><span class="p">(</span><span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="o">-</span><span class="n">log_likelihood</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sigma_f</span><span class="p">,</span> <span class="o">*</span><span class="n">p</span><span class="p">),</span> <span class="n">w02</span><span class="p">)</span>
+<span class="n">levels</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="mf">8.3</span><span class="p">,</span> <span class="mf">8.5</span><span class="p">,</span> <span class="mf">8.9</span><span class="p">,</span> <span class="mf">9.3</span><span class="p">,</span> <span class="mf">9.8</span><span class="p">,</span> <span class="mf">11.5</span><span class="p">,</span> <span class="mi">15</span><span class="p">])[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">l_space</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="mf">0.5</span><span class="p">),</span> <span class="n">np</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="mi">80</span><span class="p">),</span> <span class="n">ngrid</span><span class="p">)</span>
+<span class="n">sigma_y_space</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="mf">0.03</span><span class="p">),</span> <span class="n">np</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="n">ngrid</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">plot_marginal_likelihood_surface</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sigma_f</span><span class="p">,</span> <span class="n">l_space</span><span class="p">,</span> <span class="n">sigma_y_space</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="n">levels</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span><span class="o">*</span><span class="n">np</span><span class="p">.</span><span class="n">exp</span><span class="p">(</span><span class="n">s0</span><span class="p">.</span><span class="n">x</span><span class="p">),</span> <span class="n">marker</span><span class="o">=</span><span class="s">"+"</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s">"tab:blue"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span><span class="o">*</span><span class="n">np</span><span class="p">.</span><span class="n">exp</span><span class="p">(</span><span class="n">s1</span><span class="p">.</span><span class="n">x</span><span class="p">),</span> <span class="n">marker</span><span class="o">=</span><span class="s">"+"</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s">"tab:blue"</span><span class="p">)</span>
+<span class="n">pml</span><span class="p">.</span><span class="n">savefig</span><span class="p">(</span><span class="s">"gpr_marginal_likelihood.pdf"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">exp</span><span class="p">(</span><span class="n">s0</span><span class="p">.</span><span class="n">x</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">exp</span><span class="p">(</span><span class="n">s1</span><span class="p">.</span><span class="n">x</span><span class="p">))</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>saving image to /home/jupyter/src/General ML/../figures/gpr_marginal_likelihood.pdf
+[1.30959165 0.24012639]
+[12.58104604  0.61357821]
+</code></pre></div></div>
+
+<p><img src="/assets/2023-06-01-gprDemoMarglik_files/2023-06-01-gprDemoMarglik_8_1.png" alt="png" /></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">np</span><span class="p">.</span><span class="n">exp</span><span class="p">(</span><span class="n">s1</span><span class="p">.</span><span class="n">x</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>array([12.58104604,  0.61357821])
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#using maximum sigma_y \ell to plot the gp figure 
+#true_configs = [(12.58104604 ,0.61357821)]
+</span><span class="n">true_configs</span> <span class="o">=</span> <span class="p">[(</span><span class="mf">1.30959165</span><span class="p">,</span><span class="mf">0.24012639</span><span class="p">)]</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">plot_gp_pred</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">xstar</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">sigma_f</span><span class="p">,</span> <span class="o">*</span><span class="n">true_configs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ax</span><span class="p">)</span>
+<span class="n">pml</span><span class="p">.</span><span class="n">savefig</span><span class="p">(</span><span class="s">"gpr_config0.pdf"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>saving image to /home/jupyter/src/General ML/../figures/gpr_config0.pdf
+</code></pre></div></div>
+
+<p><img src="/assets/2023-06-01-gprDemoMarglik_files/2023-06-01-gprDemoMarglik_10_1.png" alt="png" /></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+</code></pre></div></div>
+
+</div>
+
+<span class="post-tags">
+    
+      <i class="fa fa-tag fa-xs" aria-hidden="true"></i>
+      
+      <a class="no-underline" href="/tag/AI"><nobr>AI</nobr></code>&nbsp;</a>    
+    
+</span>
+
+<div class="recent">
+  <h2>Recent Posts</h2>
+  <ul class="recent-posts">
+    
+      <li>
+        <h4>
+          <a href="/coding/2023/12/11/diffusion-model-demo2.html">
+            A Diffusion Model from Scratch in Pytorch
+          </a>
+          <small>[11 Dec 2023]</small>
+        </h4>
+      </li>
+    
+      <li>
+        <h4>
+          <a href="/coding/2023/12/02/Inspect-BERT-Vocabulary.html">
+            Inspect BERT Vocabulary
+          </a>
+          <small>[02 Dec 2023]</small>
+        </h4>
+      </li>
+    
+      <li>
+        <h4>
+          <a href="/working/2023/12/01/My-Tasks-and-Notes.html">
+            working todo
+          </a>
+          <small>[01 Dec 2023]</small>
+        </h4>
+      </li>
+    
+  </ul>
+</div>
+    </div>
+
+  </body>
+</html>

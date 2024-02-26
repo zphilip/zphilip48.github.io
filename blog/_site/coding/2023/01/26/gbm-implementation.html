@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  
+  <!-- include collecttags -->
+  
+  
+
+
+
+
+
+  
+
+  <title>
+    
+      gbm Implementation &middot; Zhu Philip's AI Journey
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link href="https://fonts.googleapis.com/css?family=East+Sea+Dokdo&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.0/css/all.min.css" rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+
+  <!-- merge something else -->
+  
+  <!-- merge something else 
+  <link rel="stylesheet" href="/assets/css/post.css" />
+  <link rel="stylesheet" href="/assets/css/syntax.css" /> -->
+  
+  
+  <link rel="stylesheet" href="/assets/css/common.css" />
+  <script src="/assets/js/categories.js"></script>  
+  
+  <script defer src="/assets/js/lbox.js"></script>
+   
+
+  <!-- MathJax -->
+  <script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+  });
+  MathJax.Hub.Queue(function() {
+    // Fix <code> tags after MathJax finishes running. This is a
+    // hack to overcome a shortcoming of Markdown. Discussion at
+    // https://github.com/mojombo/jekyll/issues/199
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+
+  MathJax.Hub.Config({
+  // Autonumbering by mathjax
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+  });
+</script> 
+
+</head>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-89141653-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-89141653-4');
+</script>
+
+
+
+  <body>
+
+    <link rel="stylesheet" href="/assets/style-3.css">
+<div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <h1>
+        <div align="center">
+          <img src="/assets/profile-pixel.png" class="profilepic pt-3 pb-2">
+        </div>
+        <!-- <a href="/"> -->
+          Zhu Philip's AI Journey
+        </a>
+      </h1>
+      <p class="lead"></p>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/">Home</a>
+
+      <!-- Manual set order -->
+      <a class="sidebar-nav-item" href="/categories">Categories</a>
+      <a class="sidebar-nav-item" href="/working">Working</a>
+      <a class="sidebar-nav-item" href="/publication">Publication</a>
+      <!-- <a class="sidebar-nav-item" href="/projects">Projects</a> -->
+      <a class="sidebar-nav-item" href="/about">About</a>
+
+      <!-- Uncomment for auto order -->
+      <!-- 
+
+      
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/about/">About</a>
+          
+        
+      
+        
+          
+        
+      
+        
+      
+        
+          
+        
+      
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/categories/">Categories</a>
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/publication/">publications</a>
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/working/">Working</a>
+          
+        
+      
+        
+          
+        
+      
+        
+      
+        
+          
+        
+      
+        
+          
+        
+       -->
+
+      
+      <!-- <a class="sidebar-nav-item" href="https://github.com/zphilip/zphilip.github.io">GitHub project</a> -->
+      <!-- <span class="sidebar-nav-item">Currently v</span> -->
+      
+<div id="social-media">
+    
+    
+        
+        
+            <a href="mailto:zphilip48@gmail.com" title="Email"><i class="fa fa-envelope"></i></a>
+        
+    
+        
+        
+            <a href="https://www.linkedin.com/in/tianda-zhu-37a5b031" title="Linkedin"><i class="fab fa-linkedin"></i></a>
+        
+    
+        
+        
+            <a href="https://github.com/zphilip" title="GitHub"><i class="fab fa-github"></i></a>
+        
+    
+        
+        
+            <a href="https://www.youtube.com/user/zphilip" title="YouTube"><i class="fab fa-youtube"></i></a>
+        
+    
+</div>
+
+
+    </nav>
+
+    <p>&copy; 2024. All rights reserved.</p>
+  </div>
+</div>
+
+
+    <div class="content container">
+      <div class="post">
+  <h1 class="post-title">gbm Implementation</h1>
+  <span class="post-date">26 Jan 2023</span>
+  <h1 id="implementation-of-friedmans-gbm-with-custom-objective">Implementation of Friedman’s GBM with Custom Objective</h1>
+
+<p>In this notebook, I figure out the hacks needed to implement Friedman’s original GBM algorithm using sklearn DecisionTreeRegressor as the weak learner and scipy minimize as the argmin method.
+Basically we just need to be able to modify the tree predictions to predict the best prediction value according to the argmin of the loss function.
+This page on the <a href="https://scikit-learn.org/stable/auto_examples/tree/plot_unveil_tree_structure.html">decision tree structure</a>  in the sklearn documentation is super helpful.</p>
+
+<h2 id="sklearn-decision-trees">sklearn decision trees</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span> 
+<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeRegressor</span>
+<span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">plot_tree</span>
+</code></pre></div></div>
+
+<h2 id="prepare-the-data">Prepare the data</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">default_rng</span><span class="p">()</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">where</span><span class="p">(</span><span class="n">x</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span> <span class="o">+</span> <span class="n">rng</span><span class="p">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">x</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s">'o'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[&lt;matplotlib.lines.Line2D at 0x7f02cfa50a90&gt;]
+</code></pre></div></div>
+
+<p><img src="/assets/2023-09-10-gbm-implementation_files/2023-09-10-gbm-implementation_6_1.png" alt="png" /></p>
+
+<h2 id="friedmans-generic-gradient-boosting-algorithm">Friedman’s Generic Gradient Boosting Algorithm</h2>
+<p><img src="/assets/2023-09-10-gbm-implementation_files/c06163db-b825-476f-9d08-a24c9eb58564.png" alt="image.png" /></p>
+
+<h2 id="简单的gmb">简单的GMB</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">GradientBoostingFromScratch</span><span class="p">():</span>
+    
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_trees</span><span class="p">,</span> <span class="n">learning_rate</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">n_trees</span><span class="o">=</span><span class="n">n_trees</span><span class="p">;</span> <span class="bp">self</span><span class="p">.</span><span class="n">learning_rate</span><span class="o">=</span><span class="n">learning_rate</span><span class="p">;</span> <span class="bp">self</span><span class="p">.</span><span class="n">max_depth</span><span class="o">=</span><span class="n">max_depth</span><span class="p">;</span>
+        
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">trees</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># set the F0(x)
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">F0</span> <span class="o">=</span> <span class="n">y</span><span class="p">.</span><span class="n">mean</span><span class="p">()</span>
+        <span class="n">Fm</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">F0</span> 
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">n_trees</span><span class="p">):</span>
+            <span class="c1">#set up regression tree 
+</span>            <span class="n">tree</span> <span class="o">=</span> <span class="n">DecisionTreeRegressor</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="bp">self</span><span class="p">.</span><span class="n">max_depth</span><span class="p">)</span>
+            <span class="c1">#residual = y - Fm for training
+</span>            <span class="n">tree</span><span class="p">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">-</span> <span class="n">Fm</span><span class="p">)</span>  
+            <span class="c1"># the tree.predict(x) = w = mean of y - y_hat 
+</span>            <span class="n">Fm</span> <span class="o">+=</span> <span class="bp">self</span><span class="p">.</span><span class="n">learning_rate</span> <span class="o">*</span> <span class="n">tree</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> 
+            <span class="bp">self</span><span class="p">.</span><span class="n">trees</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span>
+            
+    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">F0</span> <span class="o">+</span> <span class="bp">self</span><span class="p">.</span><span class="n">learning_rate</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="nb">sum</span><span class="p">([</span><span class="n">tree</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">tree</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">.</span><span class="n">trees</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeRegressor</span>
+
+<span class="c1"># model hyperparameters
+</span><span class="n">learning_rate</span> <span class="o">=</span> <span class="mf">0.3</span>
+<span class="n">n_trees</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">max_depth</span> <span class="o">=</span> <span class="mi">2</span>
+
+<span class="c1"># Training
+</span><span class="n">F0</span> <span class="o">=</span> <span class="n">y</span><span class="p">.</span><span class="n">mean</span><span class="p">()</span> 
+<span class="n">Fm</span> <span class="o">=</span> <span class="n">F0</span>
+<span class="n">trees</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_trees</span><span class="p">):</span>
+    <span class="n">tree</span> <span class="o">=</span> <span class="n">DecisionTreeRegressor</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="n">max_depth</span><span class="p">)</span>
+    <span class="n">tree</span><span class="p">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">-</span> <span class="n">Fm</span><span class="p">)</span>
+    <span class="n">Fm</span> <span class="o">+=</span> <span class="n">learning_rate</span> <span class="o">*</span> <span class="n">tree</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">trees</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span>
+
+<span class="c1"># Prediction
+</span><span class="n">y_hat</span> <span class="o">=</span> <span class="n">F0</span> <span class="o">+</span> <span class="n">learning_rate</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="nb">sum</span><span class="p">([</span><span class="n">t</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">trees</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#hide_input
+</span><span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="s">'o'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'y'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y_hat</span><span class="p">,</span><span class="s">'-k'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'GBM'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'x'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p><img src="/assets/2023-09-10-gbm-implementation_files/2023-09-10-gbm-implementation_11_0.png" alt="png" /></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">reg</span> <span class="o">=</span> <span class="n">DecisionTreeRegressor</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">reg</span><span class="p">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">y_hat</span> <span class="o">=</span> <span class="n">reg</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># parallel arrays that give info on the nodes
+</span><span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s">'children_left'</span><span class="p">:</span> <span class="n">reg</span><span class="p">.</span><span class="n">tree_</span><span class="p">.</span><span class="n">children_left</span>
+    <span class="p">,</span> <span class="s">'children_right'</span><span class="p">:</span> <span class="n">reg</span><span class="p">.</span><span class="n">tree_</span><span class="p">.</span><span class="n">children_right</span>
+    <span class="p">,</span> <span class="s">'feature'</span><span class="p">:</span> <span class="n">reg</span><span class="p">.</span><span class="n">tree_</span><span class="p">.</span><span class="n">feature</span> 
+    <span class="p">,</span> <span class="s">'threshold'</span><span class="p">:</span> <span class="n">reg</span><span class="p">.</span><span class="n">tree_</span><span class="p">.</span><span class="n">threshold</span>
+    <span class="p">,</span> <span class="s">'n_node_samples'</span><span class="p">:</span> <span class="n">reg</span><span class="p">.</span><span class="n">tree_</span><span class="p">.</span><span class="n">n_node_samples</span> 
+    <span class="p">,</span> <span class="s">'impurity'</span><span class="p">:</span> <span class="n">reg</span><span class="p">.</span><span class="n">tree_</span><span class="p">.</span><span class="n">impurity</span>
+<span class="p">})</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>children_left</th>
+      <th>children_right</th>
+      <th>feature</th>
+      <th>threshold</th>
+      <th>n_node_samples</th>
+      <th>impurity</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>4</td>
+      <td>0</td>
+      <td>3.492462</td>
+      <td>200</td>
+      <td>2.842706</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>3</td>
+      <td>0</td>
+      <td>1.884422</td>
+      <td>70</td>
+      <td>1.097194</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>-1</td>
+      <td>-1</td>
+      <td>-2</td>
+      <td>-2.000000</td>
+      <td>38</td>
+      <td>0.359338</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>-1</td>
+      <td>-1</td>
+      <td>-2</td>
+      <td>-2.000000</td>
+      <td>32</td>
+      <td>0.348038</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>6</td>
+      <td>0</td>
+      <td>4.296482</td>
+      <td>130</td>
+      <td>0.300465</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>-1</td>
+      <td>-1</td>
+      <td>-2</td>
+      <td>-2.000000</td>
+      <td>16</td>
+      <td>0.133329</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>-1</td>
+      <td>-1</td>
+      <td>-2</td>
+      <td>-2.000000</td>
+      <td>114</td>
+      <td>0.180591</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>The index corresponds to the nodes in the tree.
+<code class="language-plaintext highlighter-rouge">children_left</code> and <code class="language-plaintext highlighter-rouge">children_right</code> give the index of the left and right children of the given node. 
+They are set to -1 on the terminal nodes.
+Looks like the tree is indexed in a depth-first order.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plot_tree</span><span class="p">(</span><span class="n">reg</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p><img src="/assets/2023-09-10-gbm-implementation_files/2023-09-10-gbm-implementation_15_0.png" alt="png" /></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">reg</span><span class="p">.</span><span class="n">tree_</span><span class="p">.</span><span class="n">node_count</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>7
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># find the terminal nodes that each observation lands in.
+</span><span class="n">reg</span><span class="p">.</span><span class="nb">apply</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>array([2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+       2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3,
+       3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+       3, 3, 3, 3, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 6, 6,
+       6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,
+       6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,
+       6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,
+       6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,
+       6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,
+       6, 6])
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># find the terminal nodes that each observation lands in.
+# it works on the tree_ object too
+</span><span class="n">reg</span><span class="p">.</span><span class="n">tree_</span><span class="p">.</span><span class="nb">apply</span><span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">float32</span><span class="p">))</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>array([2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+       2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3,
+       3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+       3, 3, 3, 3, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 6, 6,
+       6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,
+       6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,
+       6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,
+       6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,
+       6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,
+       6, 6])
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># terminal node id's
+</span><span class="n">np</span><span class="p">.</span><span class="n">nonzero</span><span class="p">(</span><span class="n">reg</span><span class="p">.</span><span class="n">tree_</span><span class="p">.</span><span class="n">children_left</span> <span class="o">==</span> <span class="n">reg</span><span class="p">.</span><span class="n">tree_</span><span class="p">.</span><span class="n">children_right</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>array([2, 3, 5, 6])
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># the prediction values for each node (including non terminal ones)
+</span><span class="n">reg</span><span class="p">.</span><span class="n">tree_</span><span class="p">.</span><span class="n">value</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>array([[[3.75928113]],
+
+       [[1.7090544 ]],
+
+       [[0.91804084]],
+
+       [[2.648383  ]],
+
+       [[4.86324936]],
+
+       [[3.91691426]],
+
+       [[4.99606833]]])
+</code></pre></div></div>
+
+<p>Not sure why <code class="language-plaintext highlighter-rouge">value</code> has two other dimensions.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># the prediction values for each node (including non terminal ones)
+</span><span class="n">reg</span><span class="p">.</span><span class="n">tree_</span><span class="p">.</span><span class="n">value</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>array([3.75928113, 1.7090544 , 0.91804084, 2.648383  , 4.86324936,
+       3.91691426, 4.99606833])
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># manually get predicted values for given feature vector observations
+</span><span class="n">reg</span><span class="p">.</span><span class="n">tree_</span><span class="p">.</span><span class="n">value</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">][</span><span class="n">reg</span><span class="p">.</span><span class="nb">apply</span><span class="p">(</span><span class="n">x</span><span class="p">)]</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>array([0.91804084, 0.91804084, 0.91804084, 0.91804084, 0.91804084,
+       0.91804084, 0.91804084, 0.91804084, 0.91804084, 0.91804084,
+       0.91804084, 0.91804084, 0.91804084, 0.91804084, 0.91804084,
+       0.91804084, 0.91804084, 0.91804084, 0.91804084, 0.91804084,
+       0.91804084, 0.91804084, 0.91804084, 0.91804084, 0.91804084,
+       0.91804084, 0.91804084, 0.91804084, 0.91804084, 0.91804084,
+       0.91804084, 0.91804084, 0.91804084, 0.91804084, 0.91804084,
+       0.91804084, 0.91804084, 0.91804084, 2.648383  , 2.648383  ,
+       2.648383  , 2.648383  , 2.648383  , 2.648383  , 2.648383  ,
+       2.648383  , 2.648383  , 2.648383  , 2.648383  , 2.648383  ,
+       2.648383  , 2.648383  , 2.648383  , 2.648383  , 2.648383  ,
+       2.648383  , 2.648383  , 2.648383  , 2.648383  , 2.648383  ,
+       2.648383  , 2.648383  , 2.648383  , 2.648383  , 2.648383  ,
+       2.648383  , 2.648383  , 2.648383  , 2.648383  , 2.648383  ,
+       3.91691426, 3.91691426, 3.91691426, 3.91691426, 3.91691426,
+       3.91691426, 3.91691426, 3.91691426, 3.91691426, 3.91691426,
+       3.91691426, 3.91691426, 3.91691426, 3.91691426, 3.91691426,
+       3.91691426, 4.99606833, 4.99606833, 4.99606833, 4.99606833,
+       4.99606833, 4.99606833, 4.99606833, 4.99606833, 4.99606833,
+       4.99606833, 4.99606833, 4.99606833, 4.99606833, 4.99606833,
+       4.99606833, 4.99606833, 4.99606833, 4.99606833, 4.99606833,
+       4.99606833, 4.99606833, 4.99606833, 4.99606833, 4.99606833,
+       4.99606833, 4.99606833, 4.99606833, 4.99606833, 4.99606833,
+       4.99606833, 4.99606833, 4.99606833, 4.99606833, 4.99606833,
+       4.99606833, 4.99606833, 4.99606833, 4.99606833, 4.99606833,
+       4.99606833, 4.99606833, 4.99606833, 4.99606833, 4.99606833,
+       4.99606833, 4.99606833, 4.99606833, 4.99606833, 4.99606833,
+       4.99606833, 4.99606833, 4.99606833, 4.99606833, 4.99606833,
+       4.99606833, 4.99606833, 4.99606833, 4.99606833, 4.99606833,
+       4.99606833, 4.99606833, 4.99606833, 4.99606833, 4.99606833,
+       4.99606833, 4.99606833, 4.99606833, 4.99606833, 4.99606833,
+       4.99606833, 4.99606833, 4.99606833, 4.99606833, 4.99606833,
+       4.99606833, 4.99606833, 4.99606833, 4.99606833, 4.99606833,
+       4.99606833, 4.99606833, 4.99606833, 4.99606833, 4.99606833,
+       4.99606833, 4.99606833, 4.99606833, 4.99606833, 4.99606833,
+       4.99606833, 4.99606833, 4.99606833, 4.99606833, 4.99606833,
+       4.99606833, 4.99606833, 4.99606833, 4.99606833, 4.99606833,
+       4.99606833, 4.99606833, 4.99606833, 4.99606833, 4.99606833,
+       4.99606833, 4.99606833, 4.99606833, 4.99606833, 4.99606833,
+       4.99606833, 4.99606833, 4.99606833, 4.99606833, 4.99606833])
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># modifying one of the terminal node prediction values
+</span><span class="n">reg</span><span class="p">.</span><span class="n">tree_</span><span class="p">.</span><span class="n">value</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#built in predict method
+</span><span class="n">reg</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>array([0.91804084, 0.91804084, 0.91804084, 0.91804084, 0.91804084,
+       0.91804084, 0.91804084, 0.91804084, 0.91804084, 0.91804084,
+       0.91804084, 0.91804084, 0.91804084, 0.91804084, 0.91804084,
+       0.91804084, 0.91804084, 0.91804084, 0.91804084, 0.91804084,
+       0.91804084, 0.91804084, 0.91804084, 0.91804084, 0.91804084,
+       0.91804084, 0.91804084, 0.91804084, 0.91804084, 0.91804084,
+       0.91804084, 0.91804084, 0.91804084, 0.91804084, 0.91804084,
+       0.91804084, 0.91804084, 0.91804084, 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ,
+       3.91691426, 3.91691426, 3.91691426, 3.91691426, 3.91691426,
+       3.91691426, 3.91691426, 3.91691426, 3.91691426, 3.91691426,
+       3.91691426, 3.91691426, 3.91691426, 3.91691426, 3.91691426,
+       3.91691426, 4.99606833, 4.99606833, 4.99606833, 4.99606833,
+       4.99606833, 4.99606833, 4.99606833, 4.99606833, 4.99606833,
+       4.99606833, 4.99606833, 4.99606833, 4.99606833, 4.99606833,
+       4.99606833, 4.99606833, 4.99606833, 4.99606833, 4.99606833,
+       4.99606833, 4.99606833, 4.99606833, 4.99606833, 4.99606833,
+       4.99606833, 4.99606833, 4.99606833, 4.99606833, 4.99606833,
+       4.99606833, 4.99606833, 4.99606833, 4.99606833, 4.99606833,
+       4.99606833, 4.99606833, 4.99606833, 4.99606833, 4.99606833,
+       4.99606833, 4.99606833, 4.99606833, 4.99606833, 4.99606833,
+       4.99606833, 4.99606833, 4.99606833, 4.99606833, 4.99606833,
+       4.99606833, 4.99606833, 4.99606833, 4.99606833, 4.99606833,
+       4.99606833, 4.99606833, 4.99606833, 4.99606833, 4.99606833,
+       4.99606833, 4.99606833, 4.99606833, 4.99606833, 4.99606833,
+       4.99606833, 4.99606833, 4.99606833, 4.99606833, 4.99606833,
+       4.99606833, 4.99606833, 4.99606833, 4.99606833, 4.99606833,
+       4.99606833, 4.99606833, 4.99606833, 4.99606833, 4.99606833,
+       4.99606833, 4.99606833, 4.99606833, 4.99606833, 4.99606833,
+       4.99606833, 4.99606833, 4.99606833, 4.99606833, 4.99606833,
+       4.99606833, 4.99606833, 4.99606833, 4.99606833, 4.99606833,
+       4.99606833, 4.99606833, 4.99606833, 4.99606833, 4.99606833,
+       4.99606833, 4.99606833, 4.99606833, 4.99606833, 4.99606833,
+       4.99606833, 4.99606833, 4.99606833, 4.99606833, 4.99606833,
+       4.99606833, 4.99606833, 4.99606833, 4.99606833, 4.99606833])
+</code></pre></div></div>
+
+<h2 id="scipy-minimize">scipy minimize</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">minimize</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my_fun</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="p">(</span><span class="n">t</span> <span class="o">-</span> <span class="mi">4</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">3</span>
+<span class="n">t0</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">minimize</span><span class="p">(</span><span class="n">my_fun</span><span class="p">,</span> <span class="n">t0</span><span class="p">)</span>
+<span class="n">res</span><span class="p">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>3.999999987147814
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">res</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>      fun: 3.0
+ hess_inv: array([[0.5]])
+      jac: array([0.])
+  message: 'Optimization terminated successfully.'
+     nfev: 8
+      nit: 3
+     njev: 4
+   status: 0
+  success: True
+        x: array([3.99999999])
+</code></pre></div></div>
+
+<p>That wasn’t so bad.</p>
+
+<h2 id="loss-function-classes">Loss Function Classes</h2>
+
+<p>I think we’ll implement loss functions as a class that the user supplies.
+The class should have two methods, <code class="language-plaintext highlighter-rouge">loss</code> and <code class="language-plaintext highlighter-rouge">negative_gradient</code>, which both take two arguments, <code class="language-plaintext highlighter-rouge">y</code> and <code class="language-plaintext highlighter-rouge">y_hat</code>.
+The <code class="language-plaintext highlighter-rouge">loss</code> method should return a scalar, while the <code class="language-plaintext highlighter-rouge">negative_gradient</code> method should return an array the same size as <code class="language-plaintext highlighter-rouge">y</code> and <code class="language-plaintext highlighter-rouge">y_hat</code>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">SquaredErrorLoss</span><span class="p">():</span>
+    
+    <span class="k">def</span> <span class="nf">loss</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">y_hat</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">np</span><span class="p">.</span><span class="n">mean</span><span class="p">((</span><span class="n">y</span> <span class="o">-</span> <span class="n">y_hat</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">negative_gradient</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">y_hat</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">y</span> <span class="o">-</span> <span class="n">y_hat</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># make an instance
+</span><span class="n">obj</span> <span class="o">=</span> <span class="n">SquaredErrorLoss</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># loss method should return a number
+</span><span class="n">obj</span><span class="p">.</span><span class="n">loss</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_hat</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0.23756349425442555
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># negative_gradient method should return an array, same shape as y and y_hat (get from previouse one dicision tree)
+</span><span class="n">obj</span><span class="p">.</span><span class="n">negative_gradient</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_hat</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>array([-0.49255678, -0.32066061, -1.1784309 , -0.53375033, -0.98815151,
+       -1.09888638, -0.67857424, -0.25830859, -0.49204353, -0.02359868,
+       -0.54589252, -0.75128065, -0.58031253,  0.03874785, -0.19066955,
+        0.88048938,  0.32790997, -0.26344076, -0.69209517,  0.14841553,
+        0.07083979, -0.09176096,  0.79218655, -0.13984208, -0.17380496,
+        0.03267205,  0.57492123,  0.38596099,  0.23825812,  0.19322872,
+        1.17191446,  1.06500213,  0.74360901,  0.67556879,  0.66238355,
+        0.61572065,  0.37655057,  0.49968143,  0.22022114, -0.95836931,
+       -0.9939993 , -0.37475115, -1.32978096, -0.70896935, -0.21635722,
+        0.4337836 , -0.42981613,  0.17449931, -1.15174471, -0.48872236,
+       -0.08142043,  0.70285175, -0.30088331,  0.22241331,  0.06431568,
+        0.01334207,  0.11388726, -0.45009487,  0.94884203,  0.0932048 ,
+       -0.13219572,  0.88661359,  0.28153107,  0.91233939,  0.4425616 ,
+        0.63421352,  0.13398699,  0.5170198 ,  0.56861933,  0.25285859,
+       -0.33065244,  0.21256738, -0.52482522, -0.60505751,  0.13767718,
+        0.04713186, -0.14208287, -0.18659448,  0.58410822, -0.05318493,
+        0.21359337, -0.32987855,  0.36567509,  0.72201231,  0.16998206,
+       -0.28047147, -0.48537644,  0.04290149, -0.45361261, -0.31398043,
+       -0.66198662, -0.97769314,  0.32799293, -0.04483615,  0.24082134,
+       -0.18200017, -0.12835403, -0.30143722,  0.28010512, -0.43800651,
+       -0.10314913,  0.74029697,  0.65379024,  0.21386612,  0.70071287,
+        0.11352387, -0.3890135 , -0.28621517,  0.58323056, -0.58283824,
+        0.4959617 , -0.06211422, -0.24294399,  0.29456231,  0.64665966,
+       -0.26489692,  0.4224831 ,  0.20412148,  0.07502915, -0.24005835,
+       -1.02023288, -0.02901337, -0.01020261, -0.52236571,  0.08092122,
+       -0.77523367,  0.95022498,  0.14674102, -0.22035964, -0.29973747,
+       -0.40185016,  0.83946797,  0.09904628,  0.67040872,  0.37628663,
+       -0.35042556, -0.54743247, -0.34088812,  0.09844891,  0.45265303,
+       -0.09083517,  0.06610746, -0.11653813, -0.13520666, -0.56615654,
+       -0.16687041, -0.03071953, -0.17698441,  0.08663586, -0.95440681,
+       -0.5104037 , -0.69415237,  0.58766281,  0.6615037 ,  0.46522491,
+        0.2720463 , -0.36316134,  0.43569145, -0.41965952, -0.67616288,
+        0.35125389, -0.22111344,  0.73099068, -0.31794585,  0.65117165,
+        0.17472301,  0.3810294 , -0.13664031,  0.12362699, -0.02757297,
+        0.04766081,  0.110813  ,  0.0460294 , -0.60778078, -0.57101885,
+       -0.02281148,  0.43300191,  0.38623513, -0.09828116,  0.51236255,
+        0.63552504, -0.0574628 , -0.20213633, -0.21869942, -0.25043074,
+        0.20255221,  0.30607896,  0.17446274, -0.09110075, -0.21181668,
+       -0.41422072,  0.22664063,  0.81457072,  0.00713662,  0.7704969 ,
+        0.11464773, -0.15686365, -0.26182471, -0.09909693,  0.01818937])
+</code></pre></div></div>
+
+<h2 id="gbm-implementation">GBM Implementation</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeRegressor</span> 
+<span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">minimize</span>
+
+<span class="k">class</span> <span class="nc">GradientBoostingMachine</span><span class="p">():</span>
+    <span class="s">'''Gradient Boosting Machine supporting any user-supplied loss function.
+    
+    Parameters
+    ----------
+    n_trees : int
+        number of boosting rounds
+        
+    learning_rate : float
+        learning rate hyperparameter
+        
+    max_depth : int
+        maximum tree depth
+    '''</span>
+    
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_trees</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">n_trees</span><span class="o">=</span><span class="n">n_trees</span><span class="p">;</span> 
+        <span class="bp">self</span><span class="p">.</span><span class="n">learning_rate</span><span class="o">=</span><span class="n">learning_rate</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">max_depth</span><span class="o">=</span><span class="n">max_depth</span><span class="p">;</span>
+    
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">objective</span><span class="p">):</span>
+        <span class="s">'''Fit the GBM using the specified loss function.
+        
+        Parameters
+        ----------
+        X : ndarray of size (number observations, number features)
+            design matrix
+            
+        y : ndarray of size (number observations,)
+            target values
+            
+        objective : loss function class instance
+            Class specifying the loss function for training.
+            Should implement two methods:
+                loss(labels: ndarray, predictions: ndarray) -&gt; float
+                negative_gradient(labels: ndarray, predictions: ndarray) -&gt; ndarray
+        '''</span>
+        
+        <span class="bp">self</span><span class="p">.</span><span class="n">trees</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># initial the F0
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">base_prediction</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">_get_optimal_base_value</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">objective</span><span class="p">.</span><span class="n">loss</span><span class="p">)</span>
+        <span class="c1"># convert to matrix
+</span>        <span class="n">current_predictions</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">base_prediction</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="n">ones</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">y</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="c1"># start to run boosting
+</span>        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">n_trees</span><span class="p">):</span>
+            
+            <span class="c1"># using object function return the residual = negative gradient (partial deritive of the loss function) 
+</span>            <span class="n">pseudo_residuals</span> <span class="o">=</span> <span class="n">objective</span><span class="p">.</span><span class="n">negative_gradient</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">current_predictions</span><span class="p">)</span>
+            <span class="c1"># here setup the tree still with MSE
+</span>            <span class="n">tree</span> <span class="o">=</span> <span class="n">DecisionTreeRegressor</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="bp">self</span><span class="p">.</span><span class="n">max_depth</span><span class="p">)</span> 
+            
+            <span class="c1">#using redidual to train the tree and get the predicted (minimized) delta
+</span>            <span class="n">tree</span><span class="p">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">pseudo_residuals</span><span class="p">)</span>
+            
+            <span class="c1"># replace orignal loss with the object function loss/residual or target
+</span>            <span class="bp">self</span><span class="p">.</span><span class="n">_update_terminal_nodes</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">current_predictions</span><span class="p">,</span> <span class="n">objective</span><span class="p">.</span><span class="n">loss</span><span class="p">)</span>
+            
+            <span class="c1">#adding the delta part into whole function y
+</span>            <span class="n">current_predictions</span> <span class="o">+=</span> <span class="bp">self</span><span class="p">.</span><span class="n">learning_rate</span> <span class="o">*</span> <span class="n">tree</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">trees</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span>
+     
+    <span class="c1">#get the intial value (F0) to minimize the all data loss
+</span>    <span class="k">def</span> <span class="nf">_get_optimal_base_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">loss</span><span class="p">):</span>
+        <span class="s">'''Find the optimal initial prediction for the base model.'''</span>
+        <span class="n">fun</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">loss</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+        <span class="n">c0</span> <span class="o">=</span> <span class="n">y</span><span class="p">.</span><span class="n">mean</span><span class="p">()</span> <span class="c1"># give the initial value as mean of the data
+</span>        <span class="k">return</span> <span class="n">minimize</span><span class="p">(</span><span class="n">fun</span><span class="o">=</span><span class="n">fun</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="n">c0</span><span class="p">).</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        
+    <span class="k">def</span> <span class="nf">_update_terminal_nodes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">current_predictions</span><span class="p">,</span> <span class="n">loss</span><span class="p">):</span>
+        <span class="s">'''Update the tree's predictions according to the loss function.'''</span>
+        <span class="c1"># terminal node id's
+</span>        <span class="n">leaf_nodes</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">nonzero</span><span class="p">(</span><span class="n">tree</span><span class="p">.</span><span class="n">tree_</span><span class="p">.</span><span class="n">children_left</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="c1"># compute leaf for each sample in ``X``.
+</span>        <span class="n">leaf_node_for_each_sample</span> <span class="o">=</span> <span class="n">tree</span><span class="p">.</span><span class="nb">apply</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">leaf</span> <span class="ow">in</span> <span class="n">leaf_nodes</span><span class="p">:</span>
+            <span class="n">samples_in_this_leaf</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">where</span><span class="p">(</span><span class="n">leaf_node_for_each_sample</span> <span class="o">==</span> <span class="n">leaf</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">y_in_leaf</span> <span class="o">=</span> <span class="n">y</span><span class="p">.</span><span class="n">take</span><span class="p">(</span><span class="n">samples_in_this_leaf</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">preds_in_leaf</span> <span class="o">=</span> <span class="n">current_predictions</span><span class="p">.</span><span class="n">take</span><span class="p">(</span><span class="n">samples_in_this_leaf</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+            <span class="c1"># get the predict value w
+</span>            <span class="n">val</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">_get_optimal_leaf_value</span><span class="p">(</span><span class="n">y_in_leaf</span><span class="p">,</span> 
+                                               <span class="n">preds_in_leaf</span><span class="p">,</span>
+                                               <span class="n">loss</span><span class="p">)</span>
+            <span class="n">tree</span><span class="p">.</span><span class="n">tree_</span><span class="p">.</span><span class="n">value</span><span class="p">[</span><span class="n">leaf</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
+            
+    <span class="c1">#get the optimized loss target to the  w/c or residual: y-(current_preddiction+w) = (y-current_predictin) -w 
+</span>    <span class="c1"># = residual - w ..
+</span>    <span class="k">def</span> <span class="nf">_get_optimal_leaf_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">current_predictions</span><span class="p">,</span> <span class="n">loss</span><span class="p">):</span>
+        <span class="s">'''Find the optimal prediction value for a given leaf.'''</span>
+        <span class="n">fun</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">loss</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">current_predictions</span> <span class="o">+</span> <span class="n">c</span><span class="p">)</span>
+        <span class="n">c0</span> <span class="o">=</span> <span class="n">y</span><span class="p">.</span><span class="n">mean</span><span class="p">()</span>       
+        <span class="k">return</span> <span class="n">minimize</span><span class="p">(</span><span class="n">fun</span><span class="o">=</span><span class="n">fun</span><span class="p">,</span> <span class="n">x0</span><span class="o">=</span><span class="n">c0</span><span class="p">).</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+          
+    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+        <span class="s">'''Generate predictions for the given input data.'''</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">base_prediction</span> 
+                <span class="o">+</span> <span class="bp">self</span><span class="p">.</span><span class="n">learning_rate</span> 
+                <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="nb">sum</span><span class="p">([</span><span class="n">tree</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="k">for</span> <span class="n">tree</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">.</span><span class="n">trees</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+</code></pre></div></div>
+
+<h3 id="mean-squared-error">Mean Squared Error</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">default_rng</span><span class="p">()</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">where</span><span class="p">(</span><span class="n">x</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span> <span class="o">+</span> <span class="n">rng</span><span class="p">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">x</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">SquaredErrorLoss</span><span class="p">():</span>
+    
+    <span class="k">def</span> <span class="nf">loss</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">y_hat</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">np</span><span class="p">.</span><span class="n">mean</span><span class="p">((</span><span class="n">y</span> <span class="o">-</span> <span class="n">y_hat</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">negative_gradient</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">y_hat</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">y</span> <span class="o">-</span> <span class="n">y_hat</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gbm</span> <span class="o">=</span> <span class="n">GradientBoostingMachine</span><span class="p">(</span><span class="n">n_trees</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+                              <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">gbm</span><span class="p">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">SquaredErrorLoss</span><span class="p">())</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># fig, ax = plt.subplot()
+</span><span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">y</span><span class="p">,</span> <span class="s">'o'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'data'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">gbm</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="s">'-k'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'model'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'x'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'y'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'model predicting mean or y | x'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Text(0.5, 1.0, 'model predicting mean or y | x')
+</code></pre></div></div>
+
+<p><img src="/assets/2023-09-10-gbm-implementation_files/2023-09-10-gbm-implementation_43_1.png" alt="png" /></p>
+
+<h3 id="mean-absolute-error">Mean Absolute Error</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">default_rng</span><span class="p">()</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">where</span><span class="p">(</span><span class="n">x</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span> <span class="o">+</span> <span class="n">rng</span><span class="p">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">x</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">AbsoluteErrorLoss</span><span class="p">():</span>
+    
+    <span class="k">def</span> <span class="nf">loss</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">y_hat</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">np</span><span class="p">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="nb">abs</span><span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">y_hat</span><span class="p">))</span>
+    
+    <span class="k">def</span> <span class="nf">negative_gradient</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">y_hat</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">np</span><span class="p">.</span><span class="n">sign</span><span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">y_hat</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gbm</span> <span class="o">=</span> <span class="n">GradientBoostingMachine</span><span class="p">(</span><span class="n">n_trees</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+                              <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">gbm</span><span class="p">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">AbsoluteErrorLoss</span><span class="p">())</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># fig, ax = plt.subplot()
+</span><span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">y</span><span class="p">,</span> <span class="s">'o'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'data'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">gbm</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="s">'-k'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'model'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'x'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'y'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'model predicting median of y | x'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Text(0.5, 1.0, 'model predicting median of y | x')
+</code></pre></div></div>
+
+<p><img src="/assets/2023-09-10-gbm-implementation_files/2023-09-10-gbm-implementation_48_1.png" alt="png" /></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+</code></pre></div></div>
+
+<h3 id="quantile-loss">Quantile Loss</h3>
+<p>\(L_\gamma\left(y, y^p\right)=\sum_{i: y_i&lt;y_i^p}(1-\gamma)\left|y_i-y_i^p\right|+\sum_{i: y_i \geq y_i^p} \gamma\left|y_i-y_i^p\right|\)
+γ是所需的分位数，其值介于0和1之间。 Y轴：分位数损失。X轴：预测值。Y的真值为0。
+许多商业问题的决策通常希望了解预测中的不确定性，更关注区间预测而不仅是点预测时，分位数损失函数就很有用。</p>
+
+<p><img src="/assets/2023-09-10-gbm-implementation_files/39c4b069-0662-40d5-b135-c8ad94f6008a.png" alt="image.png" /></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">default_rng</span><span class="p">()</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
+<span class="c1"># y = np.where(x &lt; 5, x, 5) + rng.uniform(-2, 2, size=x.shape)
+</span><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">where</span><span class="p">(</span><span class="n">x</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span> <span class="o">+</span> <span class="n">rng</span><span class="p">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">x</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">QuantileLoss</span><span class="p">():</span>
+    
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alpha</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">alpha</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">alpha</span> <span class="o">&gt;</span><span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="nb">ValueError</span><span class="p">(</span><span class="s">'alpha must be between 0 and 1'</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="n">alpha</span>
+        
+    <span class="k">def</span> <span class="nf">loss</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">y_hat</span><span class="p">):</span>
+        <span class="n">e</span> <span class="o">=</span> <span class="n">y</span> <span class="o">-</span> <span class="n">y_hat</span>
+        <span class="k">return</span> <span class="n">np</span><span class="p">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">where</span><span class="p">(</span><span class="n">e</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">alpha</span> <span class="o">*</span> <span class="n">e</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">alpha</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">e</span><span class="p">))</span>
+    
+    <span class="k">def</span> <span class="nf">negative_gradient</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">y_hat</span><span class="p">):</span>
+        <span class="n">e</span> <span class="o">=</span> <span class="n">y</span> <span class="o">-</span> <span class="n">y_hat</span> 
+        <span class="k">return</span> <span class="n">np</span><span class="p">.</span><span class="n">where</span><span class="p">(</span><span class="n">e</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">alpha</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">alpha</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gbm_up</span> <span class="o">=</span> <span class="n">GradientBoostingMachine</span><span class="p">(</span><span class="n">n_trees</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+                              <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">gbm_up</span><span class="p">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">QuantileLoss</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">))</span>
+
+<span class="n">gbm_low</span> <span class="o">=</span> <span class="n">GradientBoostingMachine</span><span class="p">(</span><span class="n">n_trees</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+                              <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+<span class="n">gbm_low</span><span class="p">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">QuantileLoss</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">))</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s">'o'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'data'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">gbm_up</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="s">'r-'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'0.95'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">gbm_low</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="s">'g-'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'0.05'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'x'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'y'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'model predicting 0.9 quantile of y | x'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Text(0.5, 1.0, 'model predicting 0.9 quantile of y | x')
+</code></pre></div></div>
+
+<p><img src="/assets/2023-09-10-gbm-implementation_files/2023-09-10-gbm-implementation_54_1.png" alt="png" /></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+</code></pre></div></div>
+
+<h3 id="binary-cross-entropy">Binary Cross Entropy</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">default_rng</span><span class="p">()</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
+<span class="n">expit</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">np</span><span class="p">.</span><span class="n">exp</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="p">.</span><span class="n">exp</span><span class="p">(</span><span class="n">t</span><span class="p">))</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">expit</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">rng</span><span class="p">.</span><span class="n">binomial</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">p</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">BinaryCrossEntropyLoss</span><span class="p">():</span>
+    <span class="c1"># in these methods, y_hat gives the log odds ratio
+</span>    
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">expit</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">np</span><span class="p">.</span><span class="n">exp</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="p">.</span><span class="n">exp</span><span class="p">(</span><span class="n">t</span><span class="p">))</span>
+    
+    <span class="k">def</span> <span class="nf">loss</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">y_hat</span><span class="p">):</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">expit</span><span class="p">(</span><span class="n">y_hat</span><span class="p">)</span>
+        <span class="k">return</span> <span class="o">-</span><span class="n">np</span><span class="p">.</span><span class="n">mean</span><span class="p">(</span><span class="n">y</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p</span><span class="p">))</span>
+    
+    <span class="k">def</span> <span class="nf">negative_gradient</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">y_hat</span><span class="p">):</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">expit</span><span class="p">(</span><span class="n">y_hat</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">y</span> <span class="o">/</span> <span class="n">p</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gbm</span> <span class="o">=</span> <span class="n">GradientBoostingMachine</span><span class="p">(</span><span class="n">n_trees</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+                              <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">gbm</span><span class="p">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">BinaryCrossEntropyLoss</span><span class="p">())</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s">'o'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'data'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="s">'-r'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'P(y=1|x)'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">expit</span><span class="p">(</span><span class="n">gbm</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x</span><span class="p">)),</span> <span class="s">'-k'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'model'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'model predicting P(y = 1 | x)'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'x'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'y'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">legend</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;matplotlib.legend.Legend at 0x7f02cee90b90&gt;
+</code></pre></div></div>
+
+<p><img src="/assets/2023-09-10-gbm-implementation_files/2023-09-10-gbm-implementation_60_1.png" alt="png" /></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+</code></pre></div></div>
+
+</div>
+
+<span class="post-tags">
+    
+      <i class="fa fa-tag fa-xs" aria-hidden="true"></i>
+      
+      <a class="no-underline" href="/tag/AI"><nobr>AI</nobr></code>&nbsp;</a>    
+    
+</span>
+
+<div class="recent">
+  <h2>Recent Posts</h2>
+  <ul class="recent-posts">
+    
+      <li>
+        <h4>
+          <a href="/coding/2023/12/11/diffusion-model-demo2.html">
+            A Diffusion Model from Scratch in Pytorch
+          </a>
+          <small>[11 Dec 2023]</small>
+        </h4>
+      </li>
+    
+      <li>
+        <h4>
+          <a href="/coding/2023/12/02/Inspect-BERT-Vocabulary.html">
+            Inspect BERT Vocabulary
+          </a>
+          <small>[02 Dec 2023]</small>
+        </h4>
+      </li>
+    
+      <li>
+        <h4>
+          <a href="/working/2023/12/01/My-Tasks-and-Notes.html">
+            working todo
+          </a>
+          <small>[01 Dec 2023]</small>
+        </h4>
+      </li>
+    
+  </ul>
+</div>
+    </div>
+
+  </body>
+</html>

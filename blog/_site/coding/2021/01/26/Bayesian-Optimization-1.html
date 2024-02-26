@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  
+  <!-- include collecttags -->
+  
+  
+
+
+
+
+
+  
+
+  <title>
+    
+      Bayesian Optimization with GPyOpt &middot; Zhu Philip's AI Journey
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link href="https://fonts.googleapis.com/css?family=East+Sea+Dokdo&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.0/css/all.min.css" rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+
+  <!-- merge something else -->
+  
+  <!-- merge something else 
+  <link rel="stylesheet" href="/assets/css/post.css" />
+  <link rel="stylesheet" href="/assets/css/syntax.css" /> -->
+  
+  
+  <link rel="stylesheet" href="/assets/css/common.css" />
+  <script src="/assets/js/categories.js"></script>  
+  
+  <script defer src="/assets/js/lbox.js"></script>
+   
+
+  <!-- MathJax -->
+  <script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+  });
+  MathJax.Hub.Queue(function() {
+    // Fix <code> tags after MathJax finishes running. This is a
+    // hack to overcome a shortcoming of Markdown. Discussion at
+    // https://github.com/mojombo/jekyll/issues/199
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+
+  MathJax.Hub.Config({
+  // Autonumbering by mathjax
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+  });
+</script> 
+
+</head>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-89141653-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-89141653-4');
+</script>
+
+
+
+  <body>
+
+    <link rel="stylesheet" href="/assets/style-3.css">
+<div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <h1>
+        <div align="center">
+          <img src="/assets/profile-pixel.png" class="profilepic pt-3 pb-2">
+        </div>
+        <!-- <a href="/"> -->
+          Zhu Philip's AI Journey
+        </a>
+      </h1>
+      <p class="lead"></p>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/">Home</a>
+
+      <!-- Manual set order -->
+      <a class="sidebar-nav-item" href="/categories">Categories</a>
+      <a class="sidebar-nav-item" href="/working">Working</a>
+      <a class="sidebar-nav-item" href="/publication">Publication</a>
+      <!-- <a class="sidebar-nav-item" href="/projects">Projects</a> -->
+      <a class="sidebar-nav-item" href="/about">About</a>
+
+      <!-- Uncomment for auto order -->
+      <!-- 
+
+      
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/about/">About</a>
+          
+        
+      
+        
+          
+        
+      
+        
+      
+        
+          
+        
+      
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/categories/">Categories</a>
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/publication/">publications</a>
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/working/">Working</a>
+          
+        
+      
+        
+          
+        
+      
+        
+      
+        
+          
+        
+      
+        
+          
+        
+       -->
+
+      
+      <!-- <a class="sidebar-nav-item" href="https://github.com/zphilip/zphilip.github.io">GitHub project</a> -->
+      <!-- <span class="sidebar-nav-item">Currently v</span> -->
+      
+<div id="social-media">
+    
+    
+        
+        
+            <a href="mailto:zphilip48@gmail.com" title="Email"><i class="fa fa-envelope"></i></a>
+        
+    
+        
+        
+            <a href="https://www.linkedin.com/in/tianda-zhu-37a5b031" title="Linkedin"><i class="fab fa-linkedin"></i></a>
+        
+    
+        
+        
+            <a href="https://github.com/zphilip" title="GitHub"><i class="fab fa-github"></i></a>
+        
+    
+        
+        
+            <a href="https://www.youtube.com/user/zphilip" title="YouTube"><i class="fab fa-youtube"></i></a>
+        
+    
+</div>
+
+
+    </nav>
+
+    <p>&copy; 2024. All rights reserved.</p>
+  </div>
+</div>
+
+
+    <div class="content container">
+      <div class="post">
+  <h1 class="post-title">Bayesian Optimization with GPyOpt</h1>
+  <span class="post-date">26 Jan 2021</span>
+  <p><strong>Bayesian Optimization with GPyOpt</strong><br />
+<strong>This example only show how the GPyOpt API work</strong></p>
+
+<p>Try to find optimal hyperparameters to XGBoost model using Bayesian optimization with GP, with the diabetes dataset (from sklearn) as input. Let’s first load the dataset with the following python code snippet:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">datasets</span>
+<span class="kn">from</span> <span class="nn">xgboost</span> <span class="kn">import</span> <span class="n">XGBRegressor</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">cross_val_score</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">datasets</span><span class="p">.</span><span class="n">load_diabetes</span><span class="p">()</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="s">'data'</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="s">'target'</span><span class="p">]</span>
+</code></pre></div></div>
+<p>We will use cross-validation score to estimate accuracy and our goal will be to tune: max_depth, learning_rate, n_estimators parameters. First, we have to define optimization function and domains, as shown in the code below.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Optimizer will try to find minimum, so let's add a "-" sign.
+</span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">parameters</span><span class="p">):</span>
+    <span class="n">parameters</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">score</span> <span class="o">=</span> <span class="o">-</span><span class="n">cross_val_score</span><span class="p">(</span>
+        <span class="n">XGBRegressor</span><span class="p">(</span><span class="n">learning_rate</span><span class="o">=</span><span class="n">parameters</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                     <span class="n">max_depth</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">parameters</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span>
+                     <span class="n">n_estimators</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">parameters</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span>
+                     <span class="n">gamma</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">parameters</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>
+                     <span class="n">min_child_weight</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="mi">4</span><span class="p">]),</span> 
+        <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s">'neg_root_mean_squared_error'</span>
+    <span class="p">).</span><span class="n">mean</span><span class="p">()</span>
+    <span class="n">score</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">score</span>
+     
+<span class="c1"># Bounds (define continuous variables first, then discrete!)
+</span><span class="n">bounds</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span><span class="s">'name'</span><span class="p">:</span> <span class="s">'learning_rate'</span><span class="p">,</span>
+     <span class="s">'type'</span><span class="p">:</span> <span class="s">'continuous'</span><span class="p">,</span>
+     <span class="s">'domain'</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)},</span>
+    <span class="p">{</span><span class="s">'name'</span><span class="p">:</span> <span class="s">'gamma'</span><span class="p">,</span>
+     <span class="s">'type'</span><span class="p">:</span> <span class="s">'continuous'</span><span class="p">,</span>
+     <span class="s">'domain'</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">)},</span>
+    <span class="p">{</span><span class="s">'name'</span><span class="p">:</span> <span class="s">'max_depth'</span><span class="p">,</span>
+     <span class="s">'type'</span><span class="p">:</span> <span class="s">'discrete'</span><span class="p">,</span>
+     <span class="s">'domain'</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">50</span><span class="p">)},</span>
+    <span class="p">{</span><span class="s">'name'</span><span class="p">:</span> <span class="s">'n_estimators'</span><span class="p">,</span>
+     <span class="s">'type'</span><span class="p">:</span> <span class="s">'discrete'</span><span class="p">,</span>
+     <span class="s">'domain'</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">300</span><span class="p">)},</span>
+    <span class="p">{</span><span class="s">'name'</span><span class="p">:</span> <span class="s">'min_child_weight'</span><span class="p">,</span>
+     <span class="s">'type'</span><span class="p">:</span> <span class="s">'discrete'</span><span class="p">,</span>
+     <span class="s">'domain'</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)}</span>
+<span class="p">]</span>
+</code></pre></div></div>
+
+<p>Let’s find the baseline RMSE with default XGBoost parameters is . Let’s see if we can do better.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">baseline</span> <span class="o">=</span> <span class="o">-</span><span class="n">cross_val_score</span><span class="p">(</span>
+    <span class="n">XGBRegressor</span><span class="p">(),</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s">'neg_root_mean_squared_error'</span>
+<span class="p">).</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">baseline</span>
+<span class="c1"># 64.90693011829266
+</span></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>64.90693033120199
+</code></pre></div></div>
+
+<p>Now, run the Bayesian optimization with GPyOpt and plot convergence, as in the next code snippet:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">import</span> <span class="nn">GPyOpt</span>
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">GPyOpt</span><span class="p">.</span><span class="n">methods</span><span class="p">.</span><span class="n">BayesianOptimization</span><span class="p">(</span>
+    <span class="n">f</span><span class="o">=</span><span class="n">f</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="n">bounds</span><span class="p">,</span>
+    <span class="n">acquisition_type</span> <span class="o">=</span><span class="s">'MPI'</span><span class="p">,</span> <span class="c1">## method to optimize the acq. function
+</span>    <span class="n">acquisition_par</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span>
+    <span class="n">exact_eval</span><span class="o">=</span><span class="bp">True</span>
+<span class="p">)</span>
+<span class="n">max_iter</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">max_time</span> <span class="o">=</span> <span class="mi">60</span>
+<span class="n">optimizer</span><span class="p">.</span><span class="n">run_optimization</span><span class="p">(</span><span class="n">max_iter</span><span class="p">,</span> <span class="n">max_time</span><span class="p">)</span>
+<span class="n">optimizer</span><span class="p">.</span><span class="n">plot_convergence</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p><img src="/assets/2023-12-01-Bayesian-Optimization-1_files/2023-12-01-Bayesian-Optimization-1_7_0.png" alt="png" /></p>
+
+<p>Extract the best values of the parameters and compute the RMSE / gain obtained with Bayesian Optimization, using the following code.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">optimizer</span><span class="p">.</span><span class="n">X</span><span class="p">[</span><span class="n">np</span><span class="p">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">optimizer</span><span class="p">.</span><span class="n">Y</span><span class="p">)]</span>
+<span class="c1"># array([2.01515532e-01, 1.35401092e+00, 1.00000000e+00, 
+# 3.00000000e+02, 1.00000000e+00])
+</span></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>array([5.00047461e-02, 3.10049677e+00, 1.00000000e+00, 3.00000000e+02,
+       1.00000000e+01])
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="s">'RMSE:'</span><span class="p">,</span> <span class="n">np</span><span class="p">.</span><span class="nb">min</span><span class="p">(</span><span class="n">optimizer</span><span class="p">.</span><span class="n">Y</span><span class="p">),</span>
+      <span class="s">'Gain:'</span><span class="p">,</span> <span class="n">baseline</span><span class="o">/</span><span class="n">np</span><span class="p">.</span><span class="nb">min</span><span class="p">(</span><span class="n">optimizer</span><span class="p">.</span><span class="n">Y</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="p">)</span>
+<span class="c1"># RMSE: 57.6844355488563 Gain: 112.52069904249859
+</span></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>RMSE: 56.1566484514227 Gain: 125.44111632088877
+</code></pre></div></div>
+
+<p>Paramerter Tuning for SVR</p>
+
+<p>-Now, let’s tune a Support Vector Regressor model with Bayesian Optimization and find the optimal values for three parameters: C, epsilon and gamma.</p>
+
+<p>-Let’s use range (1e-5, 1000) for C, (1e-5, 10) for epsilon and gamma.</p>
+
+<p>-Let’s use MPI as an acquisition function with weight 0.1.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVR</span><span class="c1"># Bounds (define continuous variables first, then discrete!)
+</span><span class="n">bounds</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span><span class="s">'name'</span><span class="p">:</span> <span class="s">'C'</span><span class="p">,</span>
+     <span class="s">'type'</span><span class="p">:</span> <span class="s">'continuous'</span><span class="p">,</span>
+     <span class="s">'domain'</span><span class="p">:</span> <span class="p">(</span><span class="mf">1e-5</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)},</span>    <span class="p">{</span><span class="s">'name'</span><span class="p">:</span> <span class="s">'epsilon'</span><span class="p">,</span>
+     <span class="s">'type'</span><span class="p">:</span> <span class="s">'continuous'</span><span class="p">,</span>
+     <span class="s">'domain'</span><span class="p">:</span> <span class="p">(</span><span class="mf">1e-5</span><span class="p">,</span> <span class="mi">10</span><span class="p">)},</span>    <span class="p">{</span><span class="s">'name'</span><span class="p">:</span> <span class="s">'gamma'</span><span class="p">,</span>
+     <span class="s">'type'</span><span class="p">:</span> <span class="s">'continuous'</span><span class="p">,</span>
+     <span class="s">'domain'</span><span class="p">:</span> <span class="p">(</span><span class="mf">1e-5</span><span class="p">,</span> <span class="mi">10</span><span class="p">)}</span>
+<span class="p">]</span>
+ 
+<span class="c1"># Score. Optimizer will try to find minimum, so we will add a "-" sign.
+</span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">parameters</span><span class="p">):</span>
+    <span class="n">parameters</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">score</span> <span class="o">=</span> <span class="o">-</span><span class="n">cross_val_score</span><span class="p">(</span>
+        <span class="n">SVR</span><span class="p">(</span><span class="n">C</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="n">epsilon</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+            <span class="n">gamma</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span> 
+        <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s">'neg_root_mean_squared_error'</span>
+    <span class="p">).</span><span class="n">mean</span><span class="p">()</span>
+    <span class="n">score</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
+    <span class="n">scoreoptimizer</span> <span class="o">=</span> <span class="n">GPyOpt</span><span class="p">.</span><span class="n">methods</span><span class="p">.</span><span class="n">BayesianOptimization</span><span class="p">(</span>
+            <span class="n">f</span><span class="o">=</span><span class="n">f</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="n">bounds</span><span class="p">,</span>
+            <span class="n">acquisition_type</span> <span class="o">=</span><span class="s">'MPI'</span><span class="p">,</span>
+            <span class="n">acquisition_par</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span>
+            <span class="n">exact_eval</span><span class="o">=</span><span class="bp">True</span>
+            <span class="p">)</span>
+    <span class="k">return</span> <span class="n">scoreoptimizer</span>
+
+<span class="n">max_iter</span> <span class="o">=</span> <span class="mi">50</span><span class="o">*</span><span class="mi">4</span>
+<span class="n">max_time</span> <span class="o">=</span> <span class="mi">60</span><span class="o">*</span><span class="mi">4</span>
+
+<span class="n">optimizer</span><span class="p">.</span><span class="n">run_optimization</span><span class="p">(</span><span class="n">max_iter</span><span class="p">,</span> <span class="n">max_time</span><span class="p">)</span>
+<span class="n">baseline</span> <span class="o">=</span> <span class="o">-</span><span class="n">cross_val_score</span><span class="p">(</span> <span class="n">SVR</span><span class="p">(),</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s">'neg_root_mean_squared_error'</span><span class="p">).</span><span class="n">mean</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">baseline</span><span class="p">)</span>
+
+<span class="c1"># 70.44352670586173print(optimizer.X[np.argmin(optimizer.Y)])
+# [126.64337652   8.49323372   8.59189135]
+</span><span class="k">print</span><span class="p">(</span><span class="s">'RMSE:'</span><span class="p">,</span> <span class="n">np</span><span class="p">.</span><span class="nb">min</span><span class="p">(</span><span class="n">optimizer</span><span class="p">.</span><span class="n">Y</span><span class="p">),</span>
+      <span class="s">'Gain:'</span><span class="p">,</span> <span class="n">baseline</span><span class="o">/</span><span class="n">np</span><span class="p">.</span><span class="nb">min</span><span class="p">(</span><span class="n">optimizer</span><span class="p">.</span><span class="n">Y</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="p">)</span>
+<span class="c1"># RMSE: 54.02576574389976 Gain: 130.38876124364006     best_epsilon = optimizer.X[np.argmin(optimizer.Y)][1] 
+</span><span class="n">optimizer</span><span class="p">.</span><span class="n">plot_convergence</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>70.44352670586173
+RMSE: 56.1566484514227 Gain: 125.44111632088877
+</code></pre></div></div>
+
+<p><img src="/assets/2023-12-01-Bayesian-Optimization-1_files/2023-12-01-Bayesian-Optimization-1_12_1.png" alt="png" /></p>
+
+<p>Surrogate Function
+The surrogate function is a technique used to best approximate the mapping of input examples to an output score.</p>
+
+<h2 id="how-to-implement-bayesian-optimization-from-scratch-in-python">How to Implement Bayesian Optimization from Scratch in Python</h2>
+
+<p>https://machinelearningmastery.com/what-is-bayesian-optimization/</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># example of a gaussian process surrogate function
+</span><span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sin</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">pi</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">arange</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">asarray</span>
+<span class="kn">from</span> <span class="nn">numpy.random</span> <span class="kn">import</span> <span class="n">normal</span>
+<span class="kn">from</span> <span class="nn">numpy.random</span> <span class="kn">import</span> <span class="n">random</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span>
+<span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">catch_warnings</span>
+<span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">simplefilter</span>
+<span class="kn">from</span> <span class="nn">sklearn.gaussian_process</span> <span class="kn">import</span> <span class="n">GaussianProcessRegressor</span>
+
+<span class="c1"># objective function
+</span><span class="k">def</span> <span class="nf">objective</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="mf">0.1</span><span class="p">):</span>
+	<span class="n">noise</span> <span class="o">=</span> <span class="n">normal</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">noise</span><span class="p">)</span>
+	<span class="k">return</span> <span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="mi">5</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">*</span> <span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mf">6.0</span><span class="p">)</span> <span class="o">+</span> <span class="n">noise</span>
+
+<span class="c1"># surrogate or approximation for the objective function
+</span><span class="k">def</span> <span class="nf">surrogate</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+	<span class="c1"># catch any warning generated when making a prediction
+</span>	<span class="k">with</span> <span class="n">catch_warnings</span><span class="p">():</span>
+		<span class="c1"># ignore generated warnings
+</span>		<span class="n">simplefilter</span><span class="p">(</span><span class="s">"ignore"</span><span class="p">)</span>
+		<span class="k">return</span> <span class="n">model</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">return_std</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="c1"># plot real observations vs surrogate function
+</span><span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
+	<span class="c1"># scatter plot of inputs and real objective function
+</span>	<span class="n">pyplot</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+	<span class="c1"># line plot of surrogate function across domain
+</span>	<span class="n">Xsamples</span> <span class="o">=</span> <span class="n">asarray</span><span class="p">(</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">))</span>
+	<span class="n">Xsamples</span> <span class="o">=</span> <span class="n">Xsamples</span><span class="p">.</span><span class="n">reshape</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">Xsamples</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+	<span class="n">ysamples</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">surrogate</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">Xsamples</span><span class="p">)</span>
+	<span class="n">pyplot</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">Xsamples</span><span class="p">,</span> <span class="n">ysamples</span><span class="p">)</span>
+	<span class="c1"># show the plot
+</span>	<span class="n">pyplot</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># sample the domain sparsely with noise
+</span><span class="n">X</span> <span class="o">=</span> <span class="n">random</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">asarray</span><span class="p">([</span><span class="n">objective</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">X</span><span class="p">])</span>
+<span class="c1"># reshape into rows and cols
+</span><span class="n">X</span> <span class="o">=</span> <span class="n">X</span><span class="p">.</span><span class="n">reshape</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">.</span><span class="n">reshape</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+<span class="c1"># define the model
+</span><span class="n">model</span> <span class="o">=</span> <span class="n">GaussianProcessRegressor</span><span class="p">()</span>
+<span class="c1"># fit the model
+</span><span class="n">model</span><span class="p">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="c1"># plot the surrogate function
+</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><img src="/assets/2023-12-01-Bayesian-Optimization-1_files/2023-12-01-Bayesian-Optimization-1_14_0.png" alt="png" /></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># example of bayesian optimization for a 1d function from scratch
+# this is pure gaussian bayesian optimization to find the next x to sampling...
+</span><span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sin</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">pi</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">arange</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">vstack</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">argmax</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">asarray</span>
+<span class="kn">from</span> <span class="nn">numpy.random</span> <span class="kn">import</span> <span class="n">normal</span>
+<span class="kn">from</span> <span class="nn">numpy.random</span> <span class="kn">import</span> <span class="n">random</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
+<span class="kn">from</span> <span class="nn">sklearn.gaussian_process</span> <span class="kn">import</span> <span class="n">GaussianProcessRegressor</span>
+<span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">catch_warnings</span>
+<span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">simplefilter</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span>
+
+<span class="c1"># the true objective loss function??
+</span><span class="k">def</span> <span class="nf">objective</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="mf">0.1</span><span class="p">):</span>
+	<span class="n">noise</span> <span class="o">=</span> <span class="n">normal</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">noise</span><span class="p">)</span>
+	<span class="k">return</span> <span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="mi">5</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">*</span> <span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mf">6.0</span><span class="p">)</span> <span class="o">+</span> <span class="n">noise</span>
+
+<span class="c1"># surrogate or approximation for the objective function
+</span><span class="k">def</span> <span class="nf">surrogate</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+	<span class="c1"># catch any warning generated when making a prediction
+</span>	<span class="k">with</span> <span class="n">catch_warnings</span><span class="p">():</span>
+		<span class="c1"># ignore generated warnings
+</span>		<span class="n">simplefilter</span><span class="p">(</span><span class="s">"ignore"</span><span class="p">)</span>
+		<span class="k">return</span> <span class="n">model</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">return_std</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="c1"># probability of improvement acquisition function
+</span><span class="k">def</span> <span class="nf">acquisition</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Xsamples</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
+	<span class="c1"># calculate the best surrogate score found so far
+</span>	<span class="n">yhat</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">surrogate</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
+	<span class="n">best</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">yhat</span><span class="p">)</span>
+	<span class="c1"># calculate mean and stdev via surrogate function
+</span>	<span class="n">mu</span><span class="p">,</span> <span class="n">std</span> <span class="o">=</span> <span class="n">surrogate</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">Xsamples</span><span class="p">)</span>
+	<span class="n">mu</span> <span class="o">=</span> <span class="n">mu</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+	<span class="c1"># calculate the probability of improvement
+</span>	<span class="n">probs</span> <span class="o">=</span> <span class="n">norm</span><span class="p">.</span><span class="n">cdf</span><span class="p">((</span><span class="n">mu</span> <span class="o">-</span> <span class="n">best</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">std</span><span class="o">+</span><span class="mf">1E-9</span><span class="p">))</span>
+	<span class="k">return</span> <span class="n">probs</span>
+
+<span class="c1"># optimize the acquisition function
+</span><span class="k">def</span> <span class="nf">opt_acquisition</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
+	<span class="c1"># random search, generate random samples
+</span>	<span class="n">Xsamples</span> <span class="o">=</span> <span class="n">random</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+	<span class="n">Xsamples</span> <span class="o">=</span> <span class="n">Xsamples</span><span class="p">.</span><span class="n">reshape</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">Xsamples</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+	<span class="c1"># calculate the acquisition function for each sample
+</span>	<span class="n">scores</span> <span class="o">=</span> <span class="n">acquisition</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Xsamples</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
+	<span class="c1"># locate the index of the largest scores
+</span>	<span class="n">ix</span> <span class="o">=</span> <span class="n">argmax</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
+	<span class="k">return</span> <span class="n">Xsamples</span><span class="p">[</span><span class="n">ix</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># plot real observations vs surrogate function
+</span><span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
+	<span class="c1"># scatter plot of inputs and real objective function
+</span>	<span class="n">pyplot</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+	<span class="c1"># line plot of surrogate function across domain
+</span>	<span class="n">Xsamples</span> <span class="o">=</span> <span class="n">asarray</span><span class="p">(</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">))</span>
+	<span class="n">Xsamples</span> <span class="o">=</span> <span class="n">Xsamples</span><span class="p">.</span><span class="n">reshape</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">Xsamples</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+	<span class="n">ysamples</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">surrogate</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">Xsamples</span><span class="p">)</span>
+	<span class="n">pyplot</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">Xsamples</span><span class="p">,</span> <span class="n">ysamples</span><span class="p">)</span>
+	<span class="c1"># show the plot
+</span>	<span class="n">pyplot</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># sample the domain sparsely with noise
+</span><span class="n">X</span> <span class="o">=</span> <span class="n">random</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">asarray</span><span class="p">([</span><span class="n">objective</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">X</span><span class="p">])</span>
+<span class="c1"># reshape into rows and cols
+</span><span class="n">X</span> <span class="o">=</span> <span class="n">X</span><span class="p">.</span><span class="n">reshape</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">.</span><span class="n">reshape</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+<span class="c1"># define the model
+</span><span class="n">model</span> <span class="o">=</span> <span class="n">GaussianProcessRegressor</span><span class="p">()</span>
+<span class="c1"># fit the model
+</span><span class="n">model</span><span class="p">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="c1"># plot before hand
+</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
+
+<span class="c1"># perform the optimization process
+</span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+	<span class="c1"># select the next point to sample
+</span>	<span class="n">x</span> <span class="o">=</span> <span class="n">opt_acquisition</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
+	<span class="c1"># if hyperparamters , here need to apply the paramters into the object function
+</span>    <span class="c1"># sample the point
+</span>	<span class="n">actual</span> <span class="o">=</span> <span class="n">objective</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+	<span class="c1"># summarize the finding
+</span>	<span class="n">est</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">surrogate</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="p">[[</span><span class="n">x</span><span class="p">]])</span>
+	<span class="k">print</span><span class="p">(</span><span class="s">'&gt;x=%.3f, f()=%3f, actual=%.3f'</span> <span class="o">%</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">est</span><span class="p">,</span> <span class="n">actual</span><span class="p">))</span>
+	<span class="c1"># add the data to the dataset
+</span>	<span class="n">X</span> <span class="o">=</span> <span class="n">vstack</span><span class="p">((</span><span class="n">X</span><span class="p">,</span> <span class="p">[[</span><span class="n">x</span><span class="p">]]))</span>
+	<span class="n">y</span> <span class="o">=</span> <span class="n">vstack</span><span class="p">((</span><span class="n">y</span><span class="p">,</span> <span class="p">[[</span><span class="n">actual</span><span class="p">]]))</span>
+	<span class="c1"># update the model
+</span>	<span class="n">model</span><span class="p">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="c1"># plot all samples and the final surrogate function
+</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
+<span class="c1"># best result
+</span><span class="n">ix</span> <span class="o">=</span> <span class="n">argmax</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'Best Result: x=%.3f, y=%.3f'</span> <span class="o">%</span> <span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">ix</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">ix</span><span class="p">]))</span>
+</code></pre></div></div>
+
+<p><img src="/assets/2023-12-01-Bayesian-Optimization-1_files/2023-12-01-Bayesian-Optimization-1_15_0.png" alt="png" /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;x=0.753, f()=0.130899, actual=0.202
+&gt;x=0.914, f()=0.441535, actual=0.830
+&gt;x=0.914, f()=0.468772, actual=0.614
+&gt;x=0.448, f()=0.072738, actual=0.213
+&gt;x=0.255, f()=-0.005875, actual=-0.006
+&gt;x=0.546, f()=0.125458, actual=0.071
+&gt;x=0.644, f()=0.099045, actual=-0.099
+&gt;x=0.546, f()=0.115388, actual=0.125
+&gt;x=0.913, f()=0.480679, actual=0.718
+&gt;x=0.724, f()=0.094843, actual=0.413
+&gt;x=0.108, f()=0.029385, actual=-0.000
+&gt;x=0.366, f()=0.019852, actual=0.169
+&gt;x=0.935, f()=0.466089, actual=0.308
+&gt;x=0.912, f()=0.484408, actual=0.802
+&gt;x=0.913, f()=0.501859, actual=0.812
+&gt;x=0.846, f()=0.379995, actual=0.132
+&gt;x=0.661, f()=0.088295, actual=0.177
+&gt;x=0.383, f()=0.037196, actual=-0.013
+&gt;x=0.113, f()=0.026929, actual=-0.118
+&gt;x=0.981, f()=0.147262, actual=-0.012
+&gt;x=0.868, f()=0.436012, actual=0.285
+&gt;x=0.911, f()=0.503125, actual=0.739
+&gt;x=0.646, f()=0.095198, actual=-0.099
+&gt;x=0.355, f()=0.019695, actual=0.077
+&gt;x=0.535, f()=0.120008, actual=0.179
+&gt;x=0.729, f()=0.099606, actual=0.180
+&gt;x=0.913, f()=0.515075, actual=0.530
+&gt;x=0.309, f()=0.003572, actual=0.045
+&gt;x=0.950, f()=0.416246, actual=0.119
+&gt;x=0.912, f()=0.506245, actual=0.845
+&gt;x=0.911, f()=0.520569, actual=0.806
+&gt;x=0.911, f()=0.532109, actual=0.848
+&gt;x=0.135, f()=0.018783, actual=-0.117
+&gt;x=0.911, f()=0.544241, actual=0.610
+&gt;x=0.148, f()=0.011521, actual=-0.119
+&gt;x=0.002, f()=0.093856, actual=0.073
+&gt;x=0.221, f()=-0.003341, actual=-0.009
+&gt;x=0.072, f()=0.008024, actual=-0.175
+&gt;x=0.293, f()=0.001839, actual=0.134
+&gt;x=0.804, f()=0.259678, actual=-0.110
+&gt;x=0.111, f()=-0.004541, actual=0.012
+&gt;x=0.679, f()=0.071661, actual=0.215
+&gt;x=0.426, f()=0.079402, actual=-0.100
+&gt;x=0.967, f()=0.280364, actual=-0.133
+&gt;x=0.814, f()=0.283361, actual=-0.118
+&gt;x=0.529, f()=0.126789, actual=0.145
+&gt;x=0.664, f()=0.077135, actual=0.231
+&gt;x=0.914, f()=0.528958, actual=0.622
+&gt;x=0.124, f()=0.001293, actual=0.042
+&gt;x=0.911, f()=0.533073, actual=0.884
+&gt;x=0.357, f()=0.020477, actual=-0.036
+&gt;x=0.393, f()=0.043710, actual=-0.044
+&gt;x=0.638, f()=0.094322, actual=0.031
+&gt;x=0.469, f()=0.101346, actual=0.175
+&gt;x=0.584, f()=0.122175, actual=0.081
+&gt;x=0.911, f()=0.545548, actual=0.825
+&gt;x=0.701, f()=0.072042, actual=0.487
+&gt;x=0.911, f()=0.552639, actual=0.811
+&gt;x=0.641, f()=0.098095, actual=-0.014
+&gt;x=0.305, f()=-0.004428, actual=0.003
+&gt;x=0.295, f()=-0.005267, actual=0.150
+&gt;x=0.767, f()=0.153709, actual=-0.174
+&gt;x=0.658, f()=0.081160, actual=0.100
+&gt;x=0.171, f()=0.014084, actual=-0.156
+&gt;x=0.657, f()=0.081738, actual=0.422
+&gt;x=0.640, f()=0.100931, actual=-0.157
+&gt;x=0.911, f()=0.559911, actual=0.786
+&gt;x=0.194, f()=0.007003, actual=0.065
+&gt;x=0.884, f()=0.528691, actual=0.647
+&gt;x=0.927, f()=0.550419, actual=0.328
+&gt;x=0.682, f()=0.075016, actual=0.308
+&gt;x=0.531, f()=0.135375, actual=0.071
+&gt;x=0.079, f()=-0.014623, actual=0.022
+&gt;x=0.918, f()=0.559093, actual=0.659
+&gt;x=0.826, f()=0.329826, actual=0.135
+&gt;x=0.380, f()=0.031751, actual=-0.054
+&gt;x=0.255, f()=-0.002043, actual=-0.072
+&gt;x=0.755, f()=0.124829, actual=0.248
+&gt;x=0.431, f()=0.070760, actual=-0.057
+&gt;x=0.437, f()=0.071749, actual=-0.102
+&gt;x=0.115, f()=-0.000257, actual=0.042
+&gt;x=0.549, f()=0.129516, actual=0.278
+&gt;x=0.053, f()=-0.009525, actual=-0.098
+&gt;x=0.348, f()=-0.000176, actual=0.010
+&gt;x=0.133, f()=0.005985, actual=0.021
+&gt;x=0.912, f()=0.562865, actual=0.720
+&gt;x=0.911, f()=0.567181, actual=0.835
+&gt;x=0.716, f()=0.087171, actual=0.275
+&gt;x=0.052, f()=-0.015777, actual=-0.162
+&gt;x=0.743, f()=0.114964, actual=0.195
+&gt;x=0.335, f()=-0.005154, actual=0.003
+&gt;x=0.910, f()=0.573601, actual=0.816
+&gt;x=0.278, f()=-0.007704, actual=0.097
+&gt;x=0.692, f()=0.087360, actual=0.370
+&gt;x=0.560, f()=0.138122, actual=0.218
+&gt;x=0.583, f()=0.137465, actual=-0.197
+&gt;x=0.530, f()=0.126498, actual=0.055
+&gt;x=0.963, f()=0.324050, actual=0.177
+&gt;x=0.241, f()=0.007597, actual=-0.173
+&gt;x=0.910, f()=0.577252, actual=0.785
+</code></pre></div></div>
+
+<p><img src="/assets/2023-12-01-Bayesian-Optimization-1_files/2023-12-01-Bayesian-Optimization-1_15_2.png" alt="png" /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Best Result: x=0.911, y=0.884
+</code></pre></div></div>
+
+<p>In this case, the model via mean 5-fold cross-validation</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># example of bayesian optimization with scikit-optimize
+</span><span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">mean</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_blobs</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">cross_val_score</span>
+<span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
+<span class="kn">from</span> <span class="nn">skopt.space</span> <span class="kn">import</span> <span class="n">Integer</span>
+<span class="kn">from</span> <span class="nn">skopt.utils</span> <span class="kn">import</span> <span class="n">use_named_args</span>
+<span class="kn">from</span> <span class="nn">skopt</span> <span class="kn">import</span> <span class="n">gp_minimize</span>
+
+<span class="c1"># generate 2d classification dataset
+</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_blobs</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">centers</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1"># define the model
+</span><span class="n">model</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">()</span>
+<span class="c1"># define the space of hyperparameters to search
+</span><span class="n">search_space</span> <span class="o">=</span> <span class="p">[</span><span class="n">Integer</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">'n_neighbors'</span><span class="p">),</span> <span class="n">Integer</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">'p'</span><span class="p">)]</span>
+
+<span class="c1"># define the function used to evaluate a given configuration
+</span><span class="o">@</span><span class="n">use_named_args</span><span class="p">(</span><span class="n">search_space</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">evaluate_model</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">):</span>
+	<span class="c1"># something
+</span>	<span class="n">model</span><span class="p">.</span><span class="n">set_params</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
+	<span class="c1"># calculate 5-fold cross validation
+</span>	<span class="n">result</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s">'accuracy'</span><span class="p">)</span>
+	<span class="c1"># calculate the mean of the scores
+</span>	<span class="n">estimate</span> <span class="o">=</span> <span class="n">mean</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+	<span class="k">return</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">estimate</span>
+
+<span class="c1"># perform optimization
+</span><span class="n">result</span> <span class="o">=</span> <span class="n">gp_minimize</span><span class="p">(</span><span class="n">evaluate_model</span><span class="p">,</span> <span class="n">search_space</span><span class="p">)</span>
+<span class="c1"># summarizing finding:
+</span><span class="k">print</span><span class="p">(</span><span class="s">'Best Accuracy: %.3f'</span> <span class="o">%</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">result</span><span class="p">.</span><span class="n">fun</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'Best Parameters: n_neighbors=%d, p=%d'</span> <span class="o">%</span> <span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">result</span><span class="p">.</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Best Accuracy: 1.000
+Best Parameters: n_neighbors=3, p=2
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">result</span><span class="p">.</span><span class="n">fun</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0.0
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+</code></pre></div></div>
+
+</div>
+
+<span class="post-tags">
+    
+      <i class="fa fa-tag fa-xs" aria-hidden="true"></i>
+      
+      <a class="no-underline" href="/tag/AI"><nobr>AI</nobr></code>&nbsp;</a>    
+    
+</span>
+
+<div class="recent">
+  <h2>Recent Posts</h2>
+  <ul class="recent-posts">
+    
+      <li>
+        <h4>
+          <a href="/coding/2023/12/11/diffusion-model-demo2.html">
+            A Diffusion Model from Scratch in Pytorch
+          </a>
+          <small>[11 Dec 2023]</small>
+        </h4>
+      </li>
+    
+      <li>
+        <h4>
+          <a href="/coding/2023/12/02/Inspect-BERT-Vocabulary.html">
+            Inspect BERT Vocabulary
+          </a>
+          <small>[02 Dec 2023]</small>
+        </h4>
+      </li>
+    
+      <li>
+        <h4>
+          <a href="/working/2023/12/01/My-Tasks-and-Notes.html">
+            working todo
+          </a>
+          <small>[01 Dec 2023]</small>
+        </h4>
+      </li>
+    
+  </ul>
+</div>
+    </div>
+
+  </body>
+</html>

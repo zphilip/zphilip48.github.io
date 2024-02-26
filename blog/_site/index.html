@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  
+  <!-- include collecttags -->
+  
+  
+
+
+
+
+
+  
+
+  <title>
+    
+      Zhu Philip's AI Journey &middot; 
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link href="https://fonts.googleapis.com/css?family=East+Sea+Dokdo&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.0/css/all.min.css" rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+
+  <!-- merge something else -->
+  
+  <link rel="stylesheet" href="/assets/css/blog.css" />
+  
+  
+  <link rel="stylesheet" href="/assets/css/common.css" />
+  <script src="/assets/js/categories.js"></script>  
+   
+
+  <!-- MathJax -->
+  <script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+  });
+  MathJax.Hub.Queue(function() {
+    // Fix <code> tags after MathJax finishes running. This is a
+    // hack to overcome a shortcoming of Markdown. Discussion at
+    // https://github.com/mojombo/jekyll/issues/199
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+
+  MathJax.Hub.Config({
+  // Autonumbering by mathjax
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+  });
+</script> 
+
+</head>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-89141653-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-89141653-4');
+</script>
+
+
+
+  <body>
+
+    <link rel="stylesheet" href="/assets/style-3.css">
+<div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <h1>
+        <div align="center">
+          <img src="/assets/profile-pixel.png" class="profilepic pt-3 pb-2">
+        </div>
+        <!-- <a href="/"> -->
+          Zhu Philip's AI Journey
+        </a>
+      </h1>
+      <p class="lead"></p>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/">Home</a>
+
+      <!-- Manual set order -->
+      <a class="sidebar-nav-item" href="/categories">Categories</a>
+      <a class="sidebar-nav-item" href="/working">Working</a>
+      <a class="sidebar-nav-item" href="/publication">Publication</a>
+      <!-- <a class="sidebar-nav-item" href="/projects">Projects</a> -->
+      <a class="sidebar-nav-item" href="/about">About</a>
+
+      <!-- Uncomment for auto order -->
+      <!-- 
+
+      
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/about/">About</a>
+          
+        
+      
+        
+          
+        
+      
+        
+      
+        
+          
+        
+      
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/categories/">Categories</a>
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/publication/">publications</a>
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/working/">Working</a>
+          
+        
+      
+        
+          
+        
+      
+        
+      
+        
+          
+        
+      
+        
+          
+        
+       -->
+
+      
+      <!-- <a class="sidebar-nav-item" href="https://github.com/zphilip/zphilip.github.io">GitHub project</a> -->
+      <!-- <span class="sidebar-nav-item">Currently v</span> -->
+      
+<div id="social-media">
+    
+    
+        
+        
+            <a href="mailto:zphilip48@gmail.com" title="Email"><i class="fa fa-envelope"></i></a>
+        
+    
+        
+        
+            <a href="https://www.linkedin.com/in/tianda-zhu-37a5b031" title="Linkedin"><i class="fab fa-linkedin"></i></a>
+        
+    
+        
+        
+            <a href="https://github.com/zphilip" title="GitHub"><i class="fab fa-github"></i></a>
+        
+    
+        
+        
+            <a href="https://www.youtube.com/user/zphilip" title="YouTube"><i class="fab fa-youtube"></i></a>
+        
+    
+</div>
+
+
+    </nav>
+
+    <p>&copy; 2024. All rights reserved.</p>
+  </div>
+</div>
+
+
+    <div class="content container">
+      <!-- This loops through the paginated posts -->
+<section class="articles">
+  
+  <article class="article">
+    <h2 class="article-title">
+      <a href="/coding/2023/12/11/diffusion-model-demo2.html"> A Diffusion Model from Scratch in Pytorch </a>
+    </h2>
+    <small class="date">11 Dec 2023</small>
+    <div class="categories">
+      
+      <a href="#!" data-base-url="" class="category"
+        >coding</a
+      >
+      
+    </div>
+    A Diffusion Model from Scratch in Pytorch In this notebook I want to build a very simple (as few code as possible) Diffusion Model for generating car images. I will explain all the theoretical details in the YouTube video. Sources: Github implementation Denoising Diffusion Pytorch Niels Rogge, Kashif Rasul, Huggingface...
+  </article>
+  
+  <article class="article">
+    <h2 class="article-title">
+      <a href="/coding/2023/12/02/Inspect-BERT-Vocabulary.html"> Inspect BERT Vocabulary </a>
+    </h2>
+    <small class="date">02 Dec 2023</small>
+    <div class="categories">
+      
+      <a href="#!" data-base-url="" class="category"
+        >coding</a
+      >
+      
+    </div>
+    Inspect_BERT_Vocabulary Load the Model¶ Install the huggingface implementation. In [2]: !pip install pytorch-pretrained-bert Looking in indexes: https://pypi.org/simple, https://us-python.pkg.dev/colab-wheels/public/simple/ Requirement already satisfied: pytorch-pretrained-bert in /usr/local/lib/python3.10/dist-packages (0.6.2) Requirement already satisfied: torch&gt;=0.4.1 in /usr/local/lib/python3.10/dist-packages (from pytorch-pretrained-bert) (2.0.0+cu118) Requirement already satisfied: numpy in /usr/local/lib/python3.10/dist-packages (from pytorch-pretrained-bert) (1.22.4) Requirement already satisfied: boto3 in /usr/local/lib/python3.10/dist-packages (from pytorch-pretrained-bert)...
+  </article>
+  
+  <article class="article">
+    <h2 class="article-title">
+      <a href="/working/2023/12/01/My-Tasks-and-Notes.html"> working todo </a>
+    </h2>
+    <small class="date">01 Dec 2023</small>
+    <div class="categories">
+      
+      <a href="#!" data-base-url="" class="category"
+        >working</a
+      >
+      
+    </div>
+    #todo #task compare the nougat small model and code with the nougat big model what’s the different between them. 🔼 🛫 2024-01-09 : ✅ 2024-01-21 transformer version change to 4.34.1, then it work (static saving safe is in newer version) #task based work output of above task let’s partially loading...
+  </article>
+  
+  <article class="article">
+    <h2 class="article-title">
+      <a href="/coding/2023/12/01/diffusion-model-demo1.html"> Diffusion Models Tutorial 01 </a>
+    </h2>
+    <small class="date">01 Dec 2023</small>
+    <div class="categories">
+      
+      <a href="#!" data-base-url="" class="category"
+        >coding</a
+      >
+      
+    </div>
+    Diffusion Models Tutorial Author : J. Rafid Siddiqui (jrs@azaditech.com) Loading Data import matplotlib import matplotlib as mpl import matplotlib.font_manager #font_manager._rebuild() import logging logging.getLogger("matplotlib.font_manager").setLevel(logging.ERROR) def hdr_plot_style(): plt.style.use('dark_background') mpl.rcParams.update({'font.size': 18, 'lines.linewidth': 3, 'lines.markersize': 15}) # avoid type 3 (i.e. bitmap) fonts in figures mpl.rcParams['ps.useafm'] = True mpl.rcParams['pdf.use14corefonts'] = True mpl.rcParams['text.usetex'] = False...
+  </article>
+  
+  <article class="article">
+    <h2 class="article-title">
+      <a href="/coding/2023/12/01/convolutional-neural-networks-step-by-step.html"> Convolutional Neural Networks: Step by Step </a>
+    </h2>
+    <small class="date">01 Dec 2023</small>
+    <div class="categories">
+      
+      <a href="#!" data-base-url="" class="category"
+        >coding</a
+      >
+      
+    </div>
+    卷积的数学表示 \(f∗g(n)=∫_{−∞}^{+∞}​f(τ)g(n−τ)dτ\) 上面公式是连续的定义，再看看离散的定义： \[f∗g(n)=τ=∑_{−∞}^{+∞}​f(τ)g(n−τ)\] 互相关与卷积 一些深度学习教程都使用这种互相关运算来解释卷积的计算过程。但实际上，计算过程并非学术上严格意义上的卷积。 我们将这种互相关的矩阵乘法转换成公式，如果输入矩阵为I，核矩阵为K，核矩阵K形状为m×n。我们想要得到输出矩阵O中(i,j)位置的元素，其实就是对矩阵中各个数字做乘法，最后累加到一起。 \(O(i,j)=(K∗I)(i,j)=\sum_m\sum_n​I(i+m,j+n)K(m,n)\) 上面公式中，$I(i+m,j+n)K(m,n)$表示输入矩阵的某个元素I(i+m,j+n)与核矩阵的元素K(m,n)相乘。$\sum_m$和$\sum_n$​分别在矩阵的横向和纵向做累加。 但这个公式依然与最初看到的卷积公式有些区别，我们将输入矩阵的加号改为减号：\(O(i,j)=(K∗I)(i,j)=\sum_m\sum_n​I(i−m,j−n)K(m,n)\) 这就出现了卷积公式中的减号，那么这两个矩阵实际的计算类似于： 图4 两个矩阵之间进行卷积运算 也就是说，输入矩阵深色区域的最后一个元素与核矩阵的第一个元素相乘，输入矩阵深色区域的倒数第二个元素与核矩阵的第二个元素相乘，以此类推…又或者说，把核矩阵旋转180度，再与输入矩阵相乘。 卷积数学公式中的减号，在二维矩阵的场景下，可以被解释为：先旋转、再相乘。由于在深度学习中，核矩阵是一个需要训练的参数，卷积神经网络都是针对图像，图像即使旋转180度，对于计算机来说区别不大。旋转与否，或者说是否使用减号，对于深度学习来说关系不大，反而不旋转的互相关运算计算起来更方便。因此，很多深度学习框架直接使用互相关运算来表示卷积的过程。 Convolutional Neural Networks: Step by Step Welcome to Course 4’s first assignment! In this assignment, you will implement convolutional (CONV) and pooling (POOL) layers in numpy, including both forward propagation and (optionally) backward propagation. Notation:...
+  </article>
+  
+  <article class="article">
+    <h2 class="article-title">
+      <a href="/coding/2023/12/01/Convolution-model-Application-v1a.html"> Convolutional Neural Networks: Application </a>
+    </h2>
+    <small class="date">01 Dec 2023</small>
+    <div class="categories">
+      
+      <a href="#!" data-base-url="" class="category"
+        >coding</a
+      >
+      
+    </div>
+    Convolutional Neural Networks: Application Welcome to Course 4’s second assignment! In this notebook, you will: Implement helper functions that you will use when implementing a TensorFlow model Implement a fully functioning ConvNet using TensorFlow After this assignment you will be able to: Build and train a ConvNet in TensorFlow for...
+  </article>
+  
+  <article class="article">
+    <h2 class="article-title">
+      <a href="/coding/2023/12/01/BERT-Pytorch-Scratch.html"> BERT Pytorch from Scratch </a>
+    </h2>
+    <small class="date">01 Dec 2023</small>
+    <div class="categories">
+      
+      <a href="#!" data-base-url="" class="category"
+        >coding</a
+      >
+      
+    </div>
+    !pip install transformers datasets tokenizers !wget http://www.cs.cornell.edu/~cristian/data/cornell_movie_dialogs_corpus.zip !unzip -qq cornell_movie_dialogs_corpus.zip !rm cornell_movie_dialogs_corpus.zip !mkdir datasets !mv cornell\ movie-dialogs\ corpus/movie_conversations.txt ./datasets !mv cornell\ movie-dialogs\ corpus/movie_lines.txt ./datasets Looking in indexes: http://mirrors.tencentyun.com/pypi/simple Requirement already satisfied: transformers in /home/ubuntu/miniconda3/lib/python3.10/site-packages (4.29.1) Collecting datasets Downloading http://mirrors.tencentyun.com/pypi/packages/fb/1c/85a22f3fa02dce5403094c5dbce494d62343b5a7e518bdf6e4200dda7337/datasets-2.12.0-py3-none-any.whl (474 kB) [2K [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m474.6/474.6 kB[0m [31m1.6 MB/s[0m eta [36m0:00:00[0m00:01[0m00:01[0m [?25hRequirement...
+  </article>
+  
+  <article class="article">
+    <h2 class="article-title">
+      <a href="/coding/2023/11/26/Transformer-learning-C5W4A1SubclassV1.html"> Transformer Network </a>
+    </h2>
+    <small class="date">26 Nov 2023</small>
+    <div class="categories">
+      
+      <a href="#!" data-base-url="" class="category"
+        >coding</a
+      >
+      
+    </div>
+    I update this document also refere to https://www.tensorflow.org/tutorials/text/transformer?hl=zh-cn https://nlp.seas.harvard.edu/2018/04/03/attention.html#positional-encoding Transformer Network Welcome to Week 4’s assignment, the last assignment of Course 5 of the Deep Learning Specialization! And congratulations on making it to the last assignment of the entire Deep Learning Specialization - you’re almost done! Ealier in the course,...
+  </article>
+  
+  <article class="article">
+    <h2 class="article-title">
+      <a href="/coding/2023/11/02/transformer-implementation.html"> transformer implementation </a>
+    </h2>
+    <small class="date">02 Nov 2023</small>
+    <div class="categories">
+      
+      <a href="#!" data-base-url="" class="category"
+        >coding</a
+      >
+      
+    </div>
+    transformer_implementation Implementing Transformers¶This notebook will walk you through the internals of implementing self attention and transformer networks. As with recurrent networks (and unlike convolutions), there is actually relatively little that is fundamentally new in their implementation, as it all largely involves an application of existing primitives you will have already...
+  </article>
+  
+  <article class="article">
+    <h2 class="article-title">
+      <a href="/coding/learning/2023/06/02/GPR.html"> GPR </a>
+    </h2>
+    <small class="date">02 Jun 2023</small>
+    <div class="categories">
+      
+      <a href="#!" data-base-url="" class="category"
+        >coding</a
+      >
+      
+      <a href="#!" data-base-url="" class="category"
+        >LEARNING</a
+      >
+      
+    </div>
+    GPR GP learning by doing , Refer to https://peterroelants.github.io/posts/gaussian-process-kernels/ https://zhuanlan.zhihu.com/p/31427491 In [ ]: # Imports %matplotlib inline %config InlineBackend.figure_format = 'svg' import warnings warnings.simplefilter("ignore") import numpy as np import tensorflow as tf import tensorflow_probability as tfp import matplotlib import matplotlib.pyplot as plt from matplotlib import cm from mpl_toolkits.axes_grid1 import make_axes_locatable import matplotlib.gridspec...
+  </article>
+  
+</section>
+
+<!-- This loops through the paginated posts --
+<section class="articles">
+  
+  <article class="article">
+    <h2 class="article-title">
+      <a href="/coding/2023/12/11/diffusion-model-demo2.html"> A Diffusion Model from Scratch in Pytorch </a>
+    </h2>
+    <small class="date">11 Dec 2023</small>
+    <div class="categories">
+      
+      <a href="#!" data-base-url="" class="category"
+        >coding</a
+      >
+      
+    </div>
+  </article>
+  
+  <article class="article">
+    <h2 class="article-title">
+      <a href="/coding/2023/12/02/Inspect-BERT-Vocabulary.html"> Inspect BERT Vocabulary </a>
+    </h2>
+    <small class="date">02 Dec 2023</small>
+    <div class="categories">
+      
+      <a href="#!" data-base-url="" class="category"
+        >coding</a
+      >
+      
+    </div>
+  </article>
+  
+  <article class="article">
+    <h2 class="article-title">
+      <a href="/working/2023/12/01/My-Tasks-and-Notes.html"> working todo </a>
+    </h2>
+    <small class="date">01 Dec 2023</small>
+    <div class="categories">
+      
+      <a href="#!" data-base-url="" class="category"
+        >working</a
+      >
+      
+    </div>
+  </article>
+  
+  <article class="article">
+    <h2 class="article-title">
+      <a href="/coding/2023/12/01/diffusion-model-demo1.html"> Diffusion Models Tutorial 01 </a>
+    </h2>
+    <small class="date">01 Dec 2023</small>
+    <div class="categories">
+      
+      <a href="#!" data-base-url="" class="category"
+        >coding</a
+      >
+      
+    </div>
+  </article>
+  
+  <article class="article">
+    <h2 class="article-title">
+      <a href="/coding/2023/12/01/convolutional-neural-networks-step-by-step.html"> Convolutional Neural Networks: Step by Step </a>
+    </h2>
+    <small class="date">01 Dec 2023</small>
+    <div class="categories">
+      
+      <a href="#!" data-base-url="" class="category"
+        >coding</a
+      >
+      
+    </div>
+  </article>
+  
+  <article class="article">
+    <h2 class="article-title">
+      <a href="/coding/2023/12/01/Convolution-model-Application-v1a.html"> Convolutional Neural Networks: Application </a>
+    </h2>
+    <small class="date">01 Dec 2023</small>
+    <div class="categories">
+      
+      <a href="#!" data-base-url="" class="category"
+        >coding</a
+      >
+      
+    </div>
+  </article>
+  
+  <article class="article">
+    <h2 class="article-title">
+      <a href="/coding/2023/12/01/BERT-Pytorch-Scratch.html"> BERT Pytorch from Scratch </a>
+    </h2>
+    <small class="date">01 Dec 2023</small>
+    <div class="categories">
+      
+      <a href="#!" data-base-url="" class="category"
+        >coding</a
+      >
+      
+    </div>
+  </article>
+  
+  <article class="article">
+    <h2 class="article-title">
+      <a href="/coding/2023/11/26/Transformer-learning-C5W4A1SubclassV1.html"> Transformer Network </a>
+    </h2>
+    <small class="date">26 Nov 2023</small>
+    <div class="categories">
+      
+      <a href="#!" data-base-url="" class="category"
+        >coding</a
+      >
+      
+    </div>
+  </article>
+  
+  <article class="article">
+    <h2 class="article-title">
+      <a href="/coding/2023/11/02/transformer-implementation.html"> transformer implementation </a>
+    </h2>
+    <small class="date">02 Nov 2023</small>
+    <div class="categories">
+      
+      <a href="#!" data-base-url="" class="category"
+        >coding</a
+      >
+      
+    </div>
+  </article>
+  
+  <article class="article">
+    <h2 class="article-title">
+      <a href="/coding/learning/2023/06/02/GPR.html"> GPR </a>
+    </h2>
+    <small class="date">02 Jun 2023</small>
+    <div class="categories">
+      
+      <a href="#!" data-base-url="" class="category"
+        >coding</a
+      >
+      
+      <a href="#!" data-base-url="" class="category"
+        >LEARNING</a
+      >
+      
+    </div>
+  </article>
+  
+  <article class="article">
+    <h2 class="article-title">
+      <a href="/coding/2023/01/26/BERT-FineTuning-Sentence-Classification-v4.html"> BERT Fine-Tuning Tutorial with PyTorch </a>
+    </h2>
+    <small class="date">26 Jan 2023</small>
+    <div class="categories">
+      
+      <a href="#!" data-base-url="" class="category"
+        >coding</a
+      >
+      
+    </div>
+  </article>
+  
+  <article class="article">
+    <h2 class="article-title">
+      <a href="/learning/2023/01/26/RNN-and-LSMT.html"> RNN and LSMT </a>
+    </h2>
+    <small class="date">26 Jan 2023</small>
+    <div class="categories">
+      
+      <a href="#!" data-base-url="" class="category"
+        >LEARNING</a
+      >
+      
+    </div>
+  </article>
+  
+  <article class="article">
+    <h2 class="article-title">
+      <a href="/coding/2023/01/26/xgboost-from-scratch.html"> XGBoost from scratch </a>
+    </h2>
+    <small class="date">26 Jan 2023</small>
+    <div class="categories">
+      
+      <a href="#!" data-base-url="" class="category"
+        >coding</a
+      >
+      
+    </div>
+  </article>
+  
+  <article class="article">
+    <h2 class="article-title">
+      <a href="/coding/2023/01/26/Understanding-the-performance-of-LightGBM-and-XGBoost.html"> Understanding the performance of LightGBM and XGBoost </a>
+    </h2>
+    <small class="date">26 Jan 2023</small>
+    <div class="categories">
+      
+      <a href="#!" data-base-url="" class="category"
+        >coding</a
+      >
+      
+    </div>
+  </article>
+  
+  <article class="article">
+    <h2 class="article-title">
+      <a href="/coding/2023/01/26/expectation-maximization-algorithm.html"> Expection Maximization </a>
+    </h2>
+    <small class="date">26 Jan 2023</small>
+    <div class="categories">
+      
+      <a href="#!" data-base-url="" class="category"
+        >coding</a
+      >
+      
+    </div>
+  </article>
+  
+  <article class="article">
+    <h2 class="article-title">
+      <a href="/coding/2023/01/26/neural-network-bach-normalization-scratch.html"> neural network + Bach normalization </a>
+    </h2>
+    <small class="date">26 Jan 2023</small>
+    <div class="categories">
+      
+      <a href="#!" data-base-url="" class="category"
+        >coding</a
+      >
+      
+    </div>
+  </article>
+  
+  <article class="article">
+    <h2 class="article-title">
+      <a href="/coding/2023/01/26/Langevin-Monte-Carlo.html"> Langevin Monte Carlo </a>
+    </h2>
+    <small class="date">26 Jan 2023</small>
+    <div class="categories">
+      
+      <a href="#!" data-base-url="" class="category"
+        >coding</a
+      >
+      
+    </div>
+  </article>
+  
+  <article class="article">
+    <h2 class="article-title">
+      <a href="/coding/2023/01/26/gbm-implementation.html"> gbm Implementation </a>
+    </h2>
+    <small class="date">26 Jan 2023</small>
+    <div class="categories">
+      
+      <a href="#!" data-base-url="" class="category"
+        >coding</a
+      >
+      
+    </div>
+  </article>
+  
+  <article class="article">
+    <h2 class="article-title">
+      <a href="/coding/2023/01/26/GMM-from-scratch.html"> Gaussian Mixture Model Clearly Explained </a>
+    </h2>
+    <small class="date">26 Jan 2023</small>
+    <div class="categories">
+      
+      <a href="#!" data-base-url="" class="category"
+        >coding</a
+      >
+      
+    </div>
+  </article>
+  
+  <article class="article">
+    <h2 class="article-title">
+      <a href="/coding/2023/01/26/regression-tree.html"> Regression Tree 回归树 Practise </a>
+    </h2>
+    <small class="date">26 Jan 2023</small>
+    <div class="categories">
+      
+      <a href="#!" data-base-url="" class="category"
+        >coding</a
+      >
+      
+    </div>
+  </article>
+  
+  <article class="article">
+    <h2 class="article-title">
+      <a href="/coding/2023/01/26/gprDemoMarglik.html"> a Gaussian Process Regression with multiple local minima </a>
+    </h2>
+    <small class="date">26 Jan 2023</small>
+    <div class="categories">
+      
+      <a href="#!" data-base-url="" class="category"
+        >coding</a
+      >
+      
+    </div>
+  </article>
+  
+  <article class="article">
+    <h2 class="article-title">
+      <a href="/coding/2023/01/26/Bayesian-Learning.html"> Bayesian Learning </a>
+    </h2>
+    <small class="date">26 Jan 2023</small>
+    <div class="categories">
+      
+      <a href="#!" data-base-url="" class="category"
+        >coding</a
+      >
+      
+    </div>
+  </article>
+  
+  <article class="article">
+    <h2 class="article-title">
+      <a href="/learning/2023/01/26/Gradient-boosting.html"> Gradient boosting </a>
+    </h2>
+    <small class="date">26 Jan 2023</small>
+    <div class="categories">
+      
+      <a href="#!" data-base-url="" class="category"
+        >LEARNING</a
+      >
+      
+    </div>
+  </article>
+  
+  <article class="article">
+    <h2 class="article-title">
+      <a href="/learning/2021/01/26/Markov-Chain-Monte-Carlo.html"> Markov Chain Monte Carlo </a>
+    </h2>
+    <small class="date">26 Jan 2021</small>
+    <div class="categories">
+      
+      <a href="#!" data-base-url="" class="category"
+        >LEARNING</a
+      >
+      
+    </div>
+  </article>
+  
+  <article class="article">
+    <h2 class="article-title">
+      <a href="/learning/2021/01/26/Machine-LearningNote-Pub.html"> Machine Learning Notes </a>
+    </h2>
+    <small class="date">26 Jan 2021</small>
+    <div class="categories">
+      
+      <a href="#!" data-base-url="" class="category"
+        >LEARNING</a
+      >
+      
+    </div>
+  </article>
+  
+  <article class="article">
+    <h2 class="article-title">
+      <a href="/coding/2021/01/26/Bayesian-Optimization-2.html"> Bayesian Optimization -2  </a>
+    </h2>
+    <small class="date">26 Jan 2021</small>
+    <div class="categories">
+      
+      <a href="#!" data-base-url="" class="category"
+        >coding</a
+      >
+      
+    </div>
+  </article>
+  
+  <article class="article">
+    <h2 class="article-title">
+      <a href="/coding/2021/01/26/Bayesian-Optimization-1.html"> Bayesian Optimization with GPyOpt </a>
+    </h2>
+    <small class="date">26 Jan 2021</small>
+    <div class="categories">
+      
+      <a href="#!" data-base-url="" class="category"
+        >coding</a
+      >
+      
+    </div>
+  </article>
+  
+  <article class="article">
+    <h2 class="article-title">
+      <a href="/learning/2021/01/26/BERT-GPT-Diffusion-Research.html"> BERT GPT Diffusion Research </a>
+    </h2>
+    <small class="date">26 Jan 2021</small>
+    <div class="categories">
+      
+      <a href="#!" data-base-url="" class="category"
+        >LEARNING</a
+      >
+      
+    </div>
+  </article>
+  
+  <article class="article">
+    <h2 class="article-title">
+      <a href="/coding/2021/01/26/mcmc-introduction-3.html"> Mcmc Introduction 3 </a>
+    </h2>
+    <small class="date">26 Jan 2021</small>
+    <div class="categories">
+      
+      <a href="#!" data-base-url="" class="category"
+        >coding</a
+      >
+      
+    </div>
+  </article>
+  
+  <article class="article">
+    <h2 class="article-title">
+      <a href="/coding/2021/01/26/mcmc-introduction-2.html"> Mcmc Introduction 2 </a>
+    </h2>
+    <small class="date">26 Jan 2021</small>
+    <div class="categories">
+      
+      <a href="#!" data-base-url="" class="category"
+        >coding</a
+      >
+      
+    </div>
+  </article>
+  
+</section>   -->
+
+<!-- Pagination links -->
+<div class="pagination">
+  
+    <span class="pagination-item newer">Newer</span>
+  
+  
+    <a class="pagination-item older" href="/blog/page2/">Older</a>
+  
+  <!-- <span class="page_number ">
+    Page: 1 of 3
+  </span> -->
+</div>
+
+
+
+
+
+
+
+    </div>
+
+  </body>
+</html>

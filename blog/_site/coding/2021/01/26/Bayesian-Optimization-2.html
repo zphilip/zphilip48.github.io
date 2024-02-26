@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  
+  <!-- include collecttags -->
+  
+  
+
+
+
+
+
+  
+
+  <title>
+    
+      Bayesian Optimization -2  &middot; Zhu Philip's AI Journey
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link href="https://fonts.googleapis.com/css?family=East+Sea+Dokdo&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.0/css/all.min.css" rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+
+  <!-- merge something else -->
+  
+  <!-- merge something else 
+  <link rel="stylesheet" href="/assets/css/post.css" />
+  <link rel="stylesheet" href="/assets/css/syntax.css" /> -->
+  
+  
+  <link rel="stylesheet" href="/assets/css/common.css" />
+  <script src="/assets/js/categories.js"></script>  
+  
+  <script defer src="/assets/js/lbox.js"></script>
+   
+
+  <!-- MathJax -->
+  <script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+  });
+  MathJax.Hub.Queue(function() {
+    // Fix <code> tags after MathJax finishes running. This is a
+    // hack to overcome a shortcoming of Markdown. Discussion at
+    // https://github.com/mojombo/jekyll/issues/199
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+
+  MathJax.Hub.Config({
+  // Autonumbering by mathjax
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+  });
+</script> 
+
+</head>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-89141653-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-89141653-4');
+</script>
+
+
+
+  <body>
+
+    <link rel="stylesheet" href="/assets/style-3.css">
+<div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <h1>
+        <div align="center">
+          <img src="/assets/profile-pixel.png" class="profilepic pt-3 pb-2">
+        </div>
+        <!-- <a href="/"> -->
+          Zhu Philip's AI Journey
+        </a>
+      </h1>
+      <p class="lead"></p>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/">Home</a>
+
+      <!-- Manual set order -->
+      <a class="sidebar-nav-item" href="/categories">Categories</a>
+      <a class="sidebar-nav-item" href="/working">Working</a>
+      <a class="sidebar-nav-item" href="/publication">Publication</a>
+      <!-- <a class="sidebar-nav-item" href="/projects">Projects</a> -->
+      <a class="sidebar-nav-item" href="/about">About</a>
+
+      <!-- Uncomment for auto order -->
+      <!-- 
+
+      
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/about/">About</a>
+          
+        
+      
+        
+          
+        
+      
+        
+      
+        
+          
+        
+      
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/categories/">Categories</a>
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/publication/">publications</a>
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/working/">Working</a>
+          
+        
+      
+        
+          
+        
+      
+        
+      
+        
+          
+        
+      
+        
+          
+        
+       -->
+
+      
+      <!-- <a class="sidebar-nav-item" href="https://github.com/zphilip/zphilip.github.io">GitHub project</a> -->
+      <!-- <span class="sidebar-nav-item">Currently v</span> -->
+      
+<div id="social-media">
+    
+    
+        
+        
+            <a href="mailto:zphilip48@gmail.com" title="Email"><i class="fa fa-envelope"></i></a>
+        
+    
+        
+        
+            <a href="https://www.linkedin.com/in/tianda-zhu-37a5b031" title="Linkedin"><i class="fab fa-linkedin"></i></a>
+        
+    
+        
+        
+            <a href="https://github.com/zphilip" title="GitHub"><i class="fab fa-github"></i></a>
+        
+    
+        
+        
+            <a href="https://www.youtube.com/user/zphilip" title="YouTube"><i class="fab fa-youtube"></i></a>
+        
+    
+</div>
+
+
+    </nav>
+
+    <p>&copy; 2024. All rights reserved.</p>
+  </div>
+</div>
+
+
+    <div class="content container">
+      <div class="post">
+  <h1 class="post-title">Bayesian Optimization -2 </h1>
+  <span class="post-date">26 Jan 2021</span>
+  <h2 id="hyper-parameter-tuning-with-bayesian-optimization-or-how-i-carved-boats-from-wood">Hyper-parameter tuning with Bayesian optimization or how I carved boats from wood</h2>
+<p>https://towardsdatascience.com/bayesian-optimization-or-how-i-carved-boats-from-wood-examples-and-code-78b9c79b31e5</p>
+
+<h2 id="theory">Theory</h2>
+<p>When explaining the problem I find it useful to bear in mind the final goal. The goal of this article would be finding hyper-parameters for a deep neural network that would maximize the validation accuracy. For this we will be using bayesian optimization. We can split the process into several steps:</p>
+
+<ul>
+  <li>Initialize the network with values of the hyper-parameters;</li>
+  <li>Train the model and save the best accuracy on the validation set;</li>
+  <li>Fit a Gaussian Process (GP) over the performance data collected so far. Here, the values of the hyper-parameters tested so far are independent variables and accuracies of the model with these hyper-parameter values are predictor variable;</li>
+  <li>Use acquisition function on the GP fit to obtain the next set of hyper-parameter values with which the model is expected to attain better performance;</li>
+  <li>Go to step 1.</li>
+</ul>
+
+<p>Thus the process requires two important steps</p>
+
+<ul>
+  <li>Loss function estimation — that will be achieved with Gaussian Processes;</li>
+  <li>Acquisition function— highest expected improvement in the loss.</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">imageio</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">from</span> <span class="nn">mpl_toolkits.mplot3d</span> <span class="kn">import</span> <span class="n">Axes3D</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">cm</span>
+<span class="kn">from</span> <span class="nn">matplotlib.ticker</span> <span class="kn">import</span> <span class="n">LinearLocator</span><span class="p">,</span> <span class="n">FormatStrFormatter</span>
+
+<span class="c1">##from bayesian_opt import BO
+</span>
+<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="n">scs</span>
+<span class="kn">from</span> <span class="nn">sklearn.gaussian_process</span> <span class="kn">import</span> <span class="n">GaussianProcessRegressor</span>
+<span class="kn">from</span> <span class="nn">sklearn.gaussian_process.kernels</span> <span class="kn">import</span> <span class="n">RBF</span><span class="p">,</span> <span class="n">WhiteKernel</span><span class="p">,</span> <span class="n">ConstantKernel</span> <span class="k">as</span> <span class="n">C</span>
+</code></pre></div></div>
+
+<h2 id="gaussian-processes">Gaussian Processes</h2>
+<p>Unlike linear models, for which we select a function with a finite number of parameters, Gaussian Processes (GPs) are non-linear models and do not restrict us to one function. GPs allow for modelling the data with a family of functions.</p>
+
+<p>While working with GPs, we assume that every data point is a normally distributed random variable and that every data point is related to every other. That is, the whole dataset can be described by a multi-variate normal distribution with a non-trivial covariance.</p>
+
+<p>GPs are fully described by the mean m and kernell K functions. The mean function is very straightforward — it takes in the data-point features and returns the mean of the predictor variable for that datapoint. The kernel function takes as input two data points and returns the covariance between them. The kernel, describes the relationship between the datapoints and is thus an implicit constraint on the way the resultant fit would look like.</p>
+
+<p>Let’s start with a simple example consisting of five data points. In our case let’s assume that the y-axis is the loss function of the machine learning algorithm we want to maximize and the x-axis is a hyper-parameter, such as burn-in preiod, that impacts the prediction accuracy.</p>
+
+<p>For our Gaussian process we assume that the loss is smooth with respect to the burn-in period— we would not expect the loss to experience an abrupt change in the value after a small change in the burn-in period. Thus we choose a very standard squared exponential kernel to enforce this smoothness prior.</p>
+
+<p>The choice of kernel is an art, and there is a lot of research on how to do this automatically, how to combine kernels together and how to chose the kernel for multi-dimensional data, as assumptions made for one dimension might not hold for another. More kernel visualizations can be found here. A whole branch of research is looking into learning kernels at model training time.</p>
+
+<p><img src="/assets/2023-12-01-Bayesian-Optimization-2_files/46a87ff8-8236-4b00-a186-86cb95c34cce.gif" alt="movie.gif" /></p>
+
+<h2 id="bayesian-optimization--acquisition-function">Bayesian optimization — acquisition function##</h2>
+
+<p>The task in this step is to find the value of the hyper-parameter that would improve the current maximum (minimum) of the loss function for which we found a fit. To identify the potential (e.g. with respect to the expected improvement or probability of improvement) of each point to be the maximum (minimum) we use an acquisition function. The acquisition function takes in the obtained GP fit (mean and variance at each point) and returns the hyper-parameter value for the next run of the machine learning algorithm. Below we consider two simple acquisition functions: probability of improvement and expected improvement.</p>
+
+<ul>
+  <li>
+    <p>Probability of improvement:
+$$
+\begin{aligned}
+\mathrm{PI}(\mathbf{x}) &amp; =P\left(f(\mathbf{x}) \geq \mu^{+}+\xi\right) <br />
+&amp; =\Phi\left(\frac{\mu(\mathbf{x})-\mu^{+}-\xi}{\sigma(\mathbf{x})}\right)
+\end{aligned}</p>
+  </li>
+  <li>
+    <p>Expected improvement:
+\(\begin{aligned}
+\mathrm{EI}(\mathbf{x}) &amp; = \begin{cases}\left(\mu(\mathbf{x})-\mu^{+}-\xi\right) \Phi(Z)+\sigma(\mathbf{x}) \phi(Z) &amp; \text { if } \sigma(\mathbf{x})&gt;0 \\
+0 &amp; \text { if } \sigma(\mathbf{x})=0\end{cases} \\
+Z &amp; =\frac{\mu(\mathbf{x})-\mu^{+}-\xi}{\sigma(\mathbf{x})}
+\end{aligned}\)</p>
+  </li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">"""
+    The script for BayesOptimization
+"""</span>
+
+
+<span class="k">class</span> <span class="nc">BO</span><span class="p">:</span>
+    
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search_space</span><span class="p">,</span> <span class="n">list_of_parameters_names</span><span class="p">,</span> <span class="n">maximize</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="p">.</span><span class="n">dict_of_means</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">list_of_parameters_names</span> <span class="o">=</span> <span class="n">list_of_parameters_names</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">search_space</span> <span class="o">=</span> <span class="n">search_space</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">list_of_parameters_names</span><span class="p">:</span>
+
+            <span class="bp">self</span><span class="p">.</span><span class="n">dict_of_means</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">search_space</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">search_space</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span>
+                                       <span class="nb">float</span><span class="p">(</span><span class="n">search_space</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">search_space</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span><span class="o">/</span><span class="mf">2.0</span><span class="p">]</span>
+    
+    
+        <span class="c1"># Instantiate a Gaussian Process model for Surrogate function
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">kernel</span> <span class="o">=</span>  <span class="n">RBF</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="p">(</span><span class="mf">1e-2</span><span class="p">,</span> <span class="mf">1e2</span><span class="p">))</span><span class="o">*</span><span class="n">C</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="mf">1e-2</span><span class="p">,</span> <span class="mf">1e2</span><span class="p">))</span><span class="o">+</span> <span class="n">WhiteKernel</span><span class="p">(</span><span class="n">noise_level</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+    
+        <span class="bp">self</span><span class="p">.</span><span class="n">maximize</span> <span class="o">=</span> <span class="n">maximize</span>
+        
+        <span class="bp">self</span><span class="p">.</span><span class="n">generate_meshes</span><span class="p">()</span>
+        
+        <span class="bp">self</span><span class="p">.</span><span class="n">parameters_and_loss_dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">.</span><span class="n">list_of_parameters_names</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">parameters_and_loss_dict</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">parameters_and_loss_dict</span><span class="p">[</span><span class="s">'loss'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        
+    <span class="k">def</span> <span class="nf">generate_meshes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        
+        <span class="c1"># Create the list of ranges for the search space (start, end, number_of_points)
+</span>        <span class="n">list_of_ranges</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">list_of_shapes</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">list_of_ranges_true</span> <span class="o">=</span><span class="p">[]</span>
+
+        <span class="n">search_space_normalized</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">.</span><span class="n">list_of_parameters_names</span><span class="p">:</span>
+
+            <span class="n">search_space_normalized</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">[(</span><span class="bp">self</span><span class="p">.</span><span class="n">search_space</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="bp">self</span><span class="p">.</span><span class="n">dict_of_means</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span><span class="o">/</span><span class="bp">self</span><span class="p">.</span><span class="n">dict_of_means</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span>
+                                       <span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">search_space</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="bp">self</span><span class="p">.</span><span class="n">dict_of_means</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span><span class="o">/</span><span class="bp">self</span><span class="p">.</span><span class="n">dict_of_means</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span>
+                                       <span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">search_space</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">])]</span>
+            <span class="c1">#print(search_space_normalized)
+</span>            <span class="n">list_of_ranges_true</span><span class="p">.</span><span class="n">append</span> <span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="p">.</span><span class="n">search_space</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="mi">0</span><span class="p">]))</span>
+            <span class="n">list_of_ranges</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">*</span><span class="n">search_space_normalized</span><span class="p">[</span><span class="n">key</span><span class="p">]))</span>
+            <span class="n">list_of_shapes</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">search_space</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span>
+
+        <span class="c1"># Create a meshgrid from the list of ranges for the searchspace
+</span>        <span class="n">meshgrid_linspace</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">list_of_ranges</span><span class="p">),</span><span class="n">indexing</span><span class="o">=</span><span class="s">'ij'</span><span class="p">)</span>
+
+        <span class="n">reshape_param</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">product</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">shape</span><span class="p">(</span><span class="n">meshgrid_linspace</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+        <span class="n">meshgrid_linspacer</span> <span class="o">=</span> <span class="p">[]</span>
+        
+        <span class="k">for</span> <span class="n">mlinsp</span> <span class="ow">in</span> <span class="n">meshgrid_linspace</span><span class="p">:</span>
+            <span class="n">meshgrid_linspacer</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">mlinsp</span><span class="p">,</span><span class="n">reshape_param</span><span class="p">))</span>
+
+        <span class="c1"># meshgrid for GP prediction
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">meshgrid_linspacer_stack</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">stack</span><span class="p">(</span><span class="n">meshgrid_linspacer</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">list_of_shapes</span> <span class="o">=</span> <span class="n">list_of_shapes</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">list_of_ranges_true</span> <span class="o">=</span> <span class="n">list_of_ranges_true</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">list_of_ranges</span> <span class="o">=</span> <span class="n">list_of_ranges</span>
+        <span class="k">return</span> 
+    
+    
+    <span class="k">def</span> <span class="nf">normalize_current_values</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">normalized_param</span><span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># Create a list of estimation parameters, iterate over all, skip the loss from the list
+</span>        <span class="n">list_of_parameters</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">.</span><span class="n">list_of_parameters_names</span><span class="p">:</span>
+            <span class="n">normalized_param</span><span class="o">=</span><span class="p">[(</span><span class="nb">float</span><span class="p">(</span><span class="n">param</span><span class="p">)</span><span class="o">-</span><span class="bp">self</span><span class="p">.</span><span class="n">dict_of_means</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span><span class="o">/</span><span class="bp">self</span><span class="p">.</span><span class="n">dict_of_means</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">.</span><span class="n">parameters_and_loss_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]]</span>
+
+            <span class="n">list_of_parameters</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">atleast_2d</span><span class="p">(</span><span class="n">normalized_param</span><span class="p">).</span><span class="n">T</span><span class="p">)</span>
+
+        <span class="n">list_of_parameters_stack</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">stack</span><span class="p">(</span><span class="n">list_of_parameters</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        
+
+        <span class="k">return</span> <span class="n">list_of_parameters_stack</span><span class="p">,</span> <span class="n">list_of_parameters</span>
+        
+        
+        
+    <span class="k">def</span> <span class="nf">bayes_opt</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">parameters_and_loss_dict</span><span class="p">[</span><span class="bp">self</span><span class="p">.</span><span class="n">list_of_parameters_names</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+            
+            <span class="c1"># fit the model with previouse paratmers values + loss value
+</span>            <span class="c1"># loss_evaluated include those so far evaluated loss from hyperparameters. 
+</span>            <span class="c1"># loss_predicted include new proposal/test hyperparameters generated loss prediction
+</span>            <span class="c1"># Generate function prediction from the parameters and the loss (run bayesian regression on surrogate function)
+</span>            <span class="n">loss_predicted</span><span class="p">,</span><span class="n">sigma</span><span class="p">,</span><span class="n">loss_evaluated</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">generate_prediction</span><span class="p">()</span>
+
+            <span class="c1"># Calculate expected improvement (finding the maximum of the information gain function)
+</span>            <span class="n">expected_improvement</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">calculate_expected_improvement</span><span class="p">(</span><span class="n">loss_predicted</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">loss_evaluated</span><span class="p">)</span>
+            
+            <span class="c1"># Find the parameter values for the maximum values of the information gain function
+</span>            <span class="c1"># the hyperparamters selected based on ths core that from acquisition/selection function
+</span>            <span class="n">next_parameter_values</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">find_next_parameter_values</span><span class="p">(</span><span class="n">expected_improvement</span><span class="p">)</span>
+            
+            <span class="k">print</span><span class="p">(</span><span class="s">"Next try paramters is {}:"</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">next_parameter_values</span><span class="p">))</span>
+
+        <span class="k">else</span><span class="p">:</span>
+
+            <span class="n">next_parameter_values</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">.</span><span class="n">list_of_parameters_names</span><span class="p">:</span>
+                <span class="n">next_parameter_values</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">search_space</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="mi">1</span><span class="p">](</span><span class="bp">self</span><span class="p">.</span><span class="n">search_space</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">search_space</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="bp">self</span><span class="p">.</span><span class="n">search_space</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span><span class="o">*</span><span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+
+            <span class="n">loss_predicted</span> <span class="o">=</span> <span class="bp">None</span>
+            <span class="n">sigma</span><span class="o">=</span><span class="bp">None</span>
+            <span class="n">loss_evaluated</span><span class="o">=</span><span class="bp">None</span>
+            <span class="n">expected_improvement</span><span class="o">=</span><span class="bp">None</span>   
+
+
+        <span class="n">parameters_and_loss_df</span><span class="o">=</span><span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">.</span><span class="n">from_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">parameters_and_loss_dict</span><span class="p">,</span><span class="n">orient</span><span class="o">=</span><span class="s">'index'</span><span class="p">).</span><span class="n">transpose</span><span class="p">()</span>   
+        
+        <span class="c1"># Write the results into the dataframe
+</span>        <span class="n">list_of_next_values</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">.</span><span class="n">list_of_parameters_names</span><span class="p">:</span>
+            <span class="c1"># Add all parameters to the list, so that they can be appended to the dataframe
+</span>            <span class="c1"># While iterating convert to the preffered datatype
+</span>            <span class="n">list_of_next_values</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">search_space</span><span class="p">[</span><span class="n">item</span><span class="p">][</span><span class="mi">1</span><span class="p">](</span><span class="nb">round</span><span class="p">(</span><span class="n">next_parameter_values</span><span class="p">[</span><span class="n">item</span><span class="p">],</span><span class="mi">5</span><span class="p">)))</span>
+            <span class="n">next_parameter_values</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">search_space</span><span class="p">[</span><span class="n">item</span><span class="p">][</span><span class="mi">1</span><span class="p">](</span><span class="nb">round</span><span class="p">(</span><span class="n">next_parameter_values</span><span class="p">[</span><span class="n">item</span><span class="p">],</span><span class="mi">5</span><span class="p">)))</span>
+
+        <span class="c1"># Check that the output is not repeated (can happen as we are using white noize kernel) in this case generate point at random
+</span>        <span class="k">while</span> <span class="p">(</span><span class="n">parameters_and_loss_df</span><span class="p">[</span><span class="bp">self</span><span class="p">.</span><span class="n">list_of_parameters_names</span><span class="p">]</span><span class="o">==</span> <span class="n">list_of_next_values</span><span class="p">).</span><span class="nb">all</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="nb">any</span><span class="p">():</span>
+            <span class="n">list_of_next_values</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">.</span><span class="n">list_of_parameters_names</span><span class="p">:</span>
+                <span class="n">rand_value</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">search_space</span><span class="p">[</span><span class="n">item</span><span class="p">][</span><span class="mi">1</span><span class="p">](</span><span class="nb">round</span><span class="p">(</span><span class="n">random</span><span class="p">.</span><span class="n">uniform</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">search_space</span><span class="p">[</span><span class="n">item</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="p">.</span><span class="n">search_space</span><span class="p">[</span><span class="n">item</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]),</span><span class="mi">5</span><span class="p">))</span>
+                <span class="n">next_parameter_values</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="n">rand_value</span>
+                <span class="n">list_of_next_values</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">rand_value</span><span class="p">)</span>
+
+
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">.</span><span class="n">list_of_parameters_names</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">parameters_and_loss_dict</span><span class="p">[</span><span class="n">item</span><span class="p">].</span><span class="n">append</span><span class="p">(</span><span class="n">next_parameter_values</span><span class="p">[</span><span class="n">item</span><span class="p">])</span>
+        
+        
+        <span class="k">return</span> <span class="n">next_parameter_values</span><span class="p">,</span> <span class="n">loss_predicted</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">expected_improvement</span>
+
+
+    <span class="k">def</span> <span class="nf">update_loss</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        
+        <span class="bp">self</span><span class="p">.</span><span class="n">parameters_and_loss_dict</span><span class="p">[</span><span class="s">'loss'</span><span class="p">].</span><span class="n">append</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        
+        <span class="k">return</span>
+    
+    <span class="c1"># define the gaussian module as surrogate function 
+</span>    <span class="k">def</span> <span class="nf">fit_gp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">list_of_parameters_stack</span><span class="p">,</span> <span class="n">list_of_parameters</span><span class="p">,</span><span class="n">loss_evaluated</span><span class="p">):</span>
+
+        <span class="n">gp</span> <span class="o">=</span> <span class="n">GaussianProcessRegressor</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="bp">self</span><span class="p">.</span><span class="n">kernel</span><span class="p">,</span> <span class="n">n_restarts_optimizer</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+
+        <span class="c1"># update the model with the (paramters value , loss value )
+</span>        <span class="c1"># Fit to data using Maximum Likelihood Estimation of the parameters
+</span>        <span class="n">gp</span><span class="p">.</span><span class="n">fit</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">list_of_parameters_stack</span><span class="p">,(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">list_of_parameters</span><span class="p">))),</span> <span class="n">loss_evaluated</span><span class="p">)</span>
+    
+        <span class="c1"># Make the prediction on the meshed x-axis (ask for MSE as well)
+</span>        <span class="n">loss_predicted</span><span class="p">,</span> <span class="n">sigma</span> <span class="o">=</span> <span class="n">gp</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">meshgrid_linspacer_stack</span><span class="p">,</span> <span class="n">return_std</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+        <span class="n">loss_predicted</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">loss_predicted</span><span class="p">,</span><span class="bp">self</span><span class="p">.</span><span class="n">list_of_shapes</span><span class="p">)</span>
+        <span class="n">sigma</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">sigma</span><span class="p">,</span><span class="bp">self</span><span class="p">.</span><span class="n">list_of_shapes</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">loss_predicted</span><span class="p">,</span> <span class="n">sigma</span> 
+
+    <span class="c1">#the prediction/loss based on the surrogate function 
+</span>    <span class="k">def</span> <span class="nf">generate_prediction</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="n">list_of_parameters_stack</span><span class="p">,</span> <span class="n">list_of_parameters</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">normalize_current_values</span><span class="p">()</span>
+        <span class="c1"># use the ture loss function loss as y, the input is the generated next hyperparameters value
+</span>        <span class="n">loss_evaluated</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">parameters_and_loss_dict</span><span class="p">[</span><span class="s">'loss'</span><span class="p">]</span>
+        <span class="c1">#normalize the loss_evaluated
+</span>        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">parameters_and_loss_dict</span><span class="p">[</span><span class="s">'loss'</span><span class="p">])</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">loss_evaluated</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">parameters_and_loss_dict</span><span class="p">[</span><span class="s">'loss'</span><span class="p">]</span><span class="o">-</span><span class="n">np</span><span class="p">.</span><span class="n">mean</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">parameters_and_loss_dict</span><span class="p">[</span><span class="s">'loss'</span><span class="p">]))</span><span class="o">/</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">std</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">parameters_and_loss_dict</span><span class="p">[</span><span class="s">'loss'</span><span class="p">])</span><span class="o">+</span><span class="mf">1e-6</span><span class="p">)</span>
+
+        <span class="c1">#feed the surrogate model with the value(list_of_parameters_stack, loss_evaluated) include the new added loss value
+</span>        <span class="n">loss_predicted</span><span class="p">,</span> <span class="n">sigma</span>  <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">fit_gp</span><span class="p">(</span><span class="n">list_of_parameters_stack</span><span class="p">,</span> <span class="n">list_of_parameters</span><span class="p">,</span> <span class="n">loss_evaluated</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">loss_predicted</span><span class="p">,</span><span class="n">sigma</span><span class="p">,</span><span class="n">loss_evaluated</span>
+
+
+    <span class="k">def</span> <span class="nf">calculate_expected_improvement</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">loss_predicted</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">loss_evaluated</span><span class="p">):</span>
+
+        <span class="c1"># Calculate the expected improvement
+</span>        <span class="n">eps</span> <span class="o">=</span> <span class="mf">1e-6</span>
+        <span class="n">num</span> <span class="o">=</span><span class="p">(</span><span class="n">loss_predicted</span><span class="o">-</span><span class="nb">max</span><span class="p">(</span><span class="n">loss_evaluated</span><span class="p">)</span><span class="o">-</span><span class="n">eps</span><span class="p">)</span>
+        <span class="n">Z</span><span class="o">=</span><span class="n">num</span><span class="o">/</span><span class="n">sigma</span>
+        <span class="n">expected_improvement</span> <span class="o">=</span> <span class="n">num</span><span class="o">*</span><span class="n">scs</span><span class="p">.</span><span class="n">norm</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">).</span><span class="n">cdf</span><span class="p">(</span><span class="n">Z</span><span class="p">)</span><span class="o">+</span><span class="n">sigma</span><span class="o">*</span><span class="n">scs</span><span class="p">.</span><span class="n">norm</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">).</span><span class="n">pdf</span><span class="p">(</span><span class="n">Z</span><span class="p">)</span>
+        <span class="n">expected_improvement</span><span class="p">[</span><span class="n">sigma</span><span class="o">==</span><span class="mf">0.0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+        <span class="k">return</span> <span class="n">expected_improvement</span>
+
+    <span class="c1">#get propsal parameter from the index -- maximum value from expected_improvement
+</span>    <span class="k">def</span> <span class="nf">find_next_parameter_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expected_improvement</span><span class="p">):</span>
+        
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="p">.</span><span class="n">maximize</span><span class="p">:</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">where</span><span class="p">(</span><span class="n">expected_improvement</span><span class="o">==</span><span class="n">np</span><span class="p">.</span><span class="n">amax</span><span class="p">(</span><span class="n">expected_improvement</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">where</span><span class="p">(</span><span class="n">expected_improvement</span><span class="o">==</span><span class="n">np</span><span class="p">.</span><span class="n">amin</span><span class="p">(</span><span class="n">expected_improvement</span><span class="p">))</span>
+
+        <span class="n">next_parameter_values</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="c1"># Iterate over all parameter values and find those corresponding to maximum EI
+</span>        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">parameter</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">list_of_parameters_names</span><span class="p">):</span>
+
+            <span class="c1"># Since more than one value can be have max at EI,select one at random
+</span>            <span class="n">x</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">index</span><span class="p">[</span><span class="n">idx</span><span class="p">])))</span>
+            <span class="n">next_parameter_values</span><span class="p">[</span><span class="n">parameter</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">list_of_ranges_true</span><span class="p">[</span><span class="n">idx</span><span class="p">][</span><span class="n">index</span><span class="p">[</span><span class="n">idx</span><span class="p">][</span><span class="n">x</span><span class="p">]]</span>
+
+        <span class="k">return</span> <span class="n">next_parameter_values</span>
+
+
+
+
+</code></pre></div></div>
+
+<p><strong>following function seems define as the true loss function for the hyper-parameters, but acctually in practise we don’t know this or it is not easy to optimize</strong><br />
+<strong>per my understanding it could be replaced  with the loss calucation from true prediction and ground truth</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">one_dim_function_simple</span><span class="p">(</span><span class="n">burnin</span><span class="p">):</span>
+    <span class="s">'''
+    Maximum is attained at 12000
+    '''</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="o">-</span><span class="p">((</span><span class="n">burnin</span><span class="o">-</span><span class="mi">12000</span><span class="p">)</span><span class="o">/</span><span class="mi">10000</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+    <span class="k">return</span> <span class="n">f</span>
+
+<span class="k">def</span> <span class="nf">one_dim_function_complex</span><span class="p">(</span><span class="n">burnin</span><span class="p">):</span>
+    <span class="s">'''
+    Maximum is attained at 12000
+    '''</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="n">norm</span><span class="p">.</span><span class="n">pdf</span><span class="p">((</span><span class="n">burnin</span><span class="o">-</span><span class="mi">12000</span><span class="p">)</span><span class="o">/</span><span class="mi">1000</span><span class="p">)</span><span class="o">+</span><span class="n">np</span><span class="p">.</span><span class="n">sin</span><span class="p">((</span><span class="n">burnin</span><span class="o">-</span><span class="mi">12000</span><span class="p">)</span><span class="o">/</span><span class="mi">500</span><span class="p">)</span><span class="o">/</span><span class="mi">5</span>
+    <span class="k">return</span> <span class="n">f</span>
+
+
+<span class="k">def</span> <span class="nf">two_dim_function_simple</span><span class="p">(</span><span class="n">burnin</span><span class="p">,</span> <span class="n">learning_rate</span><span class="p">):</span>
+    <span class="s">'''
+    Maximum is attained at 12000, 1.5
+    '''</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="p">((</span><span class="n">burnin</span><span class="o">-</span><span class="mi">12000</span><span class="p">)</span><span class="o">/</span><span class="mi">10000</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">learning_rate</span><span class="o">-</span><span class="mf">1.25</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">f</span>
+
+
+<span class="k">def</span> <span class="nf">two_dim_function_complex</span><span class="p">(</span><span class="n">burnin</span><span class="p">,</span> <span class="n">learning_rate</span><span class="p">):</span>
+    <span class="s">'''
+    Maximum is attained at 12000, 1.5
+    '''</span>
+    
+    <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">burnin</span><span class="o">-</span><span class="mi">12000</span><span class="p">)</span><span class="o">/</span><span class="mi">1000</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="n">learning_rate</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="mi">2</span><span class="o">-</span><span class="mf">1.5</span>
+    
+    <span class="n">f</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="n">y</span><span class="o">**</span><span class="mi">3</span><span class="p">))</span><span class="o">*</span><span class="n">np</span><span class="p">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="n">y</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">f</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">generate_images_1D</span><span class="p">(</span><span class="n">path_to_images</span><span class="p">,</span><span class="n">data</span><span class="p">,</span><span class="n">loss_predicted</span><span class="p">,</span><span class="n">sigma</span><span class="p">,</span><span class="n">search_space</span><span class="p">,</span><span class="n">iteration</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">path_to_images</span><span class="p">):</span>
+        <span class="n">os</span><span class="p">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">path_to_images</span><span class="p">)</span>
+
+    <span class="n">mean_loss</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s">'loss'</span><span class="p">].</span><span class="n">mean</span><span class="p">()</span>
+    <span class="n">std_loss</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s">'loss'</span><span class="p">].</span><span class="n">std</span><span class="p">()</span>
+    <span class="c1"># Plot and save the fit
+</span>    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">*</span><span class="n">search_space</span><span class="p">[</span><span class="s">'burnin_period'</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>    
+    <span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">()</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">one_dim_function_complex</span><span class="p">(</span><span class="n">x</span><span class="p">),</span><span class="s">'b'</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s">"True function"</span><span class="p">);</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s">'burnin_period'</span><span class="p">].</span><span class="n">values</span><span class="p">,</span><span class="n">data</span><span class="p">[</span><span class="s">'loss'</span><span class="p">].</span><span class="n">values</span><span class="p">,</span><span class="s">'*r'</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s">"Collected measurements"</span><span class="p">)</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s">'burnin_period'</span><span class="p">].</span><span class="n">values</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">data</span><span class="p">[</span><span class="s">'loss'</span><span class="p">].</span><span class="n">values</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="s">'og'</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s">"New location"</span><span class="p">)</span>
+        
+    <span class="k">if</span> <span class="n">ii</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">ii</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">loss_predicted</span><span class="o">=</span> <span class="n">loss_predicted</span><span class="o">*</span><span class="n">std_loss</span><span class="o">+</span><span class="n">mean_loss</span>
+            <span class="n">sigma</span><span class="o">=</span> <span class="n">sigma</span><span class="o">*</span><span class="n">std_loss</span><span class="o">+</span><span class="n">mean_loss</span>        
+
+        <span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">loss_predicted</span><span class="p">,</span><span class="s">'r'</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s">"Predicted function"</span><span class="p">)</span>
+        <span class="n">plt</span><span class="p">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">loss_predicted</span> <span class="o">-</span> <span class="n">sigma</span><span class="p">,</span>
+                 <span class="n">loss_predicted</span> <span class="o">+</span> <span class="n">sigma</span><span class="p">,</span>
+                 <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">'c'</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s">"Standard deviation"</span><span class="p">)</span>  
+    <span class="n">plt</span><span class="p">.</span><span class="n">ylim</span><span class="p">([</span><span class="o">-</span><span class="p">.</span><span class="mi">5</span><span class="p">,</span> <span class="p">.</span><span class="mi">8</span><span class="p">])</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">grid</span><span class="p">()</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Loss'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'Burn-in period'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span> <span class="o">=</span> <span class="s">'upper left'</span><span class="p">)</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">path_to_images</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">iteration</span><span class="p">)</span><span class="o">+</span><span class="s">'.png'</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s">'tight'</span><span class="p">,</span><span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+    
+
+<span class="k">def</span> <span class="nf">generate_images_2D</span><span class="p">(</span><span class="n">path_to_images</span><span class="p">,</span><span class="n">data</span><span class="p">,</span><span class="n">loss_predicted</span><span class="p">,</span><span class="n">sigma</span><span class="p">,</span><span class="n">search_space</span><span class="p">,</span><span class="n">iteration</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">path_to_images</span><span class="p">):</span>
+        <span class="n">os</span><span class="p">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">path_to_images</span><span class="p">)</span>
+        
+    
+    <span class="n">mean_loss</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s">'loss'</span><span class="p">].</span><span class="n">mean</span><span class="p">()</span>
+    <span class="n">std_loss</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s">'loss'</span><span class="p">].</span><span class="n">std</span><span class="p">()</span>
+    
+    <span class="c1"># Plot the data
+</span>    <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">()</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="p">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s">'3d'</span><span class="p">)</span>
+    <span class="c1"># Make data.
+</span>    <span class="n">burnin_period</span> <span class="o">=</span>  <span class="n">np</span><span class="p">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">*</span><span class="n">search_space</span><span class="p">[</span><span class="s">'burnin_period'</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">learning_rate</span> <span class="o">=</span>  <span class="n">np</span><span class="p">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">*</span><span class="n">search_space</span><span class="p">[</span><span class="s">'learning_rate'</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span> 
+    <span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">burnin_period</span><span class="p">,</span> <span class="n">learning_rate</span><span class="p">,</span><span class="n">indexing</span><span class="o">=</span><span class="s">'ij'</span><span class="p">)</span>
+
+    <span class="n">Z</span> <span class="o">=</span> <span class="n">two_dim_function_complex</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+
+    <span class="c1"># Customize the z axis.
+</span>    <span class="n">ax</span><span class="p">.</span><span class="n">set_zlim</span><span class="p">(</span><span class="o">-</span><span class="p">.</span><span class="mi">5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">search_space</span><span class="p">[</span><span class="s">'learning_rate'</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">search_space</span><span class="p">[</span><span class="s">'learning_rate'</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">search_space</span><span class="p">[</span><span class="s">'burnin_period'</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">search_space</span><span class="p">[</span><span class="s">'burnin_period'</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">'Burn-in period'</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">'Learning rate'</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s">'Loss'</span><span class="p">)</span>
+
+    <span class="n">ax</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s">'burnin_period'</span><span class="p">].</span><span class="n">values</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s">'learning_rate'</span><span class="p">].</span><span class="n">values</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s">'loss'</span><span class="p">].</span><span class="n">values</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">'b'</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">);</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s">'burnin_period'</span><span class="p">].</span><span class="n">values</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s">'learning_rate'</span><span class="p">].</span><span class="n">values</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s">'loss'</span><span class="p">].</span><span class="n">values</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s">'r'</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">);</span>
+
+        
+    <span class="k">if</span> <span class="n">ii</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">ii</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">loss_predicted</span><span class="o">=</span> <span class="n">loss_predicted</span><span class="o">*</span><span class="p">(</span><span class="n">std_loss</span><span class="o">+</span><span class="mf">1e-6</span><span class="p">)</span><span class="o">+</span><span class="n">mean_loss</span>        
+        
+        <span class="n">surf_2</span> <span class="o">=</span> <span class="n">ax</span><span class="p">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span> <span class="n">loss_predicted</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cm</span><span class="p">.</span><span class="n">coolwarm</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">antialiased</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+        
+    
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="p">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">ii</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+        <span class="c1">#fig = plt.figure()
+</span>        
+        <span class="n">ax</span><span class="p">.</span><span class="n">contour</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span><span class="n">loss_predicted</span><span class="p">)</span>
+        <span class="n">ax</span><span class="p">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span><span class="n">loss_predicted</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s">'viridis'</span><span class="p">)</span>
+        <span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s">'burnin_period'</span><span class="p">].</span><span class="n">values</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s">'learning_rate'</span><span class="p">].</span><span class="n">values</span><span class="p">,</span> <span class="s">'ko'</span><span class="p">)</span>
+        
+        <span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s">'burnin_period'</span><span class="p">].</span><span class="n">values</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s">'learning_rate'</span><span class="p">].</span><span class="n">values</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="s">'ro'</span><span class="p">)</span>
+        <span class="n">ax</span><span class="p">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">'Burn-in period'</span><span class="p">)</span>
+        <span class="n">ax</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">'Learning rate'</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">ax</span><span class="p">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span><span class="n">np</span><span class="p">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">np</span><span class="p">.</span><span class="n">shape</span><span class="p">(</span><span class="n">X</span><span class="p">))),</span> <span class="n">cmap</span><span class="o">=</span><span class="s">'viridis'</span><span class="p">)</span>
+        
+    <span class="n">ax</span><span class="p">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="mf">1.0</span><span class="o">/</span><span class="n">ax</span><span class="p">.</span><span class="n">get_data_ratio</span><span class="p">(),</span> <span class="n">adjustable</span><span class="o">=</span><span class="s">'box'</span><span class="p">)</span>
+    <span class="n">fig</span><span class="p">.</span><span class="n">tight_layout</span><span class="p">(</span><span class="n">pad</span><span class="o">=</span><span class="mf">6.0</span><span class="p">)</span>
+    <span class="n">fig</span><span class="p">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">path_to_images</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">iteration</span><span class="p">)</span><span class="o">+</span><span class="s">'.png'</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s">'tight'</span><span class="p">,</span><span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+
+
+
+    
+<span class="k">def</span> <span class="nf">generate_gif</span><span class="p">(</span><span class="n">path_to_images</span><span class="p">,</span><span class="n">number_of_iterations</span><span class="p">):</span>
+    <span class="c1"># Write out images to a gif
+</span>    <span class="n">images</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">number_of_iterations</span><span class="p">):</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="n">path_to_images</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">ii</span><span class="p">)</span><span class="o">+</span><span class="s">'.png'</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="n">imageio</span><span class="p">.</span><span class="n">imread</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="n">images</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+    <span class="n">imageio</span><span class="p">.</span><span class="n">mimsave</span><span class="p">((</span><span class="n">path_to_images</span><span class="o">+</span><span class="s">'movie.gif'</span><span class="p">),</span> <span class="n">images</span><span class="p">,</span> <span class="n">duration</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="c1"># modify duration as needed
+</span>
+</code></pre></div></div>
+
+<h1 id="1d-example">1D Example</h1>
+
+<p>When explaining the problem I find it useful to bear in mind the final goal. The goal of this article would be finding hyper-parameters for a deep neural network that would maximize the validation accuracy. For this we will be using bayesian optimization. We can split the process into several steps:</p>
+
+<ul>
+  <li>Initialize the network with values of the hyper-parameters;</li>
+  <li>Train the model and save the best accuracy on the validation set;</li>
+  <li>Fit a Gaussian Process (GP) over the performance data collected so far. <font color="red"> Here, the values of the hyper-parameters tested so far are independent variables and accuracies of the model with these hyper-parameter values are predictor variable </font>;</li>
+  <li>Use acquisition function on the GP fit to obtain the next set of hyper-parameter values with which the model is expected to attain better performance;</li>
+  <li>Go to step 1.</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   
+<span class="n">number_of_iterations</span> <span class="o">=</span> <span class="mi">15</span>
+
+<span class="c1"># Dictionary:
+# Key: parameter name
+# Entry: tupple with (i) a list for the search space interval (start_val, end_val, num_points) and (ii) type of parameter
+</span><span class="n">search_space</span> <span class="o">=</span> <span class="p">{</span><span class="s">'burnin_period'</span><span class="p">:([</span><span class="mi">8000</span><span class="p">,</span> <span class="mi">16000</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span><span class="nb">int</span><span class="p">)}</span>
+<span class="n">maximize</span><span class="o">=</span><span class="bp">True</span>
+<span class="n">list_of_parameters_names</span> <span class="o">=</span> <span class="p">[</span><span class="s">'burnin_period'</span><span class="p">]</span>
+
+
+<span class="n">generate_images_flag</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="n">path_to_images</span> <span class="o">=</span> <span class="s">'figures_1D/'</span>
+<span class="n">generate_gif_flag</span> <span class="o">=</span> <span class="bp">True</span>
+
+<span class="n">bayes_optimizer</span> <span class="o">=</span> <span class="n">BO</span><span class="p">(</span><span class="n">search_space</span><span class="p">,</span> <span class="n">list_of_parameters_names</span><span class="p">,</span> <span class="n">maximize</span><span class="p">)</span>
+
+
+<span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">number_of_iterations</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"Iteration: "</span><span class="p">,</span> <span class="n">ii</span><span class="p">)</span>
+    
+    <span class="c1"># Fit and get the next point to sample from Surrogate function
+</span>    <span class="n">next_parameter_values</span><span class="p">,</span> <span class="n">loss_predicted</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">expected_improvement</span> <span class="o">=</span> <span class="n">bayes_optimizer</span><span class="p">.</span><span class="n">bayes_opt</span><span class="p">()</span>
+    
+    <span class="c1"># Generate the loss from the true loss function
+</span>    <span class="n">res</span> <span class="o">=</span> <span class="n">one_dim_function_complex</span><span class="p">(</span><span class="n">next_parameter_values</span><span class="p">[</span><span class="s">'burnin_period'</span><span class="p">])</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"The loss is:%f"</span><span class="o">%</span><span class="n">res</span><span class="p">)</span>
+    
+    <span class="c1">#update the 
+</span>    <span class="n">bayes_optimizer</span><span class="p">.</span><span class="n">update_loss</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+    
+    <span class="n">data_trace</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">bayes_optimizer</span><span class="p">.</span><span class="n">parameters_and_loss_dict</span><span class="p">,</span><span class="n">orient</span><span class="o">=</span><span class="s">'index'</span><span class="p">).</span><span class="n">transpose</span><span class="p">()</span>  
+    <span class="k">if</span> <span class="n">generate_images_flag</span><span class="p">:</span>
+        <span class="n">generate_images_1D</span><span class="p">(</span><span class="n">path_to_images</span><span class="p">,</span><span class="n">data_trace</span><span class="p">,</span><span class="n">loss_predicted</span><span class="p">,</span><span class="n">sigma</span><span class="p">,</span><span class="n">search_space</span><span class="p">,</span><span class="n">ii</span><span class="p">)</span>
+    
+<span class="k">if</span> <span class="n">generate_gif_flag</span><span class="p">:</span>
+    <span class="n">generate_gif</span><span class="p">(</span><span class="n">path_to_images</span><span class="p">,</span><span class="n">number_of_iterations</span><span class="p">)</span>
+
+    
+<span class="k">print</span><span class="p">(</span><span class="n">data_trace</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Iteration:  0
+The loss is:0.163056
+Iteration:  1
+
+
+/opt/conda/lib/python3.7/site-packages/sklearn/gaussian_process/kernels.py:427: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 1e-05. Decreasing the bound and calling fit again may find a better value.
+  ConvergenceWarning,
+
+
+Next try paramters is {'burnin_period': 14303.030303030304}:
+The loss is:-0.170737
+Iteration:  2
+
+
+/opt/conda/lib/python3.7/site-packages/sklearn/gaussian_process/kernels.py:427: ConvergenceWarning: The optimal value found for dimension 0 of parameter k1__k1__length_scale is close to the specified lower bound 0.01. Decreasing the bound and calling fit again may find a better value.
+  ConvergenceWarning,
+
+
+Next try paramters is {'burnin_period': 13414.141414141413}:
+The loss is:0.208503
+Iteration:  3
+
+
+/opt/conda/lib/python3.7/site-packages/sklearn/gaussian_process/kernels.py:427: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 1e-05. Decreasing the bound and calling fit again may find a better value.
+  ConvergenceWarning,
+
+
+Next try paramters is {'burnin_period': 12929.29292929293}:
+The loss is:0.450929
+Iteration:  4
+
+
+/opt/conda/lib/python3.7/site-packages/sklearn/gaussian_process/kernels.py:427: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 1e-05. Decreasing the bound and calling fit again may find a better value.
+  ConvergenceWarning,
+
+
+Next try paramters is {'burnin_period': 12444.444444444445}:
+The loss is:0.516657
+Iteration:  5
+
+
+/opt/conda/lib/python3.7/site-packages/sklearn/gaussian_process/kernels.py:427: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 1e-05. Decreasing the bound and calling fit again may find a better value.
+  ConvergenceWarning,
+
+
+Next try paramters is {'burnin_period': 8000.0}:
+The loss is:-0.197738
+Iteration:  6
+
+
+/opt/conda/lib/python3.7/site-packages/sklearn/gaussian_process/kernels.py:427: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 1e-05. Decreasing the bound and calling fit again may find a better value.
+  ConvergenceWarning,
+
+
+Next try paramters is {'burnin_period': 10101.0101010101}:
+The loss is:0.187796
+Iteration:  7
+
+
+/opt/conda/lib/python3.7/site-packages/sklearn/gaussian_process/kernels.py:427: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 1e-05. Decreasing the bound and calling fit again may find a better value.
+  ConvergenceWarning,
+
+
+Next try paramters is {'burnin_period': 16000.0}:
+The loss is:0.198005
+Iteration:  8
+
+
+/opt/conda/lib/python3.7/site-packages/sklearn/gaussian_process/kernels.py:427: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 1e-05. Decreasing the bound and calling fit again may find a better value.
+  ConvergenceWarning,
+
+
+Next try paramters is {'burnin_period': 12525.252525252525}:
+The loss is:0.521068
+Iteration:  9
+
+
+/opt/conda/lib/python3.7/site-packages/sklearn/gaussian_process/_gpr.py:610: ConvergenceWarning: lbfgs failed to converge (status=2):
+ABNORMAL_TERMINATION_IN_LNSRCH.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+  _check_optimize_result("lbfgs", opt_res)
+/opt/conda/lib/python3.7/site-packages/sklearn/gaussian_process/kernels.py:427: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 1e-05. Decreasing the bound and calling fit again may find a better value.
+  ConvergenceWarning,
+
+
+Next try paramters is {'burnin_period': 12525.252525252525}:
+The loss is:-0.087977
+Iteration:  10
+
+
+/opt/conda/lib/python3.7/site-packages/sklearn/gaussian_process/_gpr.py:610: ConvergenceWarning: lbfgs failed to converge (status=2):
+ABNORMAL_TERMINATION_IN_LNSRCH.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+  _check_optimize_result("lbfgs", opt_res)
+/opt/conda/lib/python3.7/site-packages/sklearn/gaussian_process/kernels.py:427: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 1e-05. Decreasing the bound and calling fit again may find a better value.
+  ConvergenceWarning,
+
+
+Next try paramters is {'burnin_period': 12525.252525252525}:
+The loss is:0.399342
+Iteration:  11
+
+
+/opt/conda/lib/python3.7/site-packages/sklearn/gaussian_process/kernels.py:427: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 1e-05. Decreasing the bound and calling fit again may find a better value.
+  ConvergenceWarning,
+
+
+Next try paramters is {'burnin_period': 12525.252525252525}:
+The loss is:0.140696
+Iteration:  12
+
+
+/opt/conda/lib/python3.7/site-packages/sklearn/gaussian_process/_gpr.py:610: ConvergenceWarning: lbfgs failed to converge (status=2):
+ABNORMAL_TERMINATION_IN_LNSRCH.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+  _check_optimize_result("lbfgs", opt_res)
+/opt/conda/lib/python3.7/site-packages/sklearn/gaussian_process/kernels.py:427: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 1e-05. Decreasing the bound and calling fit again may find a better value.
+  ConvergenceWarning,
+
+
+Next try paramters is {'burnin_period': 12525.252525252525}:
+The loss is:0.064279
+Iteration:  13
+
+
+/opt/conda/lib/python3.7/site-packages/sklearn/gaussian_process/_gpr.py:610: ConvergenceWarning: lbfgs failed to converge (status=2):
+ABNORMAL_TERMINATION_IN_LNSRCH.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+  _check_optimize_result("lbfgs", opt_res)
+/opt/conda/lib/python3.7/site-packages/sklearn/gaussian_process/kernels.py:427: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 1e-05. Decreasing the bound and calling fit again may find a better value.
+  ConvergenceWarning,
+
+
+Next try paramters is {'burnin_period': 12525.252525252525}:
+The loss is:0.112892
+Iteration:  14
+
+
+/opt/conda/lib/python3.7/site-packages/sklearn/gaussian_process/_gpr.py:610: ConvergenceWarning: lbfgs failed to converge (status=2):
+ABNORMAL_TERMINATION_IN_LNSRCH.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+  _check_optimize_result("lbfgs", opt_res)
+/opt/conda/lib/python3.7/site-packages/sklearn/gaussian_process/kernels.py:427: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 1e-05. Decreasing the bound and calling fit again may find a better value.
+  ConvergenceWarning,
+
+
+Next try paramters is {'burnin_period': 12525.252525252525}:
+The loss is:0.438441
+
+
+/opt/conda/lib/python3.7/site-packages/ipykernel_launcher.py:95: DeprecationWarning: Starting with ImageIO v3 the behavior of this function will switch to that of iio.v3.imread. To keep the current behavior (and make this warning disappear) use `import imageio.v2 as imageio` or call `imageio.v2.imread` directly.
+
+
+    burnin_period      loss
+0         13491.0  0.163056
+1         14303.0 -0.170737
+2         13414.0  0.208503
+3         12929.0  0.450929
+4         12444.0  0.516657
+5          8000.0 -0.197738
+6         10101.0  0.187796
+7         16000.0  0.198005
+8         12525.0  0.521068
+9         14897.0 -0.087977
+10        12001.0  0.399342
+11        11382.0  0.140696
+12         9010.0  0.064279
+13        11292.0  0.112892
+14        12105.0  0.438441
+</code></pre></div></div>
+
+<p><img src="/assets/2023-12-01-Bayesian-Optimization-2_files/2023-12-01-Bayesian-Optimization-2_9_31.png" alt="png" /></p>
+
+<p><img src="/assets/2023-12-01-Bayesian-Optimization-2_files/2023-12-01-Bayesian-Optimization-2_9_32.png" alt="png" /></p>
+
+<p><img src="/assets/2023-12-01-Bayesian-Optimization-2_files/2023-12-01-Bayesian-Optimization-2_9_33.png" alt="png" /></p>
+
+<p><img src="/assets/2023-12-01-Bayesian-Optimization-2_files/2023-12-01-Bayesian-Optimization-2_9_34.png" alt="png" /></p>
+
+<p><img src="/assets/2023-12-01-Bayesian-Optimization-2_files/2023-12-01-Bayesian-Optimization-2_9_35.png" alt="png" /></p>
+
+<p><img src="/assets/2023-12-01-Bayesian-Optimization-2_files/2023-12-01-Bayesian-Optimization-2_9_36.png" alt="png" /></p>
+
+<p><img src="/assets/2023-12-01-Bayesian-Optimization-2_files/2023-12-01-Bayesian-Optimization-2_9_37.png" alt="png" /></p>
+
+<p><img src="/assets/2023-12-01-Bayesian-Optimization-2_files/2023-12-01-Bayesian-Optimization-2_9_38.png" alt="png" /></p>
+
+<p><img src="/assets/2023-12-01-Bayesian-Optimization-2_files/2023-12-01-Bayesian-Optimization-2_9_39.png" alt="png" /></p>
+
+<p><img src="/assets/2023-12-01-Bayesian-Optimization-2_files/2023-12-01-Bayesian-Optimization-2_9_40.png" alt="png" /></p>
+
+<p><img src="/assets/2023-12-01-Bayesian-Optimization-2_files/2023-12-01-Bayesian-Optimization-2_9_41.png" alt="png" /></p>
+
+<p><img src="/assets/2023-12-01-Bayesian-Optimization-2_files/2023-12-01-Bayesian-Optimization-2_9_42.png" alt="png" /></p>
+
+<p><img src="/assets/2023-12-01-Bayesian-Optimization-2_files/2023-12-01-Bayesian-Optimization-2_9_43.png" alt="png" /></p>
+
+<p><img src="/assets/2023-12-01-Bayesian-Optimization-2_files/2023-12-01-Bayesian-Optimization-2_9_44.png" alt="png" /></p>
+
+<p><img src="/assets/2023-12-01-Bayesian-Optimization-2_files/2023-12-01-Bayesian-Optimization-2_9_45.png" alt="png" /></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">matplotlib.image</span> <span class="k">as</span> <span class="n">mpimg</span> <span class="c1"># mpimg 用于读取图片
+#from PIL import Image
+#image =Image.open('./figures_1D/movie.gif') 
+</span><span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+
+<span class="k">with</span> <span class="n">Image</span><span class="p">.</span><span class="nb">open</span><span class="p">(</span><span class="s">"./figures_1D/movie.gif"</span><span class="p">)</span> <span class="k">as</span> <span class="n">im</span><span class="p">:</span>
+    <span class="n">im</span><span class="p">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># skip to the second frame
+</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">while</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">im</span><span class="p">.</span><span class="n">seek</span><span class="p">(</span><span class="n">im</span><span class="p">.</span><span class="n">tell</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="c1"># do something to im
+</span>    <span class="k">except</span> <span class="nb">EOFError</span><span class="p">:</span>
+        <span class="k">pass</span>  <span class="c1"># end of sequence
+</span></code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">bayes_optimizer</span><span class="p">.</span><span class="n">kernel</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>RBF(length_scale=5) * 1**2 + WhiteKernel(noise_level=0.2)
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">bayes_optimizer</span><span class="p">.</span><span class="n">list_of_parameters_names</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>['burnin_period']
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">bayes_optimizer</span><span class="p">.</span><span class="n">dict_of_means</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{'burnin_period': [12000.0, 4000.0]}
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">bayes_optimizer</span><span class="p">.</span><span class="n">parameters_and_loss_dict</span> 
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{'burnin_period': [15190,
+  8000,
+  15515,
+  16000,
+  11555,
+  12202,
+  12606,
+  8516,
+  8829,
+  12525,
+  10020,
+  8702,
+  8469,
+  9455,
+  14869],
+ 'loss': [0.02179419405092415,
+  -0.19773781909891147,
+  0.13668888602482362,
+  0.19800547955044123,
+  0.20592019518048077,
+  0.4695054186287629,
+  0.519285208323812,
+  -0.12558306998179783,
+  -0.009141335499586956,
+  0.5210679094111514,
+  0.20219481407172796,
+  -0.059813618164422676,
+  -0.13970467851039908,
+  0.2015570130950498,
+  -0.09720598043113905]}
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">bayes_optimizer</span><span class="p">.</span><span class="n">meshgrid_linspacer_stack</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>array([[-1.        , -1.        ],
+       [-1.        , -0.97979798],
+       [-1.        , -0.95959596],
+       ...,
+       [ 1.        ,  0.95959596],
+       [ 1.        ,  0.97979798],
+       [ 1.        ,  1.        ]])
+</code></pre></div></div>
+
+<h1 id="2d-example">2D Example</h1>
+
+<p>1D case is not very practical as there usually many more hyper-parameters to be optimized. In this example we consider a 2D case with two hyper-parameters: burn-in period and learning rate. Visualising sampled points in 3D might be dificult. Below I also show the contour plot for the data — view from the top.</p>
+
+<p><img src="/assets/2023-12-01-Bayesian-Optimization-2_files/3036efc9-0a1c-44b1-a908-9ad52883ef92.gif" alt="movie.gif" /></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="n">number_of_iterations</span> <span class="o">=</span> <span class="mi">15</span>
+
+
+<span class="c1"># Dictionary:
+# Key: parameter name
+# Entry: tupple with (i) a list for the search space interval (start_val, end_val, num_points) and (ii) type of parameter
+</span><span class="n">search_space</span> <span class="o">=</span> <span class="p">{</span><span class="s">'burnin_period'</span><span class="p">:([</span><span class="mi">8000</span><span class="p">,</span> <span class="mi">16000</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span><span class="nb">int</span><span class="p">),</span>
+                <span class="s">'learning_rate'</span><span class="p">:([</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span><span class="nb">float</span><span class="p">)}</span>
+<span class="n">maximize</span><span class="o">=</span><span class="bp">True</span>
+<span class="n">list_of_parameters_names</span> <span class="o">=</span> <span class="p">[</span><span class="s">'burnin_period'</span><span class="p">,</span><span class="s">'learning_rate'</span><span class="p">]</span>
+
+
+
+<span class="n">generate_images_flag</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="n">path_to_images</span> <span class="o">=</span> <span class="s">'figures_2D/'</span>
+<span class="n">generate_gif_flag</span> <span class="o">=</span> <span class="bp">True</span>
+
+<span class="n">bayes_optimizer</span> <span class="o">=</span> <span class="n">BO</span><span class="p">(</span><span class="n">search_space</span><span class="p">,</span> <span class="n">list_of_parameters_names</span><span class="p">,</span> <span class="n">maximize</span><span class="p">)</span>
+
+
+<span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">number_of_iterations</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"Iteration: "</span><span class="p">,</span> <span class="n">ii</span><span class="p">)</span>
+    
+    <span class="c1"># Fit and get the next point to sample at
+</span>    <span class="n">next_parameter_values</span><span class="p">,</span> <span class="n">loss_predicted</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">expected_improvement</span> <span class="o">=</span> <span class="n">bayes_optimizer</span><span class="p">.</span><span class="n">bayes_opt</span><span class="p">()</span>
+    
+    <span class="c1"># Generate the predition from the true function
+</span>    <span class="n">res</span> <span class="o">=</span> <span class="n">one_dim_function_complex</span><span class="p">(</span><span class="n">next_parameter_values</span><span class="p">[</span><span class="s">'burnin_period'</span><span class="p">])</span>
+    
+    
+    <span class="n">bayes_optimizer</span><span class="p">.</span><span class="n">update_loss</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+    
+    <span class="n">data_trace</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">bayes_optimizer</span><span class="p">.</span><span class="n">parameters_and_loss_dict</span><span class="p">,</span><span class="n">orient</span><span class="o">=</span><span class="s">'index'</span><span class="p">).</span><span class="n">transpose</span><span class="p">()</span>
+    
+    <span class="k">if</span> <span class="n">generate_images_flag</span><span class="p">:</span>
+          
+        <span class="n">generate_images_2D</span><span class="p">(</span><span class="n">path_to_images</span><span class="p">,</span><span class="n">data_trace</span><span class="p">,</span><span class="n">loss_predicted</span><span class="p">,</span><span class="n">sigma</span><span class="p">,</span><span class="n">search_space</span><span class="p">,</span><span class="n">ii</span><span class="p">)</span>
+    
+<span class="k">if</span> <span class="n">generate_gif_flag</span><span class="p">:</span>
+    <span class="n">generate_gif</span><span class="p">(</span><span class="n">path_to_images</span><span class="p">,</span><span class="n">number_of_iterations</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">data_trace</span><span class="p">)</span>
+
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Iteration:  0
+Iteration:  1
+
+
+/opt/conda/lib/python3.7/site-packages/sklearn/gaussian_process/kernels.py:427: ConvergenceWarning: The optimal value found for dimension 0 of parameter k1__k2__constant_value is close to the specified lower bound 0.01. Decreasing the bound and calling fit again may find a better value.
+  ConvergenceWarning,
+/opt/conda/lib/python3.7/site-packages/sklearn/gaussian_process/kernels.py:427: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 1e-05. Decreasing the bound and calling fit again may find a better value.
+  ConvergenceWarning,
+
+
+Next try paramters is {'burnin_period': 8000.0, 'learning_rate': 2.0}:
+Iteration:  2
+Next try paramters is {'burnin_period': 13656.565656565657, 'learning_rate': 0.7575757575757576}:
+Iteration:  3
+Next try paramters is {'burnin_period': 13494.949494949495, 'learning_rate': 0.7272727272727273}:
+Iteration:  4
+
+
+/opt/conda/lib/python3.7/site-packages/sklearn/gaussian_process/kernels.py:427: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 1e-05. Decreasing the bound and calling fit again may find a better value.
+  ConvergenceWarning,
+
+
+Next try paramters is {'burnin_period': 13010.10101010101, 'learning_rate': 0.6515151515151515}:
+Iteration:  5
+
+
+/opt/conda/lib/python3.7/site-packages/sklearn/gaussian_process/kernels.py:427: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 1e-05. Decreasing the bound and calling fit again may find a better value.
+  ConvergenceWarning,
+
+
+Next try paramters is {'burnin_period': 12282.828282828283, 'learning_rate': 0.5}:
+Iteration:  6
+
+
+/opt/conda/lib/python3.7/site-packages/sklearn/gaussian_process/kernels.py:427: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__noise_level is close to the specified lower bound 1e-05. Decreasing the bound and calling fit again may find a better value.
+  ConvergenceWarning,
+
+
+Next try paramters is {'burnin_period': 11878.787878787878, 'learning_rate': 0.696969696969697}:
+Iteration:  7
+Next try paramters is {'burnin_period': 12848.484848484848, 'learning_rate': 0.5}:
+Iteration:  8
+Next try paramters is {'burnin_period': 12525.252525252525, 'learning_rate': 0.5757575757575758}:
+Iteration:  9
+Next try paramters is {'burnin_period': 16000.0, 'learning_rate': 2.0}:
+Iteration:  10
+Next try paramters is {'burnin_period': 12444.444444444445, 'learning_rate': 1.696969696969697}:
+Iteration:  11
+Next try paramters is {'burnin_period': 12363.636363636364, 'learning_rate': 1.9242424242424243}:
+Iteration:  12
+Next try paramters is {'burnin_period': 11393.939393939394, 'learning_rate': 1.7727272727272727}:
+Iteration:  13
+Next try paramters is {'burnin_period': 13252.52525252525, 'learning_rate': 1.803030303030303}:
+Iteration:  14
+Next try paramters is {'burnin_period': 12606.060606060606, 'learning_rate': 1.4848484848484849}:
+
+
+/opt/conda/lib/python3.7/site-packages/ipykernel_launcher.py:95: DeprecationWarning: Starting with ImageIO v3 the behavior of this function will switch to that of iio.v3.imread. To keep the current behavior (and make this warning disappear) use `import imageio.v2 as imageio` or call `imageio.v2.imread` directly.
+
+
+    burnin_period  learning_rate      loss
+0         13807.0        0.78643 -0.013047
+1          8000.0        2.00000 -0.197738
+2         13656.0        0.75758  0.067339
+3         13494.0        0.72727  0.161284
+4         13010.0        0.65152  0.419710
+5         12282.0        0.50000  0.490305
+6         11878.0        0.69697  0.347667
+7         12848.0        0.50000  0.476892
+8         12525.0        0.57576  0.521068
+9         16000.0        2.00000  0.198005
+10        12444.0        1.69697  0.516657
+11        12363.0        1.92424  0.506282
+12        11393.0        1.77273  0.144416
+13        13252.0        1.80303  0.301245
+14        12606.0        1.48485  0.519285
+</code></pre></div></div>
+
+<p><img src="/assets/2023-12-01-Bayesian-Optimization-2_files/2023-12-01-Bayesian-Optimization-2_18_11.png" alt="png" /></p>
+
+<p><img src="/assets/2023-12-01-Bayesian-Optimization-2_files/2023-12-01-Bayesian-Optimization-2_18_12.png" alt="png" /></p>
+
+<p><img src="/assets/2023-12-01-Bayesian-Optimization-2_files/2023-12-01-Bayesian-Optimization-2_18_13.png" alt="png" /></p>
+
+<p><img src="/assets/2023-12-01-Bayesian-Optimization-2_files/2023-12-01-Bayesian-Optimization-2_18_14.png" alt="png" /></p>
+
+<p><img src="/assets/2023-12-01-Bayesian-Optimization-2_files/2023-12-01-Bayesian-Optimization-2_18_15.png" alt="png" /></p>
+
+<p><img src="/assets/2023-12-01-Bayesian-Optimization-2_files/2023-12-01-Bayesian-Optimization-2_18_16.png" alt="png" /></p>
+
+<p><img src="/assets/2023-12-01-Bayesian-Optimization-2_files/2023-12-01-Bayesian-Optimization-2_18_17.png" alt="png" /></p>
+
+<p><img src="/assets/2023-12-01-Bayesian-Optimization-2_files/2023-12-01-Bayesian-Optimization-2_18_18.png" alt="png" /></p>
+
+<p><img src="/assets/2023-12-01-Bayesian-Optimization-2_files/2023-12-01-Bayesian-Optimization-2_18_19.png" alt="png" /></p>
+
+<p><img src="/assets/2023-12-01-Bayesian-Optimization-2_files/2023-12-01-Bayesian-Optimization-2_18_20.png" alt="png" /></p>
+
+<p><img src="/assets/2023-12-01-Bayesian-Optimization-2_files/2023-12-01-Bayesian-Optimization-2_18_21.png" alt="png" /></p>
+
+<p><img src="/assets/2023-12-01-Bayesian-Optimization-2_files/2023-12-01-Bayesian-Optimization-2_18_22.png" alt="png" /></p>
+
+<p><img src="/assets/2023-12-01-Bayesian-Optimization-2_files/2023-12-01-Bayesian-Optimization-2_18_23.png" alt="png" /></p>
+
+<p><img src="/assets/2023-12-01-Bayesian-Optimization-2_files/2023-12-01-Bayesian-Optimization-2_18_24.png" alt="png" /></p>
+
+<p><img src="/assets/2023-12-01-Bayesian-Optimization-2_files/2023-12-01-Bayesian-Optimization-2_18_25.png" alt="png" /></p>
+
+
+</div>
+
+<span class="post-tags">
+    
+      <i class="fa fa-tag fa-xs" aria-hidden="true"></i>
+      
+      <a class="no-underline" href="/tag/AI"><nobr>AI</nobr></code>&nbsp;</a>    
+    
+</span>
+
+<div class="recent">
+  <h2>Recent Posts</h2>
+  <ul class="recent-posts">
+    
+      <li>
+        <h4>
+          <a href="/coding/2023/12/11/diffusion-model-demo2.html">
+            A Diffusion Model from Scratch in Pytorch
+          </a>
+          <small>[11 Dec 2023]</small>
+        </h4>
+      </li>
+    
+      <li>
+        <h4>
+          <a href="/coding/2023/12/02/Inspect-BERT-Vocabulary.html">
+            Inspect BERT Vocabulary
+          </a>
+          <small>[02 Dec 2023]</small>
+        </h4>
+      </li>
+    
+      <li>
+        <h4>
+          <a href="/working/2023/12/01/My-Tasks-and-Notes.html">
+            working todo
+          </a>
+          <small>[01 Dec 2023]</small>
+        </h4>
+      </li>
+    
+  </ul>
+</div>
+    </div>
+
+  </body>
+</html>
