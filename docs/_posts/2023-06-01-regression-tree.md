@@ -3,7 +3,7 @@ layout: post
 title:  "Regression Tree 回归树 Practise"
 date:   2023-01-26
 categories: coding
-tags: AI
+tags: AI RegressionTree
 ---
 
 ## Regression Tree 回归树 Practise ##

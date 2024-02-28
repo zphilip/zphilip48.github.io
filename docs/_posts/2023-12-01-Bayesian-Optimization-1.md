@@ -3,7 +3,7 @@ layout: post
 title:  "Bayesian Optimization with GPyOpt"
 date:   2021-01-26
 categories: coding
-tags: AI
+tags: AI BayesianOptimization
 ---
 
 **Bayesian Optimization with GPyOpt**  

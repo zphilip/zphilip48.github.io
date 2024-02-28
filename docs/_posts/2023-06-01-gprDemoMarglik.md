@@ -3,7 +3,7 @@ layout: post
 title:  "a Gaussian Process Regression with multiple local minima"
 date:   2023-01-26
 categories: coding
-tags: AI
+tags: AI GPR
 ---
 
 ```python

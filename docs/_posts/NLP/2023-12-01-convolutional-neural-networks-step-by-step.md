@@ -3,7 +3,7 @@ layout: post
 title:  "Convolutional Neural Networks: Step by Step"
 date:   2023-12-01
 categories: coding
-tags: AI
+tags: AI CNN
 ---
 卷积的数学表示
 $$f∗g(n)=∫_{−∞}^{+∞}​f(τ)g(n−τ)dτ$$

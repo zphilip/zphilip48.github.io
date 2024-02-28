@@ -3,7 +3,7 @@ layout: post
 title:  "gbm Implementation"
 date:   2023-01-26
 categories: coding
-tags: AI
+tags: AI GBM
 ---
 # Implementation of Friedman's GBM with Custom Objective
 

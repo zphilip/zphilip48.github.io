@@ -3,7 +3,7 @@ layout: post
 title:  "Langevin Monte Carlo"
 date:   2023-01-26
 categories: coding
-tags: AI
+tags: AI LangevinMonteCarlo
 ---
 
 ```python

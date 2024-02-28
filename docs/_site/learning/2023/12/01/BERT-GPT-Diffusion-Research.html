@@ -311,7 +311,7 @@
     <div class="content container">
       <div class="post">
   <h1 class="post-title">BERT GPT Diffusion Research</h1>
-  <span class="post-date">26 Jan 2021</span>
+  <span class="post-date">01 Dec 2023</span>
   <h1 id="1bert-bidirectional-encoder-representation-transformer1">1.BERT (Bidirectional Encoder Representation Transformer#1)</h1>
 
 <h2 id="1-the-bert-paper--resources">1, The BERT Paper &amp; Resources</h2>
@@ -405,7 +405,7 @@
 
 <p>BERT which stands for <a href="https://arxiv.org/abs/1810.04805"><strong>*Bidirectional Encoder Representation Transformer*</strong></a>, a transformer based language model published by Google Research Team at 2018, is still gaining attention and being widely applied in Data Science Project today. This is due to the incredible model performance on multiple NLP tasks including question-answering, text tagging and sentence classification.</p>
 
-<p><img src="BERTGPTDiffusion%20Research.assets/1tf_5g-MwQG0cijTR1o15MQ-1684152127269-7.png" alt="img" style="zoom: 80%;" /></p>
+<p><img src="/assets/BERTGPTDiffusion%20Research.assets/1tf_5g-MwQG0cijTR1o15MQ-1684152127269-7.png" alt="img" style="zoom: 80%;" /></p>
 
 <p>BERT relies on a Transformer mechanism, it contains the attention module that learns contextual relationships between words in a text.</p>
 
@@ -427,7 +427,7 @@
 
 <p>A tokenized BERT input always starts with a special <strong>[CLS]</strong> token and ends with a special <strong>[SEP]</strong> token, which are used for specific purposes that will be explained later. BERT employs a <strong>WordPiece</strong> tokenizer, which can split a single word into multiple tokens.</p>
 
-<p><img src="BERTGPTDiffusion%20Research.assets/image-20230515201443054.png" alt="image-20230515201443054" /></p>
+<p><img src="/assets/BERTGPTDiffusion%20Research.assets/image-20230515201443054.png" alt="image-20230515201443054" /></p>
 
 <p>all sub words start with “##” except the beginning words</p>
 
@@ -445,7 +445,7 @@
   <li>Train the tokenizer based on the file path to .txt files with parameters like <code class="language-plaintext highlighter-rouge">vocab_size</code> defines the total number of tokens, <code class="language-plaintext highlighter-rouge">min_frequency</code> for minimum frequency for a pair of tokens to be merged, <code class="language-plaintext highlighter-rouge">special_tokens</code> defines a list of the special tokens that BERT uses, <code class="language-plaintext highlighter-rouge">limit_alphabet</code> for a maximum number of different characters, <code class="language-plaintext highlighter-rouge">workpieces_prefix</code> the prefix added to <em>pieces</em> of words (like ##ing).</li>
 </ol>
 
-<p><img src="BERTGPTDiffusion%20Research.assets/image-20230515232127802.png" alt="image-20230515232127802" style="zoom: 67%;" /></p>
+<p><img src="/assets/BERTGPTDiffusion%20Research.assets/image-20230515232127802.png" alt="image-20230515232127802" style="zoom: 67%;" /></p>
 
 <p>To specifically highlight these special tokens for BERT:</p>
 
@@ -465,7 +465,7 @@
   <li>
     <p><code class="language-plaintext highlighter-rouge">UNK</code> serves as a replacement for token if it’s not being found in the tokenizer’s vocab.</p>
 
-    <p><img src="BERTGPTDiffusion%20Research.assets/image-20230515232305773.png" alt="image-20230515232305773" /></p>
+    <p><img src="/assets/BERTGPTDiffusion%20Research.assets/image-20230515232305773.png" alt="image-20230515232305773" /></p>
   </li>
 </ul>
 
@@ -475,15 +475,15 @@
  tasks.” (from the <a href="https://arxiv.org/pdf/1810.04805.pdf">BERT paper</a>) <font color="red">Only this CLS token in latest layer is used for classifier!!!**&lt;/color&gt;</font></p>
 </blockquote>
 
-<p><strong>Masking random words in first and second sentences based on predefined probabilities</strong>, at the same time recording the actual word as <code class="language-plaintext highlighter-rouge">bert_label</code>. After which, it converts the sequence string into integer (list of token ids).<img src="BERTGPTDiffusion%20Research.assets/1jvmH1FS_61yYcz0kBVDAFQ.png" alt="img" /></p>
+<p><strong>Masking random words in first and second sentences based on predefined probabilities</strong>, at the same time recording the actual word as <code class="language-plaintext highlighter-rouge">bert_label</code>. After which, it converts the sequence string into integer (list of token ids).<img src="/assets/BERTGPTDiffusion%20Research.assets/1jvmH1FS_61yYcz0kBVDAFQ.png" alt="img" /></p>
 
-<p><img src="BERTGPTDiffusion%20Research.assets/image-20230512145537253.png" alt="image-20230512145537253" style="zoom:50%;" /></p>
+<p><img src="/assets/BERTGPTDiffusion%20Research.assets/image-20230512145537253.png" alt="image-20230512145537253" style="zoom:50%;" /></p>
 
-<p><img src="BERTGPTDiffusion%20Research.assets/image-20230515160809684.png" alt="image-20230515160809684" style="zoom:50%;" /></p>
+<p><img src="/assets/BERTGPTDiffusion%20Research.assets/image-20230515160809684.png" alt="image-20230515160809684" style="zoom:50%;" /></p>
 
-<p><img src="BERTGPTDiffusion%20Research.assets/image-20230515172553035.png" alt="image-20230515172553035" /></p>
+<p><img src="/assets/BERTGPTDiffusion%20Research.assets/image-20230515172553035.png" alt="image-20230515172553035" /></p>
 
-<p><img src="BERTGPTDiffusion%20Research.assets/image-20230515174534472.png" alt="image-20230515174534472" style="zoom:50%;" /></p>
+<p><img src="/assets/BERTGPTDiffusion%20Research.assets/image-20230515174534472.png" alt="image-20230515174534472" style="zoom:50%;" /></p>
 
 <h3 id="embedding">Embedding</h3>
 
@@ -513,7 +513,7 @@
 
 <p>Positional embeddings are learned vectors for every possible position between 0 and 512-1. Transformers don’t have a sequential nature as recurrent neural networks, so some information about the order of the input is needed; if you disregard this, your output will be permutation-invariant.</p>
 
-<p><img src="BERTGPTDiffusion%20Research.assets/image-20230516002634274.png" alt="image-20230516002634274" style="zoom: 80%;" /></p>
+<p><img src="/assets/BERTGPTDiffusion%20Research.assets/image-20230516002634274.png" alt="image-20230516002634274" style="zoom: 80%;" /></p>
 
 <p>Essentially, the Transformer stacks a layer that maps sequences to sequences, <strong>so the output is also a sequence of vectors with a 1:1 correspondence between input and output tokens at the same index.</strong> And as we learnt earlier, BERT does not try to predict the next word in the sentence. Training makes use of the following two strategies:</p>
 
@@ -531,7 +531,7 @@
 
     <p>Pre-trained language representations can either be <strong><em>context-free*** or **</em>context-based*</strong>. <em>Context-based</em> representations can then be <strong><em>unidirectional*** or **</em>bidirectional*</strong>. Context-free models like word2vec generate a single <a href="https://towardsml.com/2018/06/12/understanding-word-embeddings/">word embedding</a> representation (a vector of numbers) for each word in the vocabulary. For example, the word “<em>bank</em>” would have the same context-free representation in “<em>bank account</em>” and “<em>bank of the river.</em>” On the other hand, context-based models generate a representation of each word that is based on the other words in the sentence. For example, in the sentence “<em>I accessed the bank account</em>,” a unidirectional contextual model would represent “<em>bank</em>” based on “<em>I accessed the</em>” but not “<em>account</em>.” However, BERT represents “<em>bank</em>” using both its previous and next context — “<em>I accessed the</em> … <em>account</em>” — starting from the very bottom of a deep neural network, making it deeply bidirectional.</p>
 
-    <p><img src="BERTGPTDiffusion%20Research.assets/0G8oaGEpkm1nEALmA.png" alt="img" /></p>
+    <p><img src="/assets/BERTGPTDiffusion%20Research.assets/0G8oaGEpkm1nEALmA.png" alt="img" /></p>
 
     <p><strong>The simple idea **by masking 15% of the words with <code class="language-plaintext highlighter-rouge">MASK </code>token and predict them</strong>. Yet, there is a problem with this masking approach as the model only tries to predict when the [MASK] token is present in the input, while we want the model to try to predict the correct tokens regardless of what token is present in the input. To deal with this issue, <strong>out of the 15%</strong> of the tokens selected for masking:
 - 80% of the tokens are actually replaced with the token [MASK].
@@ -547,9 +547,9 @@
 
     <p>BERT is then required to predict whether the second sentence is random or not, with the assumption that the random sentence will be disconnected from the first sentence:</p>
 
-    <p><img src="BERTGPTDiffusion%20Research.assets/image-20230516102213636.png" alt="image-20230516102213636" /></p>
+    <p><img src="/assets/BERTGPTDiffusion%20Research.assets/image-20230516102213636.png" alt="image-20230516102213636" /></p>
 
-    <h1><img src="BERTGPTDiffusion%20Research.assets/image-20230515234901083.png" alt="image-20230515234901083" style="zoom:67%;" /></h1>
+    <h1><img src="/assets/BERTGPTDiffusion%20Research.assets/image-20230515234901083.png" alt="image-20230515234901083" style="zoom:67%;" /></h1>
   </li>
 </ol>
 
@@ -604,7 +604,7 @@
 
 <p>For example, say we are creating <strong>a question answering application</strong>. In essence question answering is just a prediction task — on receiving a question as input, the goal of the application is to identify the right answer from some corpus. So, given a question and a context paragraph, the model predicts a start and an end token from the paragraph that most likely answers the question. This means that <strong>using BERT a model for our application can be trained by learning two extra vectors that mark the beginning and the end of the answer</strong>.</p>
 
-<p><img src="BERTGPTDiffusion%20Research.assets/0ASTmPsKLcGheaPED.png" alt="img" /></p>
+<p><img src="/assets/BERTGPTDiffusion%20Research.assets/0ASTmPsKLcGheaPED.png" alt="img" /></p>
 
 <p>Just like sentence pair tasks, the question becomes the first sentence and paragraph the second sentence in the input sequence. However, this time there are two new parameters learned during fine-tuning: a <strong>start vector</strong> and an <strong>end vector.</strong></p>
 
@@ -680,7 +680,7 @@
 \(\text{GELU}\left(x\right) = x{P}\left(X\leq{x}\right) = x\Phi\left(x\right) = x \cdot \frac{1}{2}\left[1 + \text{erf}(x/\sqrt{2})\right]\)
 if $X\sim \mathcal{N}(0,1)$</p>
 
-<p><img src="BERTGPTDiffusion%20Research.assets/Screen_Shot_2020-05-27_at_12.48.44_PM.png" alt="img" style="zoom:50%;" /></p>
+<p><img src="/assets/BERTGPTDiffusion%20Research.assets/Screen_Shot_2020-05-27_at_12.48.44_PM.png" alt="img" style="zoom:50%;" /></p>
 
 <p>One can approximate the GELU with $0.5x\left(1+\tanh\left[\sqrt{2/\pi}\left(x + 0.044715x^{3}\right)\right]\right)$or $x\sigma\left(1.702x\right)$. GELUs are used in <a href="https://paperswithcode.com/method/gpt-3">GPT-3</a>, <a href="https://paperswithcode.com/method/bert">BERT</a>, and most other Transformers</p>
 
@@ -698,7 +698,7 @@ if $X\sim \mathcal{N}(0,1)$</p>
 
 <h2 id="causal-self-attention">Causal Self Attention.</h2>
 
-<p><img src="BERTGPTDiffusion%20Research.assets/image-20230516145038202.png" alt="image-20230516145038202" style="zoom:50%;" /></p>
+<p><img src="/assets/BERTGPTDiffusion%20Research.assets/image-20230516145038202.png" alt="image-20230516145038202" style="zoom:50%;" /></p>
 
 <p>Causal Self Attention is a variant of the Self Attention mechanism used in the Transformer architecture, which is a key component of the GPT model. <strong>The difference between the two is that Causal Self Attention restricts the attention mechanism to look only at the previous tokens in the sequence,</strong> making it “causal” and appropriate for generating text</p>
 
@@ -706,14 +706,14 @@ if $X\sim \mathcal{N}(0,1)$</p>
   <li>
     <p>It splits the input <code class="language-plaintext highlighter-rouge">x</code> into <strong>query, key, and value</strong> tensors for all heads and reshapes them accordingly. It then computes the attention score matrix using either the fast <strong>flash attention (torch.version ≥ 2.0)</strong>or the slower dot product method, depending on the pytorch version.</p>
 
-    <p><img src="BERTGPTDiffusion%20Research.assets/1CQZXwcZ3evmd3U-GvYD6Ow.png" alt="img" /></p>
+    <p><img src="/assets/BERTGPTDiffusion%20Research.assets/1CQZXwcZ3evmd3U-GvYD6Ow.png" alt="img" /></p>
 
     <p>Scaled Dot Product Achitecture (Introduced by Vaswani et al. in <a href="https://paperswithcode.com/paper/attention-is-all-you-need">Attention Is All You Need</a>)</p>
   </li>
   <li>
     <p><strong>A mask</strong> is then applied to ensure that the <strong>attention is only applied to the left in the input sequence</strong>. I<strong>n GPT, the masking is done using a triangular mask that blocks the model from attending to any word that comes after the current word in the sequence</strong>. To achieve this, we use <code class="language-plaintext highlighter-rouge">torch.tril(torch.ones(n, n))</code> to create a lower-triangular matrix of ones. The <code class="language-plaintext highlighter-rouge">tril</code> function zeros out all elements above the diagonal of the matrix.</p>
 
-    <p><img src="BERTGPTDiffusion%20Research.assets/1-xGKZL1P9s6LTEERrn4ifQ-1684215306778-22.png" alt="img" style="zoom:80%;" /></p>
+    <p><img src="/assets/BERTGPTDiffusion%20Research.assets/1-xGKZL1P9s6LTEERrn4ifQ-1684215306778-22.png" alt="img" style="zoom:80%;" /></p>
   </li>
 </ul>
 
@@ -764,9 +764,9 @@ if $X\sim \mathcal{N}(0,1)$</p>
 
 <p><strong>The masked self-attention ensures that the model cannot look ahead in the sequence and only uses the previous tokens for prediction.</strong><font color="red"> **This also means that the model does not need to learn the representation of the input sequence, making the encoder unnecessary.** </font></p>
 
-<p><img src="BERTGPTDiffusion%20Research.assets/15l34MElMJ5aFuyOsWpZRWA.png" alt="img" style="zoom:50%;" /><img src="BERTGPTDiffusion%20Research.assets/image-20230516145350328.png" alt="image-20230516145350328" style="zoom: 33%;" /></p>
+<p><img src="/assets/BERTGPTDiffusion%20Research.assets/15l34MElMJ5aFuyOsWpZRWA.png" alt="img" style="zoom:50%;" /><img src="/assets/BERTGPTDiffusion%20Research.assets/image-20230516145350328.png" alt="image-20230516145350328" style="zoom: 33%;" /></p>
 
-<p><img src="BERTGPTDiffusion%20Research.assets/decoder_layer.drawio-2.png" alt="img" style="zoom: 80%;" /></p>
+<p><img src="/assets/BERTGPTDiffusion%20Research.assets/decoder_layer.drawio-2.png" alt="img" style="zoom: 80%;" /></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Block</span><span class="p">(</span><span class="n">nn</span><span class="p">.</span><span class="n">Module</span><span class="p">):</span>
     <span class="s">""" GPT decoder block"""</span>
@@ -890,7 +890,7 @@ if $X\sim \mathcal{N}(0,1)$</p>
 
 <p>After discussing the various components of the GPT model, we have now come to the point where we can combine all the implementations to create the final GPT model. By stacking multiple decoder blocks on top of each other, the GPT model is able to generate text that is coherent and contextually relevant.</p>
 
-<p><img src="BERTGPTDiffusion%20Research.assets/1IOzaVQAndLJTkuN8SHpp0w.png" alt="img" style="zoom:50%;" /></p>
+<p><img src="/assets/BERTGPTDiffusion%20Research.assets/1IOzaVQAndLJTkuN8SHpp0w.png" alt="img" style="zoom:50%;" /></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="n">targets</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
  		<span class="p">............</span>
@@ -941,7 +941,7 @@ if $X\sim \mathcal{N}(0,1)$</p>
 
 <p>GPT is an auto-regressive language model that takes in a conditioning sequence of indices and then generates new text one token at a time. <strong>The model generates each token based on the preceding tokens in the sequence</strong>.</p>
 
-<p><img src="BERTGPTDiffusion%20Research.assets/1ltM07YOS0hZOKe9WBZDC8w.png" alt="img" style="zoom:80%;" /></p>
+<p><img src="/assets/BERTGPTDiffusion%20Research.assets/1ltM07YOS0hZOKe9WBZDC8w.png" alt="img" style="zoom:80%;" /></p>
 
 <ul>
   <li>
@@ -1393,7 +1393,7 @@ The objective function as written in the InstructGPT paper.</p>
 
 <p>3, <a href="https://blog.csdn.net/m0_63642362/article/details/127586200">【diffusion】扩散模型详解！理论＋代码_diffusion扩散模型_AI Studio的博客-CSDN博客</a></p>
 
-<p><img src="BERTGPTDiffusion%20Research.assets/image-20230517105141157.png" alt="image-20230517105141157" style="zoom: 33%;" /></p>
+<p><img src="/assets/BERTGPTDiffusion%20Research.assets/image-20230517105141157.png" alt="image-20230517105141157" style="zoom: 33%;" /></p>
 
 <p>Diffusion（扩散） models are inspired by non-equilibrium thermodynamics. <strong>They define a Markov chain of diffusion steps to slowly add random noise to data and then learn to reverse the diffusion process to construct desired data samples from the noise</strong>. Unlike VAE or flow models, diffusion models are learned with a fixed procedure and the latent variable has high dimensionality (same as the original data).</p>
 
@@ -1410,7 +1410,7 @@ The objective function as written in the InstructGPT paper.</p>
 
 <p>Several diffusion-based generative models have been proposed with similar ideas underneath, including <em>diffusion probabilistic models</em> (<a href="https://arxiv.org/abs/1503.03585">Sohl-Dickstein et al., 2015</a>), <em>noise-conditioned score network</em> (<strong>NCSN</strong>; <a href="https://arxiv.org/abs/1907.05600">Yang &amp; Ermon, 2019</a>), and <em>denoising diffusion probabilistic models</em> (<strong>DDPM</strong>; <a href="https://arxiv.org/abs/2006.11239">Ho et al. 2020</a>).</p>
 
-<p><img src="BERTGPTDiffusion%20Research.assets/generative-overview.png" alt="img" style="zoom: 33%;" /></p>
+<p><img src="/assets/BERTGPTDiffusion%20Research.assets/generative-overview.png" alt="img" style="zoom: 33%;" /></p>
 
 <p>Existing generative modeling techniques can largely be grouped into two categories based on how they represent probability distributions.</p>
 
@@ -1423,7 +1423,7 @@ The objective function as written in the InstructGPT paper.</p>
   <li>
     <p>implicit generative models, where the probability distribution is implicitly represented by a model of its sampling process. The most prominent example is generative adversarial networks (GANs), where new samples from the data distribution are synthesized by transforming a random Gaussian vector with a neural network.</p>
 
-    <p><img src="BERTGPTDiffusion%20Research.assets/implicit_models.png" alt="img" style="zoom:50%;" /></p>
+    <p><img src="/assets/BERTGPTDiffusion%20Research.assets/implicit_models.png" alt="img" style="zoom:50%;" /></p>
   </li>
 </ol>
 
@@ -1444,7 +1444,7 @@ The objective function as written in the InstructGPT paper.</p>
 q(\mathbf{x}_{1:T} \vert \mathbf{x}_0) = \prod^T_{t=1} q(\mathbf{x}_t \vert \mathbf{x}_{t-1})\)
 The data sample $\mathbf{x}_0$ gradually loses its distinguishable features as the step $T$ becomes larger. Eventually when $T \to \infty$ is equivalent to an isotropic Gaussian distribution.</p>
 
-<p><img src="BERTGPTDiffusion%20Research.assets/image-20230517110949555.png" alt="image-20230517110949555" style="zoom: 50%;" /></p>
+<p><img src="/assets/BERTGPTDiffusion%20Research.assets/image-20230517110949555.png" alt="image-20230517110949555" style="zoom: 50%;" /></p>
 
 <p><strong>by using Reparameterization Trick</strong> , Define
 \(\begin{aligned}
@@ -1501,13 +1501,13 @@ so the new $\sigma^2 = (\sqrt{1 - \alpha_t})^2  + (\sqrt {\alpha_t(1 -  \alpha_{
 \end{aligned}\)
 where ⊙ refers to element-wise product</p>
 
-<p><img src="BERTGPTDiffusion%20Research.assets/reparameterization-trick.png" alt="img" style="zoom:67%;" /></p>
+<p><img src="/assets/BERTGPTDiffusion%20Research.assets/reparameterization-trick.png" alt="img" style="zoom:67%;" /></p>
 
 <p>Fig. 8. Illustration of how the reparameterization trick makes the $z$ sampling process trainable.(Image source: Slide 12 in Kingma’s NIPS 2015 workshop <a href="http://dpkingma.com/wordpress/wp-content/uploads/2015/12/talk_nips_workshop_2015.pdf">talk</a>)</p>
 
 <p>The reparameterization trick works for other types of distributions too, not only Gaussian. In the multivariate Gaussian case, we make the model trainable by learning the mean and variance of the distribution, $\mu$ and $\delta$, explicitly using the reparameterization trick, while the stochasticity remains in the random variable $\boldsymbol{\epsilon} \sim \mathcal{N}(0, \boldsymbol{I})$</p>
 
-<p><img src="BERTGPTDiffusion%20Research.assets/vae-gaussian.png" alt="img" style="zoom:33%;" /></p>
+<p><img src="/assets/BERTGPTDiffusion%20Research.assets/vae-gaussian.png" alt="img" style="zoom:33%;" /></p>
 
 <p>Fig. 9. Illustration of variational autoencoder model with the multivariate Gaussian assumption</p>
 
@@ -1598,7 +1598,7 @@ x_t &amp; =\sqrt{\alpha_t}\left(\sqrt{\alpha_{t-1}} x_{t-2}+\sqrt{1-\alpha_{t-1}
 <p>If we can reverse the above process and sample from $q(\mathbf{x}<em>{t-1} \vert \mathbf{x}_t)$, we will be able to recreate the true sample from a Gaussian noise input, $\mathbf{x}_T \sim \mathcal{N}(\mathbf{0}, \mathbf{I})$. <strong>Note that if $\beta_t$ (the noise added) is small enough, $q(\mathbf{x}_{t-1} \vert \mathbf{x}_t)$ will also be Gaussian.</strong> Unfortunately, we cannot easily estimate $q(\mathbf{x}</em>{t-1} \vert \mathbf{x}_t)$ because it needs to use the entire dataset and therefore <strong>we need to learn a model $p_\theta$ to approximate</strong> these conditional probabilities in order to run the <em>reverse diffusion process</em>.
 \(p_\theta(\mathbf{x}_{0:T}) = p(\mathbf{x}_T) \prod^T_{t=1} p_\theta(\mathbf{x}_{t-1} \vert \mathbf{x}_t) \quad \text {;same conditional independent} \\
 p_\theta(\mathbf{x}_{t-1} \vert \mathbf{x}_t) = \mathcal{N}(\mathbf{x}_{t-1}; \boldsymbol{\mu}_\theta(\mathbf{x}_t, t), \boldsymbol{\Sigma}_\theta(\mathbf{x}_t, t))\)
-<img src="BERTGPTDiffusion%20Research.assets/diffusion-example.png" alt="img" style="zoom: 25%;" /></p>
+<img src="/assets/BERTGPTDiffusion%20Research.assets/diffusion-example.png" alt="img" style="zoom: 25%;" /></p>
 
 <h3 id="422-tractable-qmathbfx_t-1-vert-mathbfx_t-mathbfx_0">4.2.2 Tractable $q(\mathbf{x}_{t-1} \vert \mathbf{x}_t, \mathbf{x}_0)$</h3>
 
@@ -1635,7 +1635,7 @@ we have $ \mathbf{x}_t = \sqrt{\bar{\alpha}_t}\mathbf{x}_0 + \sqrt{1 - \bar{\alp
 &amp;= \frac{\sqrt{\alpha_t}(1 - \bar{\alpha}_{t-1})}{1 - \bar{\alpha}_t} \mathbf{x}_t + \frac{\sqrt{\bar{\alpha}_{t-1}}\beta_t}{1 - \bar{\alpha}_t} \frac{1}{\sqrt{\bar{\alpha}_t}}(\mathbf{x}_t - \sqrt{1 - \bar{\alpha}_t}\boldsymbol{\epsilon}_t) \\
 &amp;= \color{cyan}{\frac{1}{\sqrt{\alpha_t}} \Big( \mathbf{x}_t - \frac{1 - \alpha_t}{\sqrt{1 - \bar{\alpha}_t}} \boldsymbol{\epsilon}_t \Big)}
 \end{aligned}\)</p>
-<h3 id="423-p_thetamathbfxt-1-vert-mathbfx_t-approximate-qmathbfxt-1-vert-mathbfx_t-mathbfx_0">4.2.3 $p_\theta(\mathbf{x}<em>{t-1} \vert \mathbf{x}_t)$ approximate $q(\mathbf{x}</em>{t-1} \vert \mathbf{x}_t, \mathbf{x}_0)$</h3>
+<h3 id="423-using-p_thetamathbfxt-1-vert-mathbfx_t-approximate-qmathbfxt-1-vert-mathbfx_t-mathbfx_0">4.2.3 using $p_\theta(\mathbf{x}<em>{t-1} \vert \mathbf{x}_t)$ approximate $q(\mathbf{x}</em>{t-1} \vert \mathbf{x}_t, \mathbf{x}_0)$</h3>
 
 <p>in the reverse diffusion process, $p_\theta(\mathbf{x}<em>{t-1} \vert \mathbf{x}_t) = \mathcal{N}(\mathbf{x}</em>{t-1}; \boldsymbol{\mu}<em>\theta(\mathbf{x}_t, t), \boldsymbol{\Sigma}</em>\theta(\mathbf{x}_t, t))$. <font color="red">We would like to train $\boldsymbol{\mu}_\theta$ to predict $\tilde{\boldsymbol{\mu}}_t = \frac{1}{\sqrt{\alpha_t}} \Big( \mathbf{x}_t - \frac{1 - \alpha_t}{\sqrt{1 - \bar{\alpha}_t}} \boldsymbol{\epsilon}_t \Big)$. Because $\mathbf{x}_t$ is available as input at training time, we can reparametrized the Gaussian noise term instead to make it predict $\boldsymbol{\epsilon}_t$ from the input $\mathbf{x}_t$ at time step $t$: </font>
 \(\begin{aligned}
@@ -1686,7 +1686,7 @@ L_\text{VLB}
 
 <p>其他人对采用$X_0$的解释</p>
 
-<p><img src="BERTGPTDiffusion%20Research.assets/image-20230605215923369.png" alt="image-20230605215923369" style="zoom:50%;" /></p>
+<p><img src="/assets/BERTGPTDiffusion%20Research.assets/image-20230605215923369.png" alt="image-20230605215923369" style="zoom:50%;" /></p>
 
 <p>Let’s label each component in the variational lower bound loss separately:
 \(\begin{aligned}
@@ -1709,7 +1709,8 @@ L_0 &amp;= - \log p_\theta(\mathbf{x}_0 \vert \mathbf{x}_1)
 
 <h3 id="425-parameterization-of-l_t-for-training-loss">4.2.5 Parameterization of $L_t$ for Training Loss</h3>
 
-<p>已经得到 $q(\mathbf{x}<em>{t-1} \vert \mathbf{x}_t, \mathbf{x}_0) = \mathcal{N}(\mathbf{x}</em>{t-1}; \color{blue}{\tilde{\boldsymbol{\mu}}}(\mathbf{x}_t, \mathbf{x}_0), \color{red}{\tilde{\beta}_t} \mathbf{I})$ 其中
+<p>已经得到 $q(\mathbf{x}<em>{t-1} \vert \mathbf{x}_t, \mathbf{x}_0) = \mathcal{N}(\mathbf{x}</em>{t-1}; \color{blue}{\tilde{\boldsymbol{\mu}}}(\mathbf{x}_t, \mathbf{x}_0), \color{red}{\tilde{\beta}_t} \mathbf{I})$ 
+其中
 \(\begin{aligned}
 \tilde{\beta}_t 
 &amp;= \color{green}{\frac{1 - \bar{\alpha}_{t-1}}{1 - \bar{\alpha}_t} \cdot \beta_t} \\
@@ -1761,7 +1762,7 @@ The final simple objective is:
 \(L_\text{simple} = L_t^\text{simple} + C\)
 where $C$ is a constant not depending on $\theta$.</p>
 
-<p><img src="BERTGPTDiffusion%20Research.assets/DDPM-algo.png" alt="img" style="zoom:50%;" /></p>
+<p><img src="/assets/BERTGPTDiffusion%20Research.assets/DDPM-algo.png" alt="img" style="zoom:50%;" /></p>
 
 <p>Fig. 4. The training and sampling algorithms in DDPM(Image source: <a href="https://arxiv.org/abs/2006.11239">Ho et al. 2020</a>)</p>
 
@@ -1946,7 +1947,7 @@ Note that this is not a variational lower bound on the log-likelihood anymore: i
 &amp; \text { 6: return } \mathbf{x}_0
 \end{aligned}\]
 
-<p><img src="BERTGPTDiffusion%20Research.assets/image-20230517124126420.png" alt="image-20230517124126420" style="zoom: 50%;" /></p>
+<p><img src="/assets/BERTGPTDiffusion%20Research.assets/image-20230517124126420.png" alt="image-20230517124126420" style="zoom: 50%;" /></p>
 
 <h2 id="47-speed-up-diffusion-model-sampling-ddim">4.7 Speed up Diffusion Model Sampling (DDIM)</h2>
 
@@ -1973,7 +1974,7 @@ p_\theta\left(\mathbf{x}<em>{0: T}\right)=p\left(\mathbf{x}_T\right) \prod</em>{
 $$
 这里用神经网络 $p</em>\theta\left(\mathbf{x}<em>{t-1} \mid \mathbf{x}_t\right)$ 来拟合真实的分布 $q\left(\mathbf{x}</em>{t-1} \mid \mathbf{x}_t\right)$ 。DDPM的前向过程和反向过程如下 所示:</p>
 
-<p><img src="BERTGPTDiffusion%20Research.assets/v2-071e3c9962f3f12239a8b005940e4616_720w.webp" alt="img" /></p>
+<p><img src="/assets/BERTGPTDiffusion%20Research.assets/v2-071e3c9962f3f12239a8b005940e4616_720w.webp" alt="img" /></p>
 
 <p><strong>DDPM的目标是要拟合出一个$q\left(\mathbf{x}_{t-1} \mid \mathbf{x}_t\right)$</strong></p>
 
@@ -2033,7 +2034,7 @@ DDPM后向定义
 
 <p>同样地，我 们可以按照和DDPM的一样的方式去推导优化目标，最终也会得到同样的 $L^{\text {simple }}$ (虽然VLB的系 数不同，论文3.2部分也证明了这个结论）。论文也给出了一个前向过程是非马尔可夫链的示例， 如下图所示，这里前向过程是 $q_\sigma\left(\mathbf{x}<em>t \mid \mathbf{x}</em>{t-1}, \mathbf{x}<em>0\right)$ ，由于生成 $\mathbf{x}_t$ 不仅依赖 $\mathbf{x}</em>{t-1}$ ，而且依赖 $\mathbf{x}_0$ ，所以 是一个非马尔可夫链:</p>
 
-<p><img src="BERTGPTDiffusion%20Research.assets/image-20230608101549213.png" alt="image-20230608101549213" /></p>
+<p><img src="/assets/BERTGPTDiffusion%20Research.assets/image-20230608101549213.png" alt="image-20230608101549213" /></p>
 
 <h3 id="q_sigmaleftmathbfx_t-1-vert-mathbfx_t-mathbfx_0right--推导-1">$q_\sigma\left(\mathbf{x}_{t-1} \vert \mathbf{x}_t, \mathbf{x}_0\right)$  推导-1</h3>
 
@@ -2220,7 +2221,7 @@ When $\sigma_t=\sqrt{\left(1-\alpha</em>{t-1}\right) /\left(1-\alpha_t\right)} \
 \(q_{\sigma, \tau}(\mathbf{x}_{\tau_{i-1}} \vert \mathbf{x}_{\tau_t}, \mathbf{x}_0)
 = \mathcal{N}(\mathbf{x}_{\tau_{i-1}}; \sqrt{\bar{\alpha}_{t-1}}\mathbf{x}_0 + \sqrt{1 - \bar{\alpha}_{t-1} - \sigma_t^2} \frac{\mathbf{x}_{\tau_i} - \sqrt{\bar{\alpha}_t}\mathbf{x}_0}{\sqrt{1 - \bar{\alpha}_t}}, \sigma_t^2 \mathbf{I})\)</p>
 
-<p><img src="BERTGPTDiffusion%20Research.assets/image-20230531135247420.png" alt="image-20230531135247420" /></p>
+<p><img src="/assets/BERTGPTDiffusion%20Research.assets/image-20230531135247420.png" alt="image-20230531135247420" /></p>
 
 <p>那么生成过程也可以用这个子序列的反向马尔卡夫链来替代，由于 $S$ 可以设置比原来的步数 $L$ 要 小，那么就可以加速生成过程。这里的生成过程变成:
 \(\mathbf{x}_{\tau_{i-1}}=\sqrt{\alpha_{\tau_{i-1}}}\left(\frac{\mathbf{x}_{\tau_i}-\sqrt{1-\alpha_{\tau_i}} \epsilon_\theta\left(\mathbf{x}_{\tau_i}, \tau_i\right)}{\sqrt{\alpha_{\tau_i}}}\right)+\sqrt{1-\alpha_{\tau_{i-1}}-\sigma_{\tau_i}^2} \cdot \epsilon_\theta\left(\mathbf{x}_{\tau_i}, \tau_i\right)+\sigma_{\tau_i} \epsilon\)
@@ -2363,7 +2364,7 @@ which is equivalent to Equation (45). In both cases the initial conditions are $
 <p>\(\Sigma_\theta\left(x_t, t\right)=\exp \left(v \log \beta_t+(1-v) \log \tilde{\beta}_t\right)\)
 This modification leads to better likelihood estimates while maintaining image quality!</p>
 
-<p><img src="BERTGPTDiffusion%20Research.assets/improved-DDPM-nll.png" alt="img" style="zoom:33%;" /></p>
+<p><img src="/assets/BERTGPTDiffusion%20Research.assets/improved-DDPM-nll.png" alt="img" style="zoom:33%;" /></p>
 
 <h2 id="49-ddpm-vs-ddim">4.9 DDPM vs DDIM</h2>
 
@@ -2654,7 +2655,7 @@ Attention $(Q, K, V)=\operatorname{softmax}\left(\frac{Q K^T}{\sqrt{d}}\right) \
 \[Q=W_Q^{(i)} \cdot \varphi_i\left(z_t\right), K=W_K^{(i)} \cdot \tau_\theta(y), V=W_V^{(i)} \cdot \tau_\theta(y) .\]
 </blockquote>
 
-<p><img src="BERTGPTDiffusion%20Research.assets/image-20230517130729142.png" alt="image-20230517130729142" style="zoom:50%;" /></p>
+<p><img src="/assets/BERTGPTDiffusion%20Research.assets/image-20230517130729142.png" alt="image-20230517130729142" style="zoom:50%;" /></p>
 
 <h3 id="architecture-comparison">Architecture Comparison</h3>
 
@@ -2774,7 +2775,7 @@ Attention $(Q, K, V)=\operatorname{softmax}\left(\frac{Q K^T}{\sqrt{d}}\right) \
 
 <p>损失函数, alphas_bar_sqrt: $\sqrt{\bar{\alpha}}$ , one_minus_alphas_bar_sqrt : $\sqrt{1 - \bar{\alpha}}$， $\mathbb{E}<em>{t \sim [1, T], \mathbf{x}_0, \boldsymbol{\epsilon}_t} \Big[|\boldsymbol{\epsilon}_t - \boldsymbol{\epsilon}</em>\theta( x_t, t)|^2 \Big]$. 其中$x_0$， $\epsilon _t$从前向过程已知, we already know $x_t=\sqrt{\bar{\alpha}_t} x_0+\sqrt{1-\bar{\alpha}_t} \epsilon_t$</p>
 
-<p><img src="BERTGPTDiffusion%20Research.assets/image-20230605160414054.png" alt="image-20230605160414054" style="zoom:50%;" /></p>
+<p><img src="/assets/BERTGPTDiffusion%20Research.assets/image-20230605160414054.png" alt="image-20230605160414054" style="zoom:50%;" /></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">noise_estimation_loss</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">x_0</span><span class="p">,</span> <span class="n">alphas_bar_sqrt</span><span class="p">,</span> <span class="n">one_minus_alphas_bar_sqrt</span><span class="p">,</span> <span class="n">n_steps</span><span class="p">):</span>
     <span class="n">batch_size</span> <span class="o">=</span> <span class="n">x_0</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -2918,7 +2919,7 @@ Thus, a new classifier-guided predictor $\overline{\boldsymbol{\epsilon}}</em>\t
 \(\bar{\epsilon}_\theta\left(\mathbf{x}_t, t\right)=\epsilon_\theta\left(x_t, t\right)-\sqrt{1-\bar{\alpha}_t} w \nabla_{\mathbf{x}_t} \log f_\phi\left(y \mid \mathbf{x}_t\right)\)
 The resulting ablated diffusion model (ADM) and the one with additional classifier guidance (ADM-G) are able to achieve better results than SOTA generative models (e.g. BigGAN).</p>
 
-<p><img src="BERTGPTDiffusion%20Research.assets/conditioned-DDPM.png" alt="img" style="zoom: 33%;" /></p>
+<p><img src="/assets/BERTGPTDiffusion%20Research.assets/conditioned-DDPM.png" alt="img" style="zoom: 33%;" /></p>
 
 <h4 id="diffusion-guidance-explanation-2">Diffusion guidance Explanation 2</h4>
 
@@ -3226,7 +3227,7 @@ This is a <a href="https://people.eecs.ku.edu/~jrmiller/Courses/VectorGeometry/A
 
 <p><img src="/assets/BERTGPTDiffusion%20Research.assets/image-20230610153230803.png" alt="image-20230610153230803" style="zoom:80%;" /></p>
 
-<p><img src="BERTGPTDiffusion%20Research.assets/clip.jpg" alt="CLIP pre-training and zero-shot classification" style="zoom: 80%;" /></p>
+<p><img src="/assets/BERTGPTDiffusion%20Research.assets/clip.jpg" alt="CLIP pre-training and zero-shot classification" style="zoom: 80%;" /></p>
 
 <p><img src="/assets/BERTGPTDiffusion%20Research.assets/image-20230610160726600.png" alt="image-20230610160726600" style="zoom:80%;" /></p>
 
@@ -3302,7 +3303,7 @@ This is a <a href="https://people.eecs.ku.edu/~jrmiller/Courses/VectorGeometry/A
 \(F_\phi\left(x_t, l, t\right)=E_I^{\prime}\left(x_t, t\right) \cdot E_L(l)\)
 其中， $l$ 为用于引导的文本， $E_L$ 表示文本encoder。 $x_t$ 为图像， $E_I^{\prime}$ 表示图像encoder。因此，CLIP中图像encoder必须要使用噪声图像finetune。其效果如下</p>
 
-      <p><img src="BERTGPTDiffusion%20Research.assets/v2-e5396b5509f38a1edd10ad12919d54c2_720w.webp" alt="img" style="zoom:33%;" /></p>
+      <p><img src="/assets/BERTGPTDiffusion%20Research.assets/v2-e5396b5509f38a1edd10ad12919d54c2_720w.webp" alt="img" style="zoom:33%;" /></p>
     </blockquote>
   </li>
   <li>
@@ -3321,7 +3322,7 @@ This is a <a href="https://people.eecs.ku.edu/~jrmiller/Courses/VectorGeometry/A
 
       <p>同样的，CLIP中图像 encoder必须要使用噪声图像finetune。其效果如下</p>
 
-      <p><img src="BERTGPTDiffusion%20Research.assets/v2-58459d39be0e70f297212799d7f96cdc_720w.webp" alt="img" style="zoom:33%;" /></p>
+      <p><img src="/assets/BERTGPTDiffusion%20Research.assets/v2-58459d39be0e70f297212799d7f96cdc_720w.webp" alt="img" style="zoom:33%;" /></p>
 
       <ul>
         <li>图片内容引导: 希望图片的内容内容与参考图相似
@@ -3424,7 +3425,7 @@ CLIP is used to select the best generated images.</p>
   </li>
 </ol>
 
-<p><img src="BERTGPTDiffusion%20Research.assets/vqgan-codebook.jpg" alt="Visual example of a codebook from the VQGAN paper" /></p>
+<p><img src="/assets/BERTGPTDiffusion%20Research.assets/vqgan-codebook.jpg" alt="Visual example of a codebook from the VQGAN paper" /></p>
 
 <p>和VAE一样我们用概率编码器和概率解码器，分别建模隐层特征的后验概率分布和生成图像的似然概率分布，使用建模由Transformer预测的文本和图像的联合概率分布作为先验（在第一阶段初始化为均匀分布），同理可得优化目标的证据下界，
 \(\log p_{\theta, \psi}(x, y) \geq \mathbb{E}_{z \sim q_\phi(z \mid x)} \log p_\theta(x \mid y, z)-\beta D_{K L}\left(q_\phi(y, z \mid x) \| p_\psi(y, z)\right)\)
@@ -3451,7 +3452,7 @@ CLIP is used to select the best generated images.</p>
       <li>
         <p>What they did here is <strong>concatenate 256 tokens obtained from encoding the input text prompts with the encoded 1024 tokens from their corresponding image</strong>. image captions are lowercased and truncated to a max length of 256 tokens before being encoded (vocabulary size = 16,384). The image tokens are then concatenated after the text tokens (example below).</p>
 
-        <p><img src="BERTGPTDiffusion%20Research.assets/dalle-sequence.jpg" alt="Example of concatenated text and image tokens in DALL·E" /></p>
+        <p><img src="/assets/BERTGPTDiffusion%20Research.assets/dalle-sequence.jpg" alt="Example of concatenated text and image tokens in DALL·E" /></p>
 
         <ul>
           <li>
@@ -3505,7 +3506,7 @@ CLIP is used to select the best generated images.</p>
   <li>diffusion decoder generates image from the image embedding</li>
 </ol>
 
-<p><img src="BERTGPTDiffusion%20Research.assets/unclip.jpg" alt="How the encoded text (blue) generates images via the prior and decoder" /></p>
+<p><img src="/assets/BERTGPTDiffusion%20Research.assets/unclip.jpg" alt="How the encoded text (blue) generates images via the prior and decoder" /></p>
 
 <p><img src="/assets/BERTGPTDiffusion%20Research.assets/dall-e-2-decoder.png" alt="DALL-E 2 decoder" /></p>
 
@@ -4289,6 +4290,18 @@ which basically means that a specific attention weight is not dependent on the l
       
       <a class="no-underline" href="/tag/AI"><nobr>AI</nobr></code>&nbsp;</a>    
     
+      <i class="fa fa-tag fa-xs" aria-hidden="true"></i>
+      
+      <a class="no-underline" href="/tag/BERT"><nobr>BERT</nobr></code>&nbsp;</a>    
+    
+      <i class="fa fa-tag fa-xs" aria-hidden="true"></i>
+      
+      <a class="no-underline" href="/tag/GPT"><nobr>GPT</nobr></code>&nbsp;</a>    
+    
+      <i class="fa fa-tag fa-xs" aria-hidden="true"></i>
+      
+      <a class="no-underline" href="/tag/Diffusion"><nobr>Diffusion</nobr></code>&nbsp;</a>    
+    
 </span>
 
 <div class="recent">
@@ -4306,19 +4319,19 @@ which basically means that a specific attention weight is not dependent on the l
     
       <li>
         <h4>
-          <a href="/coding/2023/12/02/Inspect-BERT-Vocabulary.html">
-            Inspect BERT Vocabulary
+          <a href="/coding/2023/12/11/diffusion-model-demo1.html">
+            Diffusion Models Tutorial
           </a>
-          <small>[02 Dec 2023]</small>
+          <small>[11 Dec 2023]</small>
         </h4>
       </li>
     
       <li>
         <h4>
-          <a href="/working/2023/12/01/My-Tasks-and-Notes.html">
-            working todo
+          <a href="/coding/2023/12/02/Inspect-BERT-Vocabulary.html">
+            Inspect BERT Vocabulary
           </a>
-          <small>[01 Dec 2023]</small>
+          <small>[02 Dec 2023]</small>
         </h4>
       </li>
     

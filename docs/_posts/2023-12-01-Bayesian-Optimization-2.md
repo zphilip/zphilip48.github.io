@@ -3,7 +3,7 @@ layout: post
 title:  "Bayesian Optimization -2 "
 date:   2021-01-26
 categories: coding
-tags: AI
+tags: AI BayesianOptimization
 ---
 
 ## Hyper-parameter tuning with Bayesian optimization or how I carved boats from wood ##

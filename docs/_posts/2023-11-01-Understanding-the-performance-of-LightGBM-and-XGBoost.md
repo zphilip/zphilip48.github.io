@@ -1,9 +1,9 @@
 ---
 layout: post
 title:  "Understanding the performance of LightGBM and XGBoost"
-date:   2023-01-26
+date:   2023-11-01
 categories: coding
-tags: AI
+tags: AI LightGBM XGBoost
 ---
 
 ## Problem Statement: Predict the pay-range a given employee would belong to, based on the analysis of different attributes of other employees & their respective pay-range.

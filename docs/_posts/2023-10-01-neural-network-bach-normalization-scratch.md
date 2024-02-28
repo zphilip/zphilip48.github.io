@@ -3,7 +3,7 @@ layout: post
 title:  "neural network + Bach normalization"
 date:   2023-01-26
 categories: coding
-tags: AI
+tags: AI NN
 ---
 
 <font color=blue size=9> 3-layer neural network + Bach normalization </font>

@@ -1,9 +1,9 @@
 ---
 layout: post
-title:  "Diffusion Models Tutorial 01"
-date:   2023-12-01
+title:  "Diffusion Models Tutorial"
+date:   2023-12-11
 categories: coding
-tags: AI
+tags: AI Diffusion
 ---
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/azad-academy/denoising-diffusion-model/blob/main/diffusion_model_demo.ipynb)
 

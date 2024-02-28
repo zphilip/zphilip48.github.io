@@ -3,7 +3,7 @@ layout: post
 title:  "Mcmc Introduction 2"
 date:   2021-01-26
 categories: coding
-tags: AI
+tags: AI MCMC
 ---
 
 **original of this example : https://towardsdatascience.com/from-scratch-bayesian-inference-markov-chain-monte-carlo-and-metropolis-hastings-in-python-ef21a29e25a**

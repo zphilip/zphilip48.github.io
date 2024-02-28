@@ -1,9 +1,9 @@
 ---
 layout: post
 title:  "BERT Fine-Tuning Tutorial with PyTorch"
-date:   2023-01-26
+date:   2023-10-26
 categories: coding
-tags: AI
+tags: AI BERT Fine-Tuning
 ---
 
 <a href="https://colab.research.google.com/github/zphilip/zphilip.github.io/blob/main/BERT_Fine_Tuning_Sentence_Classification_v4.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
@@ -709,7 +709,7 @@ For classification tasks, we must prepend the special `[CLS]` token to the begin
 
 This token has special significance. BERT consists of 12 Transformer layers. Each transformer takes in a list of token embeddings, and produces the same number of embeddings on the output (but with the feature values changed, of course!).
 
-![Illustration of CLS token purpose](https://drive.google.com/uc?export=view&id=1ck4mvGkznVJfW3hv6GUqcdGepVTOx7HE)
+![Illustration of CLS token purpose](/assets/BERT_Fine_Tuning_Sentence_Classification_v4_files/Illustration_of_CLS_token_purpose.png)
 
 On the output of the final (12th) transformer, *only the first embedding (corresponding to the [CLS] token) is used by the classifier*.
 
@@ -733,7 +733,7 @@ BERT has two constraints:
 
 Padding is done with a special `[PAD]` token, which is at index 0 in the BERT vocabulary. The below illustration demonstrates padding out to a "MAX_LEN" of 8 tokens.
 
-<img src="https://drive.google.com/uc?export=view&id=1cb5xeqLu_5vPOgs3eRnail2Y00Fl2pCo" width="600">
+<img src="/assets/BERT_Fine_Tuning_Sentence_Classification_v4_files/illustration demonstrates padding.png" width="600">
 
 The "Attention Mask" is simply an array of 1s and 0s indicating which tokens are padding and which aren't (seems kind of redundant, doesn't it?!). This mask tells the "Self-Attention" mechanism in BERT not to incorporate these PAD tokens into its interpretation of the sentence.
 

@@ -3,7 +3,7 @@ layout: post
 title:  "Mcmc Introduction 3"
 date:   2021-01-26
 categories: coding
-tags: AI
+tags: AI MCMC
 ---
 
 ## Pure Monte Carlo (MCMC) sampling ##

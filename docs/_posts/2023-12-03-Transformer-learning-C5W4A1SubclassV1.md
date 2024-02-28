@@ -3,7 +3,7 @@ layout: post
 title:  "Transformer Network"
 date:   2023-11-26
 categories: coding
-tags: AI
+tags: AI Transformer
 ---
 I update this document also refere to 
 1. https://www.tensorflow.org/tutorials/text/transformer?hl=zh-cn

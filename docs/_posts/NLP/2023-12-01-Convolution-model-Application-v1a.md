@@ -3,7 +3,7 @@ layout: post
 title:  "Convolutional Neural Networks: Application"
 date:   2023-12-01
 categories: coding
-tags: AI
+tags: AI CNN
 ---
 # Convolutional Neural Networks: Application
 

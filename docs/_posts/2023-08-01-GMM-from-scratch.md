@@ -3,7 +3,7 @@ layout: post
 title:  "Gaussian Mixture Model Clearly Explained"
 date:   2023-01-26
 categories: coding
-tags: AI
+tags: AI GMM
 ---
 # Gaussian Mixture Model Clearly Explained
 ### _The only guide you need to learn everything about GMM_

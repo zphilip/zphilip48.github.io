@@ -3,7 +3,7 @@ layout: post
 title:  "Gradient boosting"
 date:   2023-01-26
 categories: LEARNING
-tags: AI
+tags: AI Boosting
 ---
 
 ## Gradient boosting <font color=red>performs gradient descent</font>

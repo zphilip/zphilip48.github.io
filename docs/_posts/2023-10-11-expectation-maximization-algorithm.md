@@ -1,9 +1,9 @@
 ---
 layout: post
 title:  "Expection Maximization"
-date:   2023-01-26
+date:   2023-10-11
 categories: coding
-tags: AI
+tags: AI EM
 ---
 
 <font size="6">Expection Maximization</font>   

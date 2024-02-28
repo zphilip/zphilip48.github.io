@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "XGBoost from scratch"
-date:   2023-01-26
+date:   2023-11-02
 categories: coding
 tags: AI
 ---
