@@ -62,7 +62,7 @@ Many years Architecture and Speciﬁﬁcation work in Nokia 3G WCDMA RNC, 4G and
     4. Cloud BTS VCP Edge VM deployment and Dimensioning
         This project provide :
         a. capacity throughput of Cloud BTS VNF considering :
-        - traﬃﬃﬃc model
+        - traffic model
         - Computational node
         - Scalability Support (Scale Up/Down not supported)
         b. support VM deployment on xxx Platform
@@ -73,12 +73,15 @@ Many years Architecture and Speciﬁﬁcation work in Nokia 3G WCDMA RNC, 4G and
         - an NR with PCell and an E-UTRA eNB with PSCell (for NE-DC),
         - an NR with PCell and an NR with PSCell (for NR-DC)
         - an E-UTRA eNB/gNB and an NR with neighbor cell.
-        UE or BTS may do the TimingOffset calculation based on the SSTD/SFTD and TA information of the pair BTSes above. Based on the calculated TimingOffset from multiple BTS pairs, the Timing Alignment Error of the related BTS may be determined. BTS calculate the AlignOﬀﬀset which is the adjustment time shift for next step based on TimingOffset and the multiple actions could be taken to correct such timing alignment error include TDD UL-DL frame structure and special subframe pattern reconfiguration and the BTS internal timing oﬀﬀset adjustment accordingly.
+        UE or BTS may do the TimingOffset calculation based on the SSTD/SFTD and TA information of the pair BTSes above. Based on the calculated TimingOffset from multiple BTS pairs, the Timing Alignment Error of the related BTS may be determined. BTS calculate the AlignOffset which is the adjustment time shift for next step based on TimingOffset and the multiple actions could be taken to correct such timing alignment error include TDD UL-DL frame structure and special subframe pattern reconfiguration and the BTS internal timing offset adjustment accordingly.
 
 ### 4, (2005 - 2015) RNC 系统高可靠性架构工程师，WCDMA RNC availability and system upgrade-ability domain leader.
     1. Leading RNC system upgrade-ability Architect and speciﬁﬁcation work.
     2. RNC Capacity and Performance Architect and speciﬁﬁcation
-### 5, (2003 — 2005) RNC 软件工程师，WCDMA RNC high availability recovery system senior software engineer. 1, Recovery Archecture design. 2. Recovery core software implementation in RNC IPA platform
+
+### 5, (2003 — 2005) RNC 软件工程师，WCDMA RNC high availability recovery system senior software engineer. 
+    1. Recovery Archecture design. 
+    2. Recovery core software implementation in RNC IPA platform
 
 ### 6, 2001-2003 I have about 1.5 years work on Shanghai Bell-Actel as software engineer, major working on the network mangement (SNMP etc) of one L2/L3 switch.
 
