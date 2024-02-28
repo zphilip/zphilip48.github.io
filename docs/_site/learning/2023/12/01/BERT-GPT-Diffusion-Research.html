@@ -120,6 +120,7 @@
       <a class="sidebar-nav-item" href="/categories">Categories</a>
       <a class="sidebar-nav-item" href="/working">Working</a>
       <a class="sidebar-nav-item" href="/publication">Publication</a>
+      <a class="sidebar-nav-item" href="/cv">cv</a>
       <!-- <a class="sidebar-nav-item" href="/projects">Projects</a> -->
       <a class="sidebar-nav-item" href="/about">About</a>
 
@@ -189,6 +190,12 @@
         
       
         
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/cv/">CV</a>
           
         
       
@@ -1595,7 +1602,8 @@ x_t &amp; =\sqrt{\alpha_t}\left(\sqrt{\alpha_{t-1}} x_{t-2}+\sqrt{1-\alpha_{t-1}
 
 <p>Fig. 2. The Markov chain of forward (reverse) diffusion process of generating a sample by slowly adding (removing) noise. (Image source: <a href="https://arxiv.org/abs/2006.11239">Ho et al. 2020</a> with a few additional annotations)</p>
 
-<p>If we can reverse the above process and sample from $q(\mathbf{x}<em>{t-1} \vert \mathbf{x}_t)$, we will be able to recreate the true sample from a Gaussian noise input, $\mathbf{x}_T \sim \mathcal{N}(\mathbf{0}, \mathbf{I})$. <strong>Note that if $\beta_t$ (the noise added) is small enough, $q(\mathbf{x}_{t-1} \vert \mathbf{x}_t)$ will also be Gaussian.</strong> Unfortunately, we cannot easily estimate $q(\mathbf{x}</em>{t-1} \vert \mathbf{x}_t)$ because it needs to use the entire dataset and therefore <strong>we need to learn a model $p_\theta$ to approximate</strong> these conditional probabilities in order to run the <em>reverse diffusion process</em>.
+<p>If we can reverse the above process and sample from $q(\mathbf{x}<em>{t-1} \vert \mathbf{x}_t)$,  we will be able to recreate the true sample from a Gaussian noise input, $\mathbf{x}_T \sim \mathcal{N}(\mathbf{0}, \mathbf{I})$. 
+<strong>Note that if $\beta_t$ (the noise added) is small enough</strong>, $q(\mathbf{x}</em>{t-1} \vert \mathbf{x}<em>t)$ will also be Gaussian. Unfortunately, we cannot easily estimate $q(\mathbf{x}</em>{t-1} \vert \mathbf{x}_t)$ because it needs to use the entire dataset and therefore <strong>we need to learn a model $p_\theta$ to approximate</strong> these conditional probabilities in order to run the <em>reverse diffusion process</em>.
 \(p_\theta(\mathbf{x}_{0:T}) = p(\mathbf{x}_T) \prod^T_{t=1} p_\theta(\mathbf{x}_{t-1} \vert \mathbf{x}_t) \quad \text {;same conditional independent} \\
 p_\theta(\mathbf{x}_{t-1} \vert \mathbf{x}_t) = \mathcal{N}(\mathbf{x}_{t-1}; \boldsymbol{\mu}_\theta(\mathbf{x}_t, t), \boldsymbol{\Sigma}_\theta(\mathbf{x}_t, t))\)
 <img src="/assets/BERTGPTDiffusion%20Research.assets/diffusion-example.png" alt="img" style="zoom: 25%;" /></p>
@@ -4328,8 +4336,8 @@ which basically means that a specific attention weight is not dependent on the l
     
       <li>
         <h4>
-          <a href="/coding/2023/12/02/Inspect-BERT-Vocabulary.html">
-            Inspect BERT Vocabulary
+          <a href="/coding/2023/12/02/transformer-implementation.html">
+            transformer implementation
           </a>
           <small>[02 Dec 2023]</small>
         </h4>
