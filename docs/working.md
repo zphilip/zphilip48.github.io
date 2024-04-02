@@ -7,7 +7,9 @@ permalink: /working/
     <p class="My project 1: AIWorm Nougat Inference">
     <b>Current the AIWorm Nougat Inference locate at </b><a href="http://tec1.aiworm.cn:8503">aiworm.cn</a><br>
         <ul style="list-style-type:disc">
-        <li>1) one alpha version desktop program is done (based on pyqt6) , it can snap the desktop or choose the file(pdf) to upload to AI server, 
+        <li>1) one alpha version desktop program is done (based on pyqt6) , it can snap the desktop or choose the file(pdf) to upload to AI server. <br>
+        <img src="/assets/work/Snipaste_2024-04-02_23-49-35.png" style="display: inline-block; margin: 0; zoom: 50%;" />  
+        <img src="/assets/work/Snipaste_2024-04-02_23-54-47.png" style="display: inline-block; margin: 0; zoom: 50%;" />  
         <li>2) one alpha status android app is done for upload the image to AI serser and have the nougat prediction back, it can be downloaded (target is android 12) <br></li>   
         <b>Download link on the baidu cloud:<a href="https://pan.baidu.com/s/1ZkQSfBnpxKTpEot_31HRgA?pwd=1357">https://pan.baidu.com/s/1ZkQSfBnpxKTpEot_31HRgA?pwd=1357</a>  Access code:1357</b><br></li>        
         </ul>
