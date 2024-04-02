@@ -11,10 +11,11 @@ permalink: /working/
         <li>2) one alpha status android app is done for upload the image to AI serser and have the nougat prediction back, it can be downloaded (target is android 12) <br></li>   
         <b>Download link on the baidu cloud:<a href="https://pan.baidu.com/s/1ZkQSfBnpxKTpEot_31HRgA?pwd=1357">https://pan.baidu.com/s/1ZkQSfBnpxKTpEot_31HRgA?pwd=1357</a>  Access code:1357</b><br></li>        
         </ul>
-        <img src="/assets/work/Screenshot_20240402-193035.jpg" style="display: inline-block; margin: 0; zoom: 25%;" >          
-        <img src="/assets/work/Screenshot_20240402-193221.jpg" style="display: inline-block; margin: 0; zoom: 25%;" >  
-        <img src="/assets/work/Screenshot_20240402-193115.jpg" style="display: inline-block; margin: 0; zoom: 25%;" >        
-        <img src="/assets/work/Screenshot_20240402-194029.jpg" style="display: inline-block; margin: 0; zoom: 25%;" >      
+        <img src="/assets/work/Screenshot_20240402-193035.jpg" style="display: inline-block; margin: 0; zoom: 25%;" />          
+        <img src="/assets/work/Screenshot_20240402-193221.jpg" style="display: inline-block; margin: 0; zoom: 25%;" />  
+        <img src="/assets/work/Screenshot_20240402-193115.jpg" style="display: inline-block; margin: 0; zoom: 25%;" />        
+        <img src="/assets/work/Screenshot_20240402-194029.jpg" style="display: inline-block; margin: 0; zoom: 25%;" />  
+    </p>     
 </div>
 <div class="py-2">    
     <b>The Study on OCR, Facebook Nougat related things</b>
@@ -38,14 +39,7 @@ permalink: /working/
     <a href="https://github.com/lukas-blecher/LaTeX-OCR">https://github.com/lukas-blecher/LaTeX-OCR</a><br>
     <a href="https://huggingface.co/facebook/nougat-base">https://huggingface.co/facebook/nougat-base</a><br>
     <a href="https://github.com/facebookresearch/nougat">https://github.com/facebookresearch/nougat</a><br>
-        5, programs for AI clients:<br>
-        <ul style="list-style-type:disc">
-        <li>1) one alpha version desktop program is done (based on pyqt6) , it can snap the desktop or choose the file(pdf) to upload to AI server, I will put download link on the baidu cloud <br> 
-        <b>link is :<a href="https://pan.baidu.com/s/1ZkQSfBnpxKTpEot_31HRgA?pwd=1357">https://pan.baidu.com/s/1ZkQSfBnpxKTpEot_31HRgA?pwd=1357</a>  Access code:1357</b><br></li>
-        <li>2) one alpha status android app is done for upload the image to AI serser and have the nougat prediction back, it can be downloaded (target is android 12) <a href="/download/app-release.apk">here </a><br></li>                        
-        </ul>
-    </p> 
-</p>   
+    </p>  
 </div>
 
 <section class="articles">
