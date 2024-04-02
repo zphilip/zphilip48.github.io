@@ -3,29 +3,20 @@ layout: page
 title: Working
 permalink: /working/
 ---
-
-<section class="articles">
-  {% for post in site.categories.working %}
-  <article class="article">
-    <h2 class="article-title">
-      <a href="{{site.baseurl}}{{post.url}}"> {{post.title}} </a>
-    </h2>
-    <small class="date">{{post.date | date_to_string}}</small>
-    <div class="categories">
-      {% for c in post.categories %}
-      <a href="#!" data-base-url="{{site.baseurl}}" class="category"
-        >{{c}}</a
-      >
-      {% endfor %}
-    </div>
-    {{ post.content | strip_html | truncatewords: 50 }}
-  </article>
-  {% endfor %}
-</section>
-
 <div class="py-2">
-    <p class="My project">
-    <b>Ongoing My Study on OCR, Facebook Nougat related things</b>
+    <p class="My project 1: AIWorm Nougat Inference">
+    <b>Current the AIWorm Nougat Inference locate at </b><a href="http://tec1.aiworm.cn:8503">aiworm.cn</a><br>
+        <ul style="list-style-type:disc">
+        <li>1) one alpha version desktop program is done (based on pyqt6) , it can snap the desktop or choose the file(pdf) to upload to AI server, 
+        <li>2) one alpha status android app is done for upload the image to AI serser and have the nougat prediction back, it can be downloaded (target is android 12) <br></li>   
+        <b>Download link on the baidu cloud:<a href="https://pan.baidu.com/s/1ZkQSfBnpxKTpEot_31HRgA?pwd=1357">https://pan.baidu.com/s/1ZkQSfBnpxKTpEot_31HRgA?pwd=1357</a>  Access code:1357</b><br></li>        
+        </ul>
+        <img src="/assets/work/Screenshot_20240402-193035.jpg" style="display: inline-block; margin: 0; zoom: 25%;" >          
+        <img src="/assets/work/Screenshot_20240402-193221.jpg" style="display: inline-block; margin: 0; zoom: 25%;" >  
+        <img src="/assets/work/Screenshot_20240402-193115.jpg" style="display: inline-block; margin: 0; zoom: 25%;" >             
+</div>
+<div class="py-2">    
+    <b>The Study on OCR, Facebook Nougat related things</b>
     <p class="Detail">
         1, steup one Face Nougat webserver to trail (done) <br>                    
         <a href="https://www.kaggle.com/code/zphilip/nougat-app">Kaggle webapp Notebook</a><br>
@@ -55,3 +46,23 @@ permalink: /working/
     </p> 
 </p>   
 </div>
+
+<section class="articles">
+  {% for post in site.categories.working %}
+  <article class="article">
+    <h2 class="article-title">
+      <a href="{{site.baseurl}}{{post.url}}"> {{post.title}} </a>
+    </h2>
+    <small class="date">{{post.date | date_to_string}}</small>
+    <div class="categories">
+      {% for c in post.categories %}
+      <a href="#!" data-base-url="{{site.baseurl}}" class="category"
+        >{{c}}</a
+      >
+      {% endfor %}
+    </div>
+    {{ post.content | strip_html | truncatewords: 50 }}
+  </article>
+  {% endfor %}
+</section>
+
