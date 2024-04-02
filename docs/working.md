@@ -13,7 +13,8 @@ permalink: /working/
         </ul>
         <img src="/assets/work/Screenshot_20240402-193035.jpg" style="display: inline-block; margin: 0; zoom: 25%;" >          
         <img src="/assets/work/Screenshot_20240402-193221.jpg" style="display: inline-block; margin: 0; zoom: 25%;" >  
-        <img src="/assets/work/Screenshot_20240402-193115.jpg" style="display: inline-block; margin: 0; zoom: 25%;" >             
+        <img src="/assets/work/Screenshot_20240402-193115.jpg" style="display: inline-block; margin: 0; zoom: 25%;" >        
+        <img src="/assets/work/Screenshot_20240402-194029.jpg" style="display: inline-block; margin: 0; zoom: 25%;" >      
 </div>
 <div class="py-2">    
     <b>The Study on OCR, Facebook Nougat related things</b>
